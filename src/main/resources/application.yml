@@ -8,6 +8,8 @@ spring:
     username: root
     password: Abc123!@#
     driver-class-name: com.mysql.jdbc.Driver
+  thymeleaf:
+    cache: false
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: com.nkp.pojo
