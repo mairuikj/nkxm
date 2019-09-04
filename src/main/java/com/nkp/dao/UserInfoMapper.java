@@ -1,6 +1,7 @@
 package com.nkp.dao;
 
 import com.nkp.pojo.UserInfo;
+
 import java.util.List;
 
 
@@ -22,4 +23,6 @@ public interface UserInfoMapper {
     int insertSelective(UserInfo record);
 
     List findAllUser();
+
+    UserInfo check(String userName, String userPW);
 }

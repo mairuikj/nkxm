@@ -59,4 +59,8 @@
   <select id="findAllUser" resultType="com.nkp.pojo.UserInfo">
     select * from userInfo
   </select>
+
+  <select id="check" resultType="com.nkp.pojo.UserInfo">
+    select * from userInfo where userName=#{userName} and userPW=#{userPW}
+  </select>
 </mapper>
