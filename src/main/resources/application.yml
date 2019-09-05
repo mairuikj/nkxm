@@ -10,6 +10,9 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
   thymeleaf:
     cache: false
+  servlet:
+    multipart:
+      max-file-size: 3MB
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: com.nkp.pojo
