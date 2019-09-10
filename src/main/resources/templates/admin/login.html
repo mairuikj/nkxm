@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>后台登录</title>
+
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../static/css/templatemo-style.css">
+<!--    <script src="../../static/js/bootstrap.min.js"></script>-->
+    <script src="../../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../../static/js/vue.min.js"></script>
+    <script src="../../static/js/request.js"></script>
+    <!--    <script src="../../static/js/bootstrap.min.js"></script>-->
+  </head>
+  <style>
+    html,body,#login,.row{
+      height: 100%;
+    }
+    .row{
+      margin: 0;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+  <body>
+    <div class="" id="login">
+      <div class="row">
+        <div class="col-12 mx-auto tm-login-col">
+          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+            <div class="row">
+              <div class="col-12 text-center">
+                <h2 class="tm-block-title mb-4">欢迎登陆****后台管理系统</h2>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-12">
+                <form class="tm-login-form">
+                  <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input
+                      v-model="username"
+                      type="text"
+                      class="form-control validate"
+                      required
+                    />
+                  </div>
+                  <div class="form-group mt-3">
+                    <label for="password">密码</label>
+                    <input
+                      v-model="password"
+                      type="password"
+                      class="form-control validate"
+                      required
+                    />
+                  </div>
+                  <div class="form-group mt-4">
+                    <button
+
+                      class="btn btn-primary btn-block text-uppercase"
+                      @click="signIn"
+                    >
+                      登录
+                    </button>
+                  </div>
+                 <!--  <button class="mt-5 btn btn-primary btn-block text-uppercase">
+                    Forgot your password?
+                  </button> -->
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<script>
+  let login = new Vue({
+    el: '#login',
+    data: {
+      username: '',
+      password: '',
+    },
+    mounted() {
+
+    },
+    methods: {
+      signIn() {
+
+      },
+    }
+  })
+</script>
