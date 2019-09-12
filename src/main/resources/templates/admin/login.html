@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,7 +40,7 @@
                   <div class="form-group">
                     <label for="username">用户名</label>
                     <input
-                      v-model="username"
+                      v-model="userName"
                       type="text"
                       class="form-control validate"
                       required
@@ -49,7 +49,7 @@
                   <div class="form-group mt-3">
                     <label for="password">密码</label>
                     <input
-                      v-model="password"
+                      v-model="userPW"
                       type="password"
                       class="form-control validate"
                       required
@@ -80,15 +80,25 @@
   let login = new Vue({
     el: '#login',
     data: {
-      username: '',
-      password: '',
+        userName: '',
+        userPW: '',
     },
     mounted() {
 
     },
     methods: {
       signIn() {
+        let data = {
+            userName: this.userName,
+            userPW: this.userPW
+        }
+        postPromise(data,'/backstage').then(res => {
+          res.session_user
 
+            window.cloce()
+        } ,rej => {
+          alert(rej.msg)
+        })
       },
     }
   })
