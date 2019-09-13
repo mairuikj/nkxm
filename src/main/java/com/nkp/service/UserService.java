@@ -15,11 +15,37 @@ public class UserService {
     private UserInfoMapper userDao;
 
 
-    public List findAllUser(){
-        return  userDao.findAllUser();
-    }
+
 
     public UserInfo check(String userName, String userPW) {
         return  userDao.check(userName,userPW);
+    }
+
+    public List<UserInfo> findAllUser() {
+        return userDao.findAllUser();
+    }
+
+    public boolean addUser(UserInfo userInfo) {
+        int res=userDao.insertSelective(userInfo);
+        if(res==1){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean upUser(UserInfo userInfo) {
+        int res=userDao.updateByPrimaryKeySelective(userInfo);
+        if(res==1){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean del(int id) {
+        int res=userDao.deleteByPrimaryKey(id);
+        if(res==1){
+            return true;
+        }
+        return false;
     }
 }
