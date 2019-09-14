@@ -1,5 +1,7 @@
 package com.nkp.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.nkp.config.utils.DataPackJSON;
 import com.nkp.dao.NewsMapper;
 import com.nkp.pojo.News;
@@ -82,4 +84,27 @@ public class NewsService {
         return dataPackJSON;
     }
 
+    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize) {
+        DataPackJSON dataPackJSON=new DataPackJSON();
+        Map map=new HashMap();
+        HttpSession session = request.getSession();
+
+        PageHelper.startPage(pageNum,pageSize);
+        List list=newsMapper.selAll();
+
+        //得到分页的结果对象
+        PageInfo<News> pageInfo = new PageInfo<>(list);
+        //得到分页中的person条目对象(分页后的list)
+        List pageList = pageInfo.getList();
+
+        dataPackJSON.setNumber((int)pageInfo.getTotal());
+        dataPackJSON.setFlag(0);
+        dataPackJSON.setMsg("SUCCESS");
+
+        map.put("pageList",pageList);
+        map.put("session_user",(UserInfo) session.getAttribute("session_user"));
+        dataPackJSON.setMap(map);
+        return dataPackJSON;
+
+    }
 }

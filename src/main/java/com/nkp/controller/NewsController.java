@@ -39,4 +39,9 @@ public class NewsController {
     public DataPackJSON selAll(HttpServletRequest request){
         return newsService.selAll(request);
     }
+
+    @RequestMapping("/pagingSel")
+    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize){
+        return newsService.pagingSel(request,pageNum,pageSize);
+    }
 }
