@@ -1,6 +1,9 @@
 package com.nkp.dao;
 
 import com.nkp.pojo.Activity;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 public interface ActivityMapper {
     /**
@@ -58,4 +61,6 @@ public interface ActivityMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Activity record);
+    @Select("select * from activity")
+    List selAll();
 }

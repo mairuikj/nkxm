@@ -1,6 +1,9 @@
 package com.nkp.dao;
 
 import com.nkp.pojo.Author;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 public interface AuthorMapper {
     /**
@@ -50,4 +53,6 @@ public interface AuthorMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Author record);
+    @Select("select * from author")
+    List selAll();
 }
