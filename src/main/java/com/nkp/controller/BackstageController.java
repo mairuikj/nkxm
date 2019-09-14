@@ -7,6 +7,7 @@ import com.nkp.pojo.UserInfo;
 import com.nkp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class BackstageController {
     @Autowired
     private UserService userService;
@@ -29,6 +31,7 @@ public class BackstageController {
             request.getSession().setAttribute("session_user",userInfo);
             dataPackJSON.setFlag(0);
             dataPackJSON.setMsg("SUCCESS");
+            return dataPackJSON;
         }
         dataPackJSON.setFlag(1);
         dataPackJSON.setMsg("ERROR");
@@ -37,8 +40,8 @@ public class BackstageController {
     }
 
     @RequestMapping("/findAllUser")
-    public List<UserInfo> findAllUser(){
-        return userService.findAllUser();
+    public DataPackJSON findAllUser(HttpServletRequest request){
+        return userService.findAllUser(request);
     }
 
     @RequestMapping("/test")
@@ -54,6 +57,7 @@ public class BackstageController {
         if(res){
             dataPackJSON.setFlag(0);
             dataPackJSON.setMsg("SUCCESS");
+            return dataPackJSON;
         }
         dataPackJSON.setFlag(1);
         dataPackJSON.setMsg("ERROR");
@@ -67,6 +71,7 @@ public class BackstageController {
         if(res){
             dataPackJSON.setFlag(0);
             dataPackJSON.setMsg("SUCCESS");
+            return dataPackJSON;
         }
         dataPackJSON.setFlag(1);
         dataPackJSON.setMsg("ERROR");
@@ -80,6 +85,7 @@ public class BackstageController {
         if(res){
             dataPackJSON.setFlag(0);
             dataPackJSON.setMsg("SUCCESS");
+            return dataPackJSON;
         }
         dataPackJSON.setFlag(1);
         dataPackJSON.setMsg("ERROR");

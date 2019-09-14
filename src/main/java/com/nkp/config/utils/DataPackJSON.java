@@ -1,26 +1,28 @@
 package com.nkp.config.utils;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.nkp.pojo.UserInfo;
+
+import java.util.List;
+import java.util.Map;
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
 public class DataPackJSON {
     int flag;  //0成功  1失败
     String msg;
-    Object obj;
     int number;
+    Map map;
 
-    public int getFlag() {
-        return flag;
+    public void setMap(Map map) {
+        this.map = map;
     }
 
-    public String getMsg() {
-        return msg;
+    public Map getMap() {
+        return map;
     }
 
-    public Object getObj() {
-        return obj;
-    }
 
-    public int getNumber() {
-        return number;
-    }
+
+
 
     public void setFlag(int flag) {
         this.flag = flag;
@@ -30,11 +32,21 @@ public class DataPackJSON {
         this.msg = msg;
     }
 
-    public void setObj(Object obj) {
-        this.obj = obj;
-    }
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+
+    public int getNumber() {
+        return number;
     }
 }
