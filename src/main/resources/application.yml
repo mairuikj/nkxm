@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     name: test
-    url: jdbc:mysql://47.96.106.248:3306/nkp
+    url: jdbc:mysql://47.96.106.248:3306/nkp?useUnicode=true&characterEncoding=utf8
     username: root
     password: Abc123!@#
     driver-class-name: com.mysql.jdbc.Driver
@@ -12,7 +12,9 @@ spring:
     cache: false
   servlet:
     multipart:
-      max-file-size: 3MB
+      max-file-size: 10MB
+  mvc:
+    static-path-pattern: /static/**
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: com.nkp.pojo
@@ -24,4 +26,10 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+
+Oos:
+  accessKeyId: LTAI4FmDw9ZWykKz6brSuuoj
+  accessKeySecret: uhbpTwa7dkvKYe4jVSgQ7nc5VYdK9o
+  bucketName: xy-hzj
+  endpoint: oss-cn-shanghai.aliyuncs.com
 

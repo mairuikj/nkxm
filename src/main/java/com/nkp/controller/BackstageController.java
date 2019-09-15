@@ -1,20 +1,15 @@
 package com.nkp.controller;
 
 import com.nkp.config.utils.DataPackJSON;
-import com.nkp.dao.NewsMapper;
-import com.nkp.pojo.News;
 import com.nkp.pojo.UserInfo;
 import com.nkp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -27,10 +22,13 @@ public class BackstageController {
     public DataPackJSON backStage(String userName, String userPW, HttpServletRequest request){
         UserInfo userInfo=userService.check(userName,userPW);
         DataPackJSON dataPackJSON=new DataPackJSON();
+        Map map=new HashMap();
         if(userInfo!=null){
             request.getSession().setAttribute("session_user",userInfo);
+            map.put("session_user",(UserInfo)request.getSession().getAttribute("session_user"));
             dataPackJSON.setFlag(0);
             dataPackJSON.setMsg("SUCCESS");
+            dataPackJSON.setMap(map);
             return dataPackJSON;
         }
         dataPackJSON.setFlag(1);
@@ -91,6 +89,21 @@ public class BackstageController {
         dataPackJSON.setMsg("ERROR");
         return dataPackJSON;
     }
+    @RequestMapping("/selById")
+    public DataPackJSON selById(HttpServletRequest request,int id){
+        return userService.selById(request,id);
+
+
+    }
+
+    @RequestMapping("/oneId")
+    public DataPackJSON oneId(int id){
+        return userService.oneId(id);
+
+
+    }
+
+
 
 
 

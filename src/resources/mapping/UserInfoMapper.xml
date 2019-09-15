@@ -9,7 +9,7 @@
     <id column="userId" jdbcType="INTEGER" property="userid" />
     <result column="userName" jdbcType="VARCHAR" property="username" />
     <result column="userPW" jdbcType="VARCHAR" property="userpw" />
-    <result column="userPhone" jdbcType="INTEGER" property="userphone" />
+    <result column="userPhone" jdbcType="VARCHAR" property="userphone" />
     <result column="purl" jdbcType="VARCHAR" property="purl" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -45,7 +45,7 @@
     insert into userInfo (userId, userName, userPW, 
       userPhone, purl)
     values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userpw,jdbcType=VARCHAR}, 
-      #{userphone,jdbcType=INTEGER}, #{purl,jdbcType=VARCHAR})
+      #{userphone,jdbcType=VARCHAR}, #{purl,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.nkp.pojo.UserInfo">
     <!--
@@ -81,7 +81,7 @@
         #{userpw,jdbcType=VARCHAR},
       </if>
       <if test="userphone != null">
-        #{userphone,jdbcType=INTEGER},
+        #{userphone,jdbcType=VARCHAR},
       </if>
       <if test="purl != null">
         #{purl,jdbcType=VARCHAR},
@@ -102,7 +102,7 @@
         userPW = #{userpw,jdbcType=VARCHAR},
       </if>
       <if test="userphone != null">
-        userPhone = #{userphone,jdbcType=INTEGER},
+        userPhone = #{userphone,jdbcType=VARCHAR},
       </if>
       <if test="purl != null">
         purl = #{purl,jdbcType=VARCHAR},
@@ -118,7 +118,7 @@
     update userInfo
     set userName = #{username,jdbcType=VARCHAR},
       userPW = #{userpw,jdbcType=VARCHAR},
-      userPhone = #{userphone,jdbcType=INTEGER},
+      userPhone = #{userphone,jdbcType=VARCHAR},
       purl = #{purl,jdbcType=VARCHAR}
     where userId = #{userid,jdbcType=INTEGER}
   </update>

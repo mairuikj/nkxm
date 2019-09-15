@@ -51,6 +51,7 @@ public class UserService {
     }
 
     public boolean upUser(UserInfo userInfo) {
+
         int res=userDao.updateByPrimaryKeySelective(userInfo);
         if(res==1){
             return true;
@@ -64,5 +65,35 @@ public class UserService {
             return true;
         }
         return false;
+    }
+
+    public DataPackJSON selById(HttpServletRequest request,int id) {
+        DataPackJSON dataPackJSON=new DataPackJSON();
+        Map map=new HashMap();
+        UserInfo userInfo=userDao.selectByPrimaryKey(id);
+
+        //map.put("session_user",request.getSession().getAttribute("session_user"));
+        map.put("session_user",userInfo);
+        dataPackJSON.setFlag(0);
+        dataPackJSON.setMsg("SUCCESS");
+        if("admin".equals(userInfo.getUsername())){
+            List list=userDao.findAllUser();
+            map.put("list",list);
+        }else {
+            map.put("list",null);
+        }
+        dataPackJSON.setMap(map);
+        return dataPackJSON;
+    }
+
+    public DataPackJSON oneId(int id){
+        DataPackJSON dataPackJSON=new DataPackJSON();
+        Map map=new HashMap();
+        UserInfo userInfo=userDao.selectByPrimaryKey(id);
+        map.put("user",userInfo);
+        dataPackJSON.setMap(map);
+        dataPackJSON.setFlag(0);
+        dataPackJSON.setMsg("SUCCESS");
+        return dataPackJSON;
     }
 }

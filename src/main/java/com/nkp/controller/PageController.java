@@ -12,6 +12,13 @@ public class PageController {
         return "admin/login";
     }
 
+
+    @RequestMapping("/accounts")
+    public String accounts(){
+        return "admin/accounts";
+    }
+
+
     @RequestMapping("/signout")
     public String signOut(HttpServletRequest request){
         request.getSession().invalidate();
@@ -20,6 +27,6 @@ public class PageController {
 
     @RequestMapping("/index")
     public String index(){
-        return "index";
+        return "admin/index";
     }
 }
