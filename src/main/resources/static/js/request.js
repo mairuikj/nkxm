@@ -1,4 +1,4 @@
-let address = 'http://192.168.3.235:8000/index'
+let address = 'http://xypo.nat300.top/'
 function postPromise(params, path) {
     return new Promise((resolve, reject) => {
        $.ajax({
