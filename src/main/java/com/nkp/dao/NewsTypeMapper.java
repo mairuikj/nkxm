@@ -1,6 +1,9 @@
 package com.nkp.dao;
 
 import com.nkp.pojo.NewsType;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 public interface NewsTypeMapper {
     /**
@@ -50,4 +53,6 @@ public interface NewsTypeMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(NewsType record);
+    @Select("select * from newsType")
+    List selAll();
 }

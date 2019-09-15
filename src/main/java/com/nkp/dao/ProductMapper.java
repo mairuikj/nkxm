@@ -1,6 +1,9 @@
 package com.nkp.dao;
 
 import com.nkp.pojo.Product;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 public interface ProductMapper {
     /**
@@ -58,4 +61,6 @@ public interface ProductMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Product record);
+    @Select("select * from product")
+    List selAll();
 }
