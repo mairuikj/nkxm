@@ -99,6 +99,11 @@
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link d-block" href="javascript:;" @click="loginOut">
+                  <span>{{currentUser.username}}</span>
+                  <img
+                    style="width: 50px;height: 50px;border-radius: 50%"
+                    :src="currentUser.purl"
+                    alt="">
                  退出
                 </a>
               </li>
@@ -126,12 +131,9 @@
               <h2 class="tm-block-title">用户头像</h2>
               <div class="tm-avatar-container">
                 <img
-                  src="img/avatar.png"
+                  :src="info.purl"
                   class="tm-avatar img-fluid mb-4 userImg"
                 />
-<!--                <a href="#" class="tm-avatar-delete-link">-->
-<!--                  <i class="far fa-trash-alt tm-product-delete-icon"></i>-->
-<!--                </a>-->
               </div>
               <button class="btn btn-primary btn-block text-uppercase" @click="fileUp">
                上传头像
@@ -146,7 +148,7 @@
                 <div class="form-group col-lg-6">
                   <label for="name">用户名</label>
                   <input
-                    :disabled="isDisabled"
+                    :disabled="info.username == 'admin' ? true : false"
                     v-model="info.username"
                     id="name"
                     name="name"
@@ -191,7 +193,7 @@
                       class="btn btn-primary btn-block text-uppercase"
                     @click="saveInfo"
                     >
-                      保存信息
+                      更新用户信息
                     </button>
                   <button
                     v-if="isAdmin"
@@ -224,17 +226,19 @@
       isDisabled: true,
       isEdit: true,
       isSave: false,
+      currentUser: JSON.parse(localStorage.getItem('userInfo')),
       userId: JSON.parse(localStorage.getItem('userInfo')).userid,
       userList: [],
       info:{},
-      isAdd: false
+      isAdd: false,
+
     },
     mounted(){
       this.getUserInfo(this.userId)
     },
     methods: {
         editInfo() { // 编辑信息
-        if(this.userList == []) {
+        if(this.userList == [] || this.userList == null) {
           this.isDisabled = false;
           this.isEdit = false;
           this.isSave = true;
@@ -243,12 +247,22 @@
             this.isDisabled = false;
             this.isEdit = false;
             this.isSave = true;
+          }else {
+            this.isDisabled = false;
+            this.isEdit = false;
+            this.isSave = true;
           }
         }
       },
-      saveInfo() { //保存信息
+      saveInfo() { //编辑保存
+          //JSON.stringify
+        //this.info.userphone = parseInt(this.info.userphone)
         postPromise(this.info,'user/upUser').then(res => {
-          console.log(res)
+          if(res.flag == 0) {
+            this.userId = JSON.parse(localStorage.getItem('userInfo')).userid
+            this.getUserInfo(JSON.parse(localStorage.getItem('userInfo')).userid)
+            alert('修改成功')
+          }
         } ,err => {
           console.log(err)
         })
@@ -258,10 +272,10 @@
       },
 
       addImg(e) { //上传图片
-        let data = new FormData();
-        data.append('file',e.target.files[0])
-        postPromise(data,'uplode/image').then(res => {
-         console.log(res)
+        let formData = new FormData();
+        formData.append('file',e.target.files[0])
+        upFile(formData,'uplode/image').then(res => {
+         this.info.purl = res
         }, err => {
           console.log(err)
         })
@@ -297,7 +311,7 @@
           this.isDisabled = true;
           this.isEdit = true;
           this.isSave = false;
-          this.editInfo()
+          this.isAdd = false;
           this.info = res.map.user
         } , err => {
           console.log(err)
@@ -318,12 +332,12 @@
           userphone: this.info.userphone,
           userpw: this.info.userpw
         }
-        if(data.username || data.userpw){
-          alert('用户名或者密码不能拿为空')
+        if(data.username == '' || data.userpw == ''){
+          alert('用户名或者密码不能为空')
         }else {
           postPromise(data,'user/add').then(res => {
             if(res.flag == 0 ) {
-              this.getUserInfo(this.userId)
+              this.getUserInfo(JSON.parse(localStorage.getItem('userInfo')).userid)
               alert('新增成功')
             }
           }, err => {

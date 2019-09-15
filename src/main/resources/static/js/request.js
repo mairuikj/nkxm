@@ -37,11 +37,12 @@ function getPromise(params, path) {
 function upFile(params, path) {
   return new Promise((resolve, reject) => {
     $.ajax({
-      type: "POST",
-      headers:{'Content-Type':'multipart/form-data'},
       url: address + path,
+      type: "POST",
       data: params,
-      dataType:'JSON',
+      cache: false,
+      contentType: false,
+      processData: false,
       success: res => {
         resolve(res)
       },
