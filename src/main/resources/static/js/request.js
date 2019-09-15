@@ -33,3 +33,21 @@ function getPromise(params, path) {
       });
     })
 };
+
+function upFile(params, path) {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: "POST",
+      headers:{'Content-Type':'multipart/form-data'},
+      url: address + path,
+      data: params,
+      dataType:'JSON',
+      success: res => {
+        resolve(res)
+      },
+      fail: rej => {
+        reject(rej)
+      }
+    });
+  })
+};

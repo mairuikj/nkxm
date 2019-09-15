@@ -87,13 +87,14 @@
     methods: {
       signIn() {
         let data = {
-            userName: this.userName,
-            userPW: this.userPW
+          userName: this.userName,
+          userPW: this.userPW
         }
         postPromise(data,'user/backstage').then(res => {
          if(res.flag == 0) {
-            window.close();
-             window.open('./index.html','_self')
+          localStorage.setItem("userInfo", JSON.stringify(res.map.session_user));
+          window.close();
+           window.open('./index.html','_blank')
          }else {
            alert('您的用户名或密码错误')
          }
