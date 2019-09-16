@@ -3,6 +3,7 @@ package com.nkp.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nkp.config.utils.DataPackJSON;
+import com.nkp.config.utils.NewDateTime;
 import com.nkp.dao.NewsMapper;
 import com.nkp.pojo.News;
 import com.nkp.pojo.UserInfo;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +22,8 @@ public class NewsService {
     @Autowired
     private NewsMapper newsMapper;
 
-    public DataPackJSON add(HttpServletRequest request, News news){
+    public DataPackJSON add(HttpServletRequest request, News news) throws ParseException {
+        news.setCreattime(NewDateTime.getDateTime("yyyy-MM-dd :hh:mm:ss"));
         int res=newsMapper.insertSelective(news);
         DataPackJSON dataPackJSON=new DataPackJSON();
         if(res==1){

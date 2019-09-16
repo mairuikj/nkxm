@@ -62,5 +62,8 @@ public interface NewsMapper {
      */
     int updateByPrimaryKey(News record);
     @Select("select * from news")
-    List selAll();
+    List<News> selAll();
+
+    @Select("select * from news where newsType=#{typeid}")
+    List<News> selByTypeId(Integer typeid);
 }

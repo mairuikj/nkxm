@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 
 @RestController
 @RequestMapping("/news")
@@ -18,7 +19,7 @@ public class NewsController {
     private NewsService newsService;
 
     @RequestMapping("/add")
-    public DataPackJSON add(HttpServletRequest request, News news){
+    public DataPackJSON add(HttpServletRequest request, News news) throws ParseException {
         return newsService.add(request,news);
     }
     @RequestMapping("/del")

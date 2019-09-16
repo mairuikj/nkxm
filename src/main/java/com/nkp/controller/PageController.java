@@ -29,4 +29,9 @@ public class PageController {
     public String index(){
         return "admin/index";
     }
+
+    @RequestMapping("/products")
+    public String products(){
+        return "admin/products";
+    }
 }
