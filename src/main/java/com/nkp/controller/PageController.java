@@ -13,7 +13,7 @@ public class PageController {
     }
 
 
-    @RequestMapping("/accounts")
+    @RequestMapping("/user")
     public String accounts(){
         return "admin/accounts";
     }
@@ -30,8 +30,13 @@ public class PageController {
         return "admin/index";
     }
 
-    @RequestMapping("/products")
+    @RequestMapping("/news")
     public String products(){
         return "admin/products";
+    }
+
+    @RequestMapping("/add-product")
+    public String addProduct(){
+        return "admin/add-product";
     }
 }

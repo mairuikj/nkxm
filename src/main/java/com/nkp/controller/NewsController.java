@@ -37,12 +37,18 @@ public class NewsController {
     }
 
     @RequestMapping("/selAll")
-    public DataPackJSON selAll(HttpServletRequest request){
-        return newsService.selAll(request);
+    public DataPackJSON selAll(HttpServletRequest request,Integer id){
+        return newsService.selAll(request,id);
     }
 
     @RequestMapping("/pagingSel")
-    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize){
-        return newsService.pagingSel(request,pageNum,pageSize);
+    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id){
+        return newsService.pagingSel(request,pageNum,pageSize,id);
     }
+
+    @RequestMapping("/getAT")
+    public DataPackJSON getAT(HttpServletRequest request){
+        return newsService.getTypeAndAuthor(request);
+    }
+
 }

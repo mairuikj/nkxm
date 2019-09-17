@@ -1,6 +1,7 @@
 package com.nkp.dao;
 
 import com.nkp.pojo.News;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -66,4 +67,6 @@ public interface NewsMapper {
 
     @Select("select * from news where newsType=#{typeid}")
     List<News> selByTypeId(Integer typeid);
+
+    List<News> selNewsAndNewsType(@Param("id") Integer id);
 }
