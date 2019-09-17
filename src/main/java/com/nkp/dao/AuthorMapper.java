@@ -54,5 +54,5 @@ public interface AuthorMapper {
      */
     int updateByPrimaryKey(Author record);
     @Select("select * from author")
-    List selAll();
+    List<Author> selAll();
 }

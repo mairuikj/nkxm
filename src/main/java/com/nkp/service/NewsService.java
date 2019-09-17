@@ -3,7 +3,10 @@ package com.nkp.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nkp.config.utils.DataPackJSON;
+import com.nkp.config.utils.NewDateTime;
+import com.nkp.dao.AuthorMapper;
 import com.nkp.dao.NewsMapper;
+import com.nkp.dao.NewsTypeMapper;
 import com.nkp.pojo.News;
 import com.nkp.pojo.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +24,15 @@ public class NewsService {
     @Autowired
     private NewsMapper newsMapper;
 
-    public DataPackJSON add(HttpServletRequest request, News news){
+    @Autowired
+    private NewsTypeMapper newsTypeMapper;
+
+    @Autowired
+    private AuthorMapper authorMapper;
+
+    public DataPackJSON add(HttpServletRequest request, News news) throws ParseException {
+        news.setCreattime(NewDateTime.getDateTime("yyyy-MM-dd :hh:mm:ss"));
+        news.setRemarks("0");//默认0代表新闻在前台显示
         int res=newsMapper.insertSelective(news);
         DataPackJSON dataPackJSON=new DataPackJSON();
         if(res==1){
@@ -70,8 +82,8 @@ public class NewsService {
         dataPackJSON.setMsg("SUCCESS");
         return dataPackJSON;
     }
-    public DataPackJSON selAll(HttpServletRequest request){
-        List list=newsMapper.selAll();
+    public DataPackJSON selAll(HttpServletRequest request,Integer id){
+        List list=newsMapper.selNewsAndNewsType(id);
         DataPackJSON dataPackJSON=new DataPackJSON();
         Map map=new HashMap();
         HttpSession session = request.getSession();
@@ -84,12 +96,13 @@ public class NewsService {
         return dataPackJSON;
     }
 
-    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize) {
+    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize,Integer id) {
         DataPackJSON dataPackJSON=new DataPackJSON();
         Map map=new HashMap();
         HttpSession session = request.getSession();
 
         PageHelper.startPage(pageNum,pageSize);
+       // List list=newsMapper.selNewsAndNewsType(id);//关联了newstype
         List list=newsMapper.selAll();
 
         //得到分页的结果对象
@@ -105,6 +118,23 @@ public class NewsService {
         map.put("session_user",(UserInfo) session.getAttribute("session_user"));
         dataPackJSON.setMap(map);
         return dataPackJSON;
+
+    }
+
+    public DataPackJSON getTypeAndAuthor(HttpServletRequest request){
+        List list=newsTypeMapper.selAll();
+        List list1=authorMapper.selAll();
+        Map map=new HashMap();
+        map.put("newsType",list);
+        map.put("author",list1);
+        DataPackJSON dataPackJSON=new DataPackJSON();
+        dataPackJSON.setFlag(0);
+        dataPackJSON.setMsg("SUCCESS");
+        dataPackJSON.setMap(map);
+        return dataPackJSON;
+
+
+
 
     }
 }

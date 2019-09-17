@@ -15,6 +15,28 @@
     <result column="keyWord" jdbcType="VARCHAR" property="keyword" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
   </resultMap>
+
+  <resultMap id="BaseResultMap1" type="com.nkp.pojo.News">
+
+    <id column="newsId" jdbcType="INTEGER" property="newsid" />
+    <result column="newsType" jdbcType="INTEGER" property="newstype" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="author" jdbcType="INTEGER" property="author" />
+    <result column="creatTime" jdbcType="TIMESTAMP" property="creattime" />
+    <result column="topPicture" jdbcType="VARCHAR" property="toppicture" />
+    <result column="keyWord" jdbcType="VARCHAR" property="keyword" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+
+    <association property="newsType" javaType="com.nkp.pojo.NewsType">
+      <id column="id" jdbcType="INTEGER" property="id" />
+      <result column="typeId" jdbcType="INTEGER" property="typeid" />
+      <result column="name" jdbcType="VARCHAR" property="name" />
+      <result column="creatTime" jdbcType="TIMESTAMP" property="creattime" />
+      <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    </association>
+  </resultMap>
+
+
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.nkp.pojo.News">
     <!--
       WARNING - @mbggenerated
@@ -200,4 +222,15 @@
       remarks = #{remarks,jdbcType=VARCHAR}
     where newsId = #{newsid,jdbcType=INTEGER}
   </update>
+
+  <select id="selNewsAndNewsType"  parameterType="java.lang.Integer"  resultMap="BaseResultMap1">
+      SELECT * FROM news a left  JOIN newsType b on a.newsType=b.typeId
+      <if test="id !=null">
+        HAVING  a.newsId=#{id,jdbcType=INTEGER}
+      </if>
+
+
+  </select>
+
+
 </mapper>

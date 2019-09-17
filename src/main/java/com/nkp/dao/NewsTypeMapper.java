@@ -54,5 +54,9 @@ public interface NewsTypeMapper {
      */
     int updateByPrimaryKey(NewsType record);
     @Select("select * from newsType")
-    List selAll();
+    List<NewsType> selAll();
+    @Select("select MAX(typeId) FROM newsType")
+    Integer newsTypeMax();
+    @Select("select name from newsType where name=#{name}")
+    String selByName(String name);
 }

@@ -15,6 +15,9 @@ spring:
       max-file-size: 10MB
   mvc:
     static-path-pattern: /static/**
+  jackson:
+    date-format: yyyy-MM-dd :hh:mm:ss
+    time-zone: GMT+8
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: com.nkp.pojo

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 
 @RestController
 @RequestMapping("/news")
@@ -18,7 +19,7 @@ public class NewsController {
     private NewsService newsService;
 
     @RequestMapping("/add")
-    public DataPackJSON add(HttpServletRequest request, News news){
+    public DataPackJSON add(HttpServletRequest request, News news) throws ParseException {
         return newsService.add(request,news);
     }
     @RequestMapping("/del")
@@ -36,12 +37,18 @@ public class NewsController {
     }
 
     @RequestMapping("/selAll")
-    public DataPackJSON selAll(HttpServletRequest request){
-        return newsService.selAll(request);
+    public DataPackJSON selAll(HttpServletRequest request,Integer id){
+        return newsService.selAll(request,id);
     }
 
     @RequestMapping("/pagingSel")
-    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize){
-        return newsService.pagingSel(request,pageNum,pageSize);
+    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id){
+        return newsService.pagingSel(request,pageNum,pageSize,id);
     }
+
+    @RequestMapping("/getAT")
+    public DataPackJSON getAT(HttpServletRequest request){
+        return newsService.getTypeAndAuthor(request);
+    }
+
 }
