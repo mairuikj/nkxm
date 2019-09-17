@@ -233,7 +233,6 @@
       userList: [],
       info:{},
       isAdd: false,
-
     },
     mounted(){
       this.getUserInfo(this.userId)
@@ -257,8 +256,6 @@
         }
       },
       saveInfo() { //编辑保存
-          //JSON.stringify
-        //this.info.userphone = parseInt(this.info.userphone)
         postPromise(this.info,'user/upUser').then(res => {
           if(res.flag == 0) {
             this.userId = JSON.parse(localStorage.getItem('userInfo')).userid
