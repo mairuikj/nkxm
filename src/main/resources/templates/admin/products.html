@@ -30,6 +30,11 @@
           [v-cloak]{
               display:none
           }
+          .overName{
+              width: 120px !important;
+              overflow:hidden;
+              text-overflow:ellipsis;
+          }
       </style>
   </head>
 
@@ -75,8 +80,9 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="#">文章列表</a>
-                                <a class="dropdown-item" href="#">Weekly Report</a>
-                                <a class="dropdown-item" href="#">Yearly Report</a>
+                                <a class="dropdown-item" href="authorList.html">作者列表</a>
+                                <a class="dropdown-item" href="add-author.html">新建作者</a>
+                                <a class="dropdown-item" href="edit-author.html">编辑作者</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -137,16 +143,18 @@
                                     <th scope="col">文章标题</th>
                                     <th scope="col">作者</th>
                                     <th scope="col">创建时间</th>
-                                    <th scope="col">&nbsp;</th>
+                                    <th scope="col">状态</th>
+                                    <th scope="col">操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr v-for="(item,index) in newList" @click="details(item)">
                                     <th scope="row"><input type="checkbox" @click.stop="sleectId(item)"/></th>
                                     <td><img :src="item.toppicture" alt="" width="50px"></td>
-                                    <td class="tm-product-name">{{item.title}}</td>
+                                    <td class="tm-product-name overName">{{item.title}}</td>
                                     <td>{{item.author}}</td>
                                     <td>{{item.creattime}}</td>
+                                    <td>{{item.remarks == 0 ?'显示' : '隐藏'}}</td>
                                     <td>
                                         <a href="javascript:;" class="tm-product-delete-link" @click.stop="delArticle('1',item)">
                                             <i class="far fa-trash-alt tm-product-delete-icon"></i>
