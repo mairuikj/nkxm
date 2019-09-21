@@ -3,6 +3,7 @@ package com.nkp.dao;
 import com.nkp.pojo.News;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -69,4 +70,6 @@ public interface NewsMapper {
     List<News> selByTypeId(Integer typeid);
 
     List<News> selNewsAndNewsType(@Param("id") Integer id);
+    @Update("update news set remarks='0' where newsId=#{id}")
+    int hide(Integer id);
 }

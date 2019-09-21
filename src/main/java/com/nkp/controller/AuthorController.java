@@ -17,13 +17,13 @@ public class AuthorController {
     @Autowired
     private AuthorService authorService;
 
-    @RequestMapping("/add")
+    @RequestMapping(value = "/add")
     public DataPackJSON add(HttpServletRequest request, Author author){
         return authorService.add(request,author);
     }
     @RequestMapping("/del")
-    public DataPackJSON del(HttpServletRequest request, int id){
-        return authorService.del(request,id);
+    public DataPackJSON del(HttpServletRequest request, String ids){
+        return authorService.del(request,ids);
     }
     @RequestMapping("/up")
     public DataPackJSON up(HttpServletRequest request, Author author){
@@ -38,5 +38,10 @@ public class AuthorController {
     @RequestMapping("/selAll")
     public DataPackJSON selAll(HttpServletRequest request){
         return authorService.selAll(request);
+    }
+
+    @RequestMapping("/pagingSel")
+    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id){
+        return authorService.pagingSel(request,pageNum,pageSize,id);
     }
 }

@@ -44,10 +44,15 @@ public class NewsService {
         dataPackJSON.setMsg("ERROR");
         return dataPackJSON;
     }
-    public DataPackJSON del(HttpServletRequest request, int id){
-        int res=newsMapper.deleteByPrimaryKey(id);
+    public DataPackJSON del(HttpServletRequest request, String ids){
+        int res=0;
+        String[] id=ids.split(",");
+        for(String s:id){
+            res=+newsMapper.deleteByPrimaryKey(Integer.valueOf(s));
+        }
+
         DataPackJSON dataPackJSON=new DataPackJSON();
-        if(res==1){
+        if(res!=0){
             dataPackJSON.setFlag(0);
             dataPackJSON.setMsg("SUCCESS");
             return dataPackJSON;
@@ -135,6 +140,24 @@ public class NewsService {
 
 
 
+
+    }
+
+    public DataPackJSON hide(HttpServletRequest request, String ids) {
+        DataPackJSON dataPackJSON=new DataPackJSON();
+        int res=0;
+        String[] id=ids.split(",");
+        for(String i:id){
+            res=+newsMapper.hide(Integer.valueOf(i));
+        }
+        if(res!=0){
+            dataPackJSON.setFlag(0);
+            dataPackJSON.setMsg("SUCCESS");
+            return dataPackJSON;
+        }
+        dataPackJSON.setFlag(1);
+        dataPackJSON.setMsg("ERROR");
+        return dataPackJSON;
 
     }
 }

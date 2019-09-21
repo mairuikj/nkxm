@@ -23,8 +23,8 @@ public class NewsController {
         return newsService.add(request,news);
     }
     @RequestMapping("/del")
-    public DataPackJSON del(HttpServletRequest request, int id){
-        return newsService.del(request,id);
+    public DataPackJSON del(HttpServletRequest request, String ids){
+        return newsService.del(request,ids);
     }
     @RequestMapping("/up")
     public DataPackJSON up(HttpServletRequest request, News news){
@@ -49,6 +49,11 @@ public class NewsController {
     @RequestMapping("/getAT")
     public DataPackJSON getAT(HttpServletRequest request){
         return newsService.getTypeAndAuthor(request);
+    }
+
+    @RequestMapping("/hide")
+    public DataPackJSON hide(HttpServletRequest request,String ids){
+        return newsService.hide(request,ids);
     }
 
 }
