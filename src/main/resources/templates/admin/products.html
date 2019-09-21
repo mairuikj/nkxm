@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Product Page - Admin HTML Template</title>
+    <title>文章列表</title>
     <link rel="stylesheet" href="../../static/css/fontawesome.min.css" />
     <link rel="stylesheet" href="../../static/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../../static/css/elementUi.css">
@@ -24,11 +24,17 @@
               margin-bottom: 0;
               padding: 15px;
           }
+          .table tbody tr{
+              cursor: pointer;
+          }
+          [v-cloak]{
+              display:none
+          }
       </style>
   </head>
 
   <body id="reportsPage">
-    <div id="home">
+    <div id="home" v-cloak>
         <nav class="navbar navbar-expand-xl">
             <div class="container h-100">
                 <a class="navbar-brand" href="index.html">
@@ -48,6 +54,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto h-100">
+
                         <li class="nav-item">
                             <a class="nav-link" href="index.html">
                                 <i class="fas fa-tachometer-alt"></i> Dashboard
@@ -56,7 +63,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a
-                                    class="nav-link dropdown-toggle"
+                                    class="nav-link dropdown-toggle active"
                                     href="#"
                                     id="navbarDropdown"
                                     role="button"
@@ -64,23 +71,23 @@
                                     aria-haspopup="true"
                                     aria-expanded="false">
                                 <i class="far fa-file-alt"></i>
-                                <span> Reports <i class="fas fa-angle-down"></i> </span>
+                                <span> 更多功能 <i class="fas fa-angle-down"></i> </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Daily Report</a>
+                                <a class="dropdown-item" href="#">文章列表</a>
                                 <a class="dropdown-item" href="#">Weekly Report</a>
                                 <a class="dropdown-item" href="#">Yearly Report</a>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="products.html">
-                                <i class="fas fa-shopping-cart"></i> Products
+                            <a class="nav-link " href="add-product.html">
+                                <i class="fas fa-shopping-cart"></i> 发布文章
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="accounts.html">
-                                <i class="far fa-user"></i> Accounts
+                                <i class="far fa-user"></i> 用户信息
                             </a>
                         </li>
                         <li class="nav-item dropdown">
@@ -134,14 +141,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="(item,index) in newList">
-                                    <th scope="row"><input type="checkbox" /></th>
+                                <tr v-for="(item,index) in newList" @click="details(item)">
+                                    <th scope="row"><input type="checkbox" @click.stop="sleectId(item)"/></th>
                                     <td><img :src="item.toppicture" alt="" width="50px"></td>
                                     <td class="tm-product-name">{{item.title}}</td>
                                     <td>{{item.author}}</td>
                                     <td>{{item.creattime}}</td>
                                     <td>
-                                        <a href="javascript:;" class="tm-product-delete-link">
+                                        <a href="javascript:;" class="tm-product-delete-link" @click.stop="delArticle('1',item)">
                                             <i class="far fa-trash-alt tm-product-delete-icon"></i>
                                         </a>
                                     </td>
@@ -151,6 +158,7 @@
                             </table>
                             <div style="display: flex;justify-content: center;margin-top: 20px">
                                 <el-pagination
+                                        v-if="newList != '' "
                                         @current-change="currenPage"
                                         background
                                         layout="prev, pager, next"
@@ -163,8 +171,11 @@
                         <a
                                 href="add-product.html"
                                 class="btn btn-primary btn-block text-uppercase mb-3">新建文章</a>
-                        <button class="btn btn-primary btn-block text-uppercase">
-                            Delete selected products
+                        <button class="btn btn-primary btn-block text-uppercase" @click="allDel">
+                            多选删除
+                        </button>
+                        <button class="btn btn-primary btn-block text-uppercase" @click="allHide">
+                            多选隐藏
                         </button>
                     </div>
                 </div>
@@ -205,10 +216,6 @@
             </div>
         </el-dialog>
     </div>
-
-
-
-
     <script>
 
 let home = new Vue({
@@ -222,7 +229,8 @@ let home = new Vue({
         newList: [],
         total:1,
         pageNum:1,
-        pageSize: 10
+        pageSize: 10,
+        allId: '',
     },
     mounted(){
         this.getTypeList();
@@ -232,6 +240,10 @@ let home = new Vue({
         loginOut() { //退出
             window.close();
             window.open('./login.html','_blank')
+        },
+        details(item) { //详情页面
+            window.location.href = './edit-product.html?id='+item.newsid;
+          console.log(item)
         },
         confirm() { //确认提交新闻类型
             getPromise({name: this.typeName},'newsType/add').then(res => {
@@ -291,6 +303,72 @@ let home = new Vue({
         },
         currenPage(e) {
             this.getNewList(e,this.pageSize)
+        },
+
+        delArticle(e,item) { //删除文章
+            let data ={}
+            if(e == 1) {
+                data = {
+                    ids: item.newsid
+                }
+            }else if(e ==2) {
+                data = {
+                    ids: item
+                }
+            }
+            postPromise(data,'news/del').then(res => {
+                if(res.flag == 0) {
+                    if(res.flag == 0) {
+                        this.$message({
+                            message: '删除成功',
+                            type: 'success'
+                        });
+                        this.getNewList(this.pageNum,this.pageSize);
+                    }
+                }
+            } ,err => {
+                console.log(err)
+            })
+        },
+
+        sleectId(item) { //多选
+            this.allId += item.newsid + ','
+        },
+
+        allDel() { //多选删除
+            if(this.allId == ''){
+                this.$message({
+                    message: '请选择要删除的新闻',
+                    type: 'success'
+                });
+                return
+            }
+           this.delArticle('2',this.allId)
+            this.allId = ''
+        },
+
+        allHide() { //多选隐藏
+            if(this.allId == ''){
+                this.$message({
+                    message: '请选择要隐藏的新闻',
+                    type: 'success'
+                });
+                return
+            }
+            postPromise({ids: this.allId},'news/hide').then(res => {
+                if(res.flag == 0) {
+                    if(res.flag == 0) {
+                        this.$message({
+                            message: '隐藏成功',
+                            type: 'success'
+                        });
+                        this.allId = ''
+                    }
+                }
+            } ,err => {
+                console.log(err)
+            })
+
         }
 
     }
