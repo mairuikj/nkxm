@@ -62,5 +62,5 @@ public interface ActivityMapper {
      */
     int updateByPrimaryKey(Activity record);
     @Select("select * from activity")
-    List selAll();
+    List<Activity> selAll();
 }

@@ -22,8 +22,8 @@ public class ActivityController {
         return activityService.add(request,activity);
     }
     @RequestMapping("/del")
-    public DataPackJSON del(HttpServletRequest request, int id){
-        return activityService.del(request,id);
+    public DataPackJSON del(HttpServletRequest request, String ids){
+        return activityService.del(request,ids);
     }
     @RequestMapping("/up")
     public DataPackJSON up(HttpServletRequest request, Activity activity){
@@ -38,5 +38,10 @@ public class ActivityController {
     @RequestMapping("/selAll")
     public DataPackJSON selAll(HttpServletRequest request){
         return activityService.selAll(request);
+    }
+
+    @RequestMapping("/pagingSel")
+    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id){
+        return activityService.pagingSel(request,pageNum,pageSize,id);
     }
 }

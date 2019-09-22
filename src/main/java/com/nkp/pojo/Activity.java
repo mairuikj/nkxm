@@ -25,6 +25,9 @@ public class Activity {
      *
      * @mbggenerated
      */
+    //@DateTimeFormat来控制入参，@JsonFormat来控制出参
+    /*@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")*/
     private Date activitytime;
 
     /**
