@@ -56,14 +56,14 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="add-product.html">
+                            <a class="nav-link" href="/addNews">
                                 <i class="fas fa-shopping-cart"></i>
                                 发布文章
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="accounts.html">
+                            <a class="nav-link" href="/userList">
                                 <i class="far fa-user"></i>
                                 用户信息
                             </a>
@@ -192,7 +192,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="tlinks">Collect from <a href="http://www.cssmoban.com/"  title="网站模板">网站模板</a></div>
                 <div class="col-12 tm-block-col">
                     <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
                         <h2 class="tm-block-title">Orders List</h2>
@@ -381,13 +380,15 @@
                 drawLineChart(); // Line Chart
                 drawBarChart(); // Bar Chart
                 drawPieChart(); // Pie Chart
-                this.getTypeList();
-                this.getNewList(this.pageNum,this.pageSize);
+
             },
             methods: {
               loginOut() { //退出
-                location.replace('/login')
-                localStorage.removeItem("userInfo");
+                postPromise({},'/signout').then(res => {
+                  console.log(res)
+                  localStorage.removeItem("userInfo");
+                })
+
               },
 
             }
