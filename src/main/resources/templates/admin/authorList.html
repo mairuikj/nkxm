@@ -77,22 +77,21 @@
                             <span> 更多功能 <i class="fas fa-angle-down"></i> </span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="products.html">文章列表</a>
-                            <a class="dropdown-item" href="javascript:;">作者列表</a>
-                            <a class="dropdown-item" href="activityList.html">活动列表</a>
-                          <a class="dropdown-item" href="productsList.html">产品列表</a>
+                          <a class="dropdown-item" href="/newsList">文章列表</a>
+                          <a class="dropdown-item" href="javascript:;">作者列表</a>
+                          <a class="dropdown-item" href="/activityList">活动列表</a>
+                          <a class="dropdown-item" href="/productList">产品列表</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="add-product.html">
-                            <i class="fas fa-shopping-cart"></i> 发布文章
-                        </a>
+                      <a class="nav-link" href="/addNews">
+                        <i class="fas fa-shopping-cart"></i> 发布文章
+                      </a>
                     </li>
-
                     <li class="nav-item">
-                        <a class="nav-link" href="accounts.html">
-                            <i class="far fa-user"></i> 用户信息
-                        </a>
+                      <a class="nav-link" href="/userList">
+                        <i class="far fa-user"></i> 用户信息
+                      </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
@@ -182,12 +181,13 @@
             this.getAuthorList(this.pageNum,this.pageSize);
         },
         methods: {
-            loginOut() { //退出
-                window.close();
-                window.open('./login.html','_blank')
-            },
+          loginOut() { //退出
+            postPromise({},'/signout').then(res => {
+              localStorage.removeItem("userInfo");
+            })
+          },
             details(item) { //详情页面
-                window.location.href = './edit-author.html?id='+item.id;
+                window.location.href = '/editAuthor?id='+item.id;
             },
 
             getAuthorList(pageNum,pageSize) { //获取作者列表

@@ -77,10 +77,10 @@
                   <span> 更多功能 <i class="fas fa-angle-down"></i> </span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="products.html">文章列表</a>
-                  <a class="dropdown-item" href="authorList.html">作者列表</a>
-                  <a class="dropdown-item" href="activityList.html">活动列表</a>
-                  <a class="dropdown-item" href="productsList.html">产品列表</a>
+                  <a class="dropdown-item" href="/newsList">文章列表</a>
+                  <a class="dropdown-item" href="/authorList">作者列表</a>
+                  <a class="dropdown-item" href="/activityList">活动列表</a>
+                  <a class="dropdown-item" href="/productList">产品列表</a>
                 </div>
               </li>
               <li class="nav-item">
@@ -91,7 +91,7 @@
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="accounts.html">
+                <a class="nav-link" href="/userList">
                   <i class="far fa-user"></i> 用户信息
                 </a>
               </li>
@@ -233,10 +233,12 @@
                   };
                   editor.create()
               },
-              loginOut() { //退出
-                location.replace('./login.html')
+            loginOut() { //退出
+              postPromise({},'/signout').then(res => {
                 localStorage.removeItem("userInfo");
-              },
+              })
+
+            },
 
               addImg(e) { //上传封面图片
                   let formData = new FormData();

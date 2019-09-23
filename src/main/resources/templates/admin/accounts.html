@@ -43,7 +43,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto h-100">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="/index">
                   <i class="fas fa-tachometer-alt"></i> 数据统计
                   <span class="sr-only">(current)</span>
                 </a>
@@ -69,7 +69,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="add-product.html">
+                <a class="nav-link" href="/addNews">
                   <i class="fas fa-shopping-cart"></i> 发布文章
                 </a>
               </li>
@@ -263,8 +263,9 @@
       },
 
       loginOut() { //退出
-        window.close();
-        window.open('./login.html','_blank')
+        postPromise({},'/signout').then(res => {
+          localStorage.removeItem("userInfo");
+        })
       },
 
       getUserInfo(id) { // 获取用户信息

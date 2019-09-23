@@ -33,7 +33,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto h-100">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link active" href="javascript:;">
                                 <i class="fas fa-tachometer-alt"></i>
                                 数据统计
                                 <span class="sr-only">(current)</span>
@@ -385,7 +385,6 @@
             methods: {
               loginOut() { //退出
                 postPromise({},'/signout').then(res => {
-                  console.log(res)
                   localStorage.removeItem("userInfo");
                 })
 
