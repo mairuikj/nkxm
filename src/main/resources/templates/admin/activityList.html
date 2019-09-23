@@ -30,9 +30,7 @@
         [v-cloak]{
             display:none
         }
-        .tm-content-row{
-            justify-content: center;
-        }
+
     </style>
 </head>
 
@@ -78,8 +76,8 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="products.html">文章列表</a>
-                            <a class="dropdown-item" href="javascript:;">作者列表</a>
-                            <a class="dropdown-item" href="jactivityList.html">活动列表</a>
+                            <a class="dropdown-item" href="authorList.html">作者列表</a>
+                            <a class="dropdown-item" href="javascript:;">活动列表</a>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -92,6 +90,24 @@
                         <a class="nav-link" href="accounts.html">
                             <i class="far fa-user"></i> 用户信息
                         </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                id="navbarDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                            <i class="fas fa-cog"></i>
+                            <span> Settings <i class="fas fa-angle-down"></i> </span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="#">Billing</a>
+                            <a class="dropdown-item" href="#">Customize</a>
+                        </div>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
@@ -111,25 +127,29 @@
     </nav>
     <div class="container mt-5">
         <div class="row tm-content-row">
-            <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
+            <div style="width: 100%">
                 <div class="tm-bg-primary-dark tm-block tm-block-products">
                     <div class="tm-product-table-container">
                         <table class="table table-hover tm-table-small tm-product-table">
                             <thead>
                             <tr>
                                 <th scope="col">&nbsp;</th>
-                                <th scope="col">头像</th>
-                                <th scope="col">作者</th>
-                                <th scope="col">简介</th>
+                                <th scope="col">活动图片</th>
+                                <th scope="col">活动名称</th>
+                                <th scope="col">活动时间</th>
+                                <th scope="col">活动地址</th>
+                                <th scope="col">活动价格</th>
                                 <th scope="col">操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="(item,index) in authorList" @click="details(item)">
+                            <tr v-for="(item,index) in activityList" @click="details(item)">
                                 <th scope="row"><input type="checkbox" @click.stop="sleectId(item)"/></th>
-                                <td><img :src="item.headpicture" alt="" width="50px"></td>
+                                <td><img :src="item.activitypictures" alt="" width="50px"></td>
                                 <td class="tm-product-name overName">{{item.name}}</td>
-                                <td>{{item.introduce}}</td>
+                                <td>{{item.activitytime}}</td>
+                                <td>{{item.activityaddress}}</td>
+                                <td>￥{{item.price}}元</td>
                                 <td>
                                     <a href="javascript:;" class="tm-product-delete-link" @click.stop="delAuthorList(1,item)">
                                         <i class="far fa-trash-alt tm-product-delete-icon"></i>
@@ -141,7 +161,7 @@
                         </table>
                         <div style="display: flex;justify-content: center;margin-top: 20px">
                             <el-pagination
-                                    v-if="authorList != '' "
+                                    v-if="activityList != '' "
                                     @current-change="currenPage"
                                     background
                                     layout="prev, pager, next"
@@ -152,8 +172,8 @@
                     </div>
                     <!-- table container -->
                     <a
-                            href="add-author.html"
-                            class="btn btn-primary btn-block text-uppercase mb-3">新建作者</a>
+                            href="add-activity.html"
+                            class="btn btn-primary btn-block text-uppercase mb-3">新建活动</a>
                     <button class="btn btn-primary btn-block text-uppercase" @click="allDel">
                         多选删除
                     </button>
@@ -171,14 +191,14 @@
         el: '#home',
         data: {
             currentUser: JSON.parse(localStorage.getItem('userInfo')),
-            authorList: [],
+            activityList: [],
             total:1,
             pageNum:1,
             pageSize: 10,
             allId: '',
         },
         mounted(){
-            this.getAuthorList(this.pageNum,this.pageSize);
+            this.getActivityList(this.pageNum,this.pageSize);
         },
         methods: {
             loginOut() { //退出
@@ -186,7 +206,7 @@
                 window.open('./login.html','_blank')
             },
             details(item) { //详情页面
-                window.location.href = './edit-author.html?id='+item.id;
+                window.location.href = './edit-activity.html?id='+item.id;
             },
 
 
@@ -197,19 +217,25 @@
                             message: '删除成功',
                             type: 'success'
                         });
+                        let inputs = document.getElementsByTagName("input");
+                        for (let i = 0; i < inputs.length; i++) {
+                            if (inputs[i].type == "checkbox") {
+                                inputs[i].type = "checkbox"
+                            }
+                        }
                     }
                 } , err => {
                     console.log(err)
                 })
             },
-            getAuthorList(pageNum,pageSize) { //获取作者列表
+            getActivityList(pageNum,pageSize) { //获取活动列表
                 let data = {
                     pageNum,
                     pageSize
                 }
-                postPromise(data,'author/pagingSel').then(res => {
+                postPromise(data,'activity/pagingSel').then(res => {
                     if(res.flag == 0) {
-                        this.authorList = res.map.pageList
+                        this.activityList = res.map.pageList
                         this.total = res.number
                     }
                 } ,err => {
@@ -217,10 +243,10 @@
                 })
             },
             currenPage(e) {
-                this.getAuthorList(e,this.pageSize)
+                this.getActivityList(e,this.pageSize)
             },
 
-            delAuthorList(e,item) { //删除文章
+            delAuthorList(e,item) { //删除活动
                 let data ={}
                 if(e == 1) {
                     data = {
@@ -231,14 +257,14 @@
                         ids: item
                     }
                 }
-                postPromise(data,'author/del').then(res => {
+                postPromise(data,'activity/del ').then(res => {
                     if(res.flag == 0) {
                         if(res.flag == 0) {
                             this.$message({
                                 message: '删除成功',
                                 type: 'success'
                             });
-                            this.getAuthorList(this.pageNum,this.pageSize);
+                            this.getActivityList(this.pageNum,this.pageSize);
                         }
                     }
                 } ,err => {

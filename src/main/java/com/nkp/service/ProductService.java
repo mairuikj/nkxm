@@ -1,7 +1,10 @@
 package com.nkp.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.nkp.config.utils.DataPackJSON;
 import com.nkp.dao.ProductMapper;
+import com.nkp.pojo.News;
 import com.nkp.pojo.Product;
 import com.nkp.pojo.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +33,15 @@ public class ProductService {
         dataPackJSON.setMsg("ERROR");
         return dataPackJSON;
     }
-    public DataPackJSON del(HttpServletRequest request, int id){
-        int res=productMapper.deleteByPrimaryKey(id);
+    public DataPackJSON del(HttpServletRequest request, String ids){
+        int res=0;
+        String[] id=ids.split(",");
+        for(String i:id){
+            res=+productMapper.deleteByPrimaryKey(Integer.valueOf(i));
+        }
+
         DataPackJSON dataPackJSON=new DataPackJSON();
-        if(res==1){
+        if(res!=0){
             dataPackJSON.setFlag(0);
             dataPackJSON.setMsg("SUCCESS");
             return dataPackJSON;
@@ -79,6 +87,30 @@ public class ProductService {
         dataPackJSON.setFlag(0);
         dataPackJSON.setMsg("SUCCESS");
         dataPackJSON.setNumber(list.size());
+        return dataPackJSON;
+    }
+
+    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize, Integer id) {
+        DataPackJSON dataPackJSON=new DataPackJSON();
+        Map map=new HashMap();
+        HttpSession session = request.getSession();
+
+        PageHelper.startPage(pageNum,pageSize);
+
+        List list=productMapper.selAll();
+
+        //得到分页的结果对象
+        PageInfo<News> pageInfo = new PageInfo<>(list);
+        //得到分页中的person条目对象(分页后的list)
+        List pageList = pageInfo.getList();
+
+        dataPackJSON.setNumber((int)pageInfo.getTotal());
+        dataPackJSON.setFlag(0);
+        dataPackJSON.setMsg("SUCCESS");
+
+        map.put("pageList",pageList);
+        map.put("session_user",(UserInfo) session.getAttribute("session_user"));
+        dataPackJSON.setMap(map);
         return dataPackJSON;
     }
 }

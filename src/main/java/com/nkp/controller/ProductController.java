@@ -22,8 +22,8 @@ public class ProductController {
         return productService.add(request,product);
     }
     @RequestMapping("/del")
-    public DataPackJSON del(HttpServletRequest request, int id){
-        return productService.del(request,id);
+    public DataPackJSON del(HttpServletRequest request, String ids){
+        return productService.del(request,ids);
     }
     @RequestMapping("/up")
     public DataPackJSON up(HttpServletRequest request, Product product){
@@ -38,6 +38,11 @@ public class ProductController {
     @RequestMapping("/selAll")
     public DataPackJSON selAll(HttpServletRequest request){
         return productService.selAll(request);
+    }
+
+    @RequestMapping("/pagingSel")
+    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id){
+        return productService.pagingSel(request,pageNum,pageSize,id);
     }
 
 }

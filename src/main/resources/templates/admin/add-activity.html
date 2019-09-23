@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>编辑作者</title>
+    <title>新建活动</title>
     <link rel="stylesheet" href="../../static/css/fontawesome.min.css" />
     <link rel="stylesheet" href="../../static/ui/jquery-ui.min.css" type="text/css" />
     <link rel="stylesheet" href="../../static/css/bootstrap.min.css" />
@@ -33,6 +33,16 @@
         .tm-product-img-dummy > img{
             height: 100%;
             width: 100%;
+        }
+        .el-input__inner{
+            border-radius: 0 !important;
+            color: #fff !important;
+            height: 50px !important;
+            background-color:#54657d;
+            border: none;
+        }
+        .el-date-picker{
+            z-index: 99999 !important;
         }
     </style>
 </head>
@@ -83,7 +93,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:;">
+                        <a class="nav-link " href="javascript:;">
                             <i class="fas fa-shopping-cart"></i>
                             发布文章
                         </a>
@@ -93,6 +103,25 @@
                         <a class="nav-link" href="accounts.html">
                             <i class="far fa-user"></i> 用户信息
                         </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                id="navbarDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                        >
+                            <i class="fas fa-cog"></i>
+                            <span> Settings <i class="fas fa-angle-down"></i> </span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="#">Billing</a>
+                            <a class="dropdown-item" href="#">Customize</a>
+                        </div>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
@@ -116,7 +145,7 @@
                 <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
                     <div class="row">
                         <div class="col-12">
-                            <h2 class="tm-block-title d-inline-block">编辑作者</h2>
+                            <h2 class="tm-block-title d-inline-block">新建活动</h2>
                         </div>
                     </div>
                     <div class="row tm-edit-product-row">
@@ -125,10 +154,10 @@
                                 <div class="form-group mb-3">
                                     <label
                                             for="name"
-                                    >作者名称
+                                    >活动名称
                                     </label>
                                     <input
-                                            v-model="from.name "
+                                            v-model="from.name"
                                             id="name"
                                             name="name"
                                             type="text"
@@ -139,42 +168,50 @@
                                 <div class="form-group mb-3">
                                     <label
                                             for="description"
-                                    >身份</label
+                                    >活动时间</label
                                     >
-                                    <input v-model="from.identity" class="form-control validate" placeholder=""/>
+                                    <div>
+                                        <el-date-picker
+                                                style="width: 100%;height: 50px;"
+                                                v-model="from.activitytime"
+                                                type="datetime"
+                                                placeholder="选择日期时间">
+                                        </el-date-picker>
+                                    </div>
+
                                 </div>
                                 <div class="form-group mb-3">
                                     <label
-                                            for="description"
-                                    >简介</label
+                                            for="category"
+                                    >活动地址</label
                                     >
-                                    <input v-model="from.introduce" class="form-control validate" />
+                                    <input v-model="from.activityaddress" class="form-control validate" />
                                 </div>
                                 <div class="form-group mb-3">
                                     <label
-                                            for="description"
-                                    >详情</label
+                                            for="category"
+                                    >活动价格</label
                                     >
-                                    <textarea v-model="from.remarks" class="form-control validate" cols="30" rows="10"></textarea>
+                                    <input v-model="from.price" class="form-control validate" type="number"/>
                                 </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
                             <div class="tm-product-img-dummy mx-auto">
-                                <img :src="from.headpicture" alt="">
+                                <img :src="from.activitypictures" alt="">
                             </div>
                             <div class="custom-file mt-3 mb-3">
                                 <input id="fileInput" type="file" style="display:none;"  @change="addImg($event)"/>
                                 <input
                                         type="button"
                                         class="btn btn-primary btn-block mx-auto"
-                                        value="上传头像"
+                                        value="上传活动图片"
                                         onclick="document.getElementById('fileInput').click();"
                                 />
                             </div>
                         </div>
                         <div id="editor"></div>
                         <div class="col-12">
-                            <button class="btn btn-primary btn-block text-uppercase" @click="saveAuthor">保存新建作者</button>
+                            <button class="btn btn-primary btn-block text-uppercase" @click="saveArticles">保存活动</button>
                         </div>
                         </form>
                     </div>
@@ -188,43 +225,66 @@
         el: '#app',
         data: {
             currentUser: JSON.parse(localStorage.getItem('userInfo')),
-            articleType: [],
             from: {
-                name : '',
-                headpicture:'',
-                identity: '',
-                introduce: '',
-                remarks: '',
+                name: '',
+                activitytime: '',
+                activityaddress: '',
+                price: '',
+                content:'',
+                activitypictures: '',
             }
         },
         mounted() {
-            this.getInfo()
+            this.createE();
+
         },
         methods: {
-            getQueryStringRegExp(name){
-                let reg = new RegExp("(^|\\?|&)"+ name +"=([^&]*)(\\s|&|$)", "i");
-                if (reg.test(location.href)) return unescape(RegExp.$2.replace(/\+/g, " ")); return "";
+
+            createE() {
+                let E = window.wangEditor
+                let editor = new E('#editor')
+                editor.customConfig.showLinkImg = false
+                editor.customConfig.customUploadImg = function (files, insert) {
+                    files.map((item,index) => {
+                        let formData = new FormData();
+                        formData.append('file',item)
+                        upFile(formData,'uplode/image').then(res => {
+                            insert(res)
+                        }, err => {
+                            console.log(err)
+                        })
+                    })
+                };
+                editor.customConfig.onchange = (html) => {
+                    this.from.content = html
+                };
+                editor.create()
             },
             loginOut() { //退出
                 window.close();
                 window.open('./login.html','_blank')
             },
 
-            addImg(e) { //上传封面图片
+            addImg(e) { //上传活动图片
                 let formData = new FormData();
                 formData.append('file',e.target.files[0]);
                 upFile(formData,'uplode/image').then(res => {
-                    this.from.headpicture = res
+                    this.from.activitypictures = res
                 }, err => {
                     console.log(err)
                 })
             },
-            saveAuthor() { //保存作者
-                delete  this.from.explain
-                postPromise(this.from,'author/up').then(res => {
+
+
+
+            saveArticles() { //保存文章
+                let d = new Date(this.from.activitytime)
+                let dateTime = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+                this.from.activitytime = dateTime
+                postPromise(this.from,'activity/add').then(res => {
                     if(res.flag == 0) {
                         this.$message({
-                            message: '更新成功',
+                            message: '新建成功',
                             type: 'success'
                         });
                     }
@@ -233,13 +293,8 @@
                 })
             },
 
-            getInfo() {
-                postPromise({id: this.getQueryStringRegExp('id')},'author/selById ').then(res => {
-                    if(res.flag == 0) {
-                        this.from = res.map.author
-                    }
-                })
-            }
+
+
 
         }
     })

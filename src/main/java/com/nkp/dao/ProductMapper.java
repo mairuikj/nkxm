@@ -62,5 +62,5 @@ public interface ProductMapper {
      */
     int updateByPrimaryKey(Product record);
     @Select("select * from product")
-    List selAll();
+    List<Product> selAll();
 }
