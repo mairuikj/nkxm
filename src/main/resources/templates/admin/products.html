@@ -82,6 +82,7 @@
                                 <a class="dropdown-item" href="#">文章列表</a>
                                 <a class="dropdown-item" href="authorList.html">作者列表</a>
                                 <a class="dropdown-item" href="activityList.html">活动列表</a>
+                              <a class="dropdown-item" href="productsList.html">产品列表</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -312,7 +313,7 @@ let home = new Vue({
                             message: '删除成功',
                             type: 'success'
                         });
-                        this.getNewList(this.pageNum,this.pageSize);
+                      location.reload();
                     }
                 }
             } ,err => {

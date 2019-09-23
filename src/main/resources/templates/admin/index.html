@@ -49,14 +49,10 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="products.html">文章列表</a>
-                                <a class="dropdown-item" href="authorList.html">作者列表</a>
-                                <!--<a class="dropdown-item" href="add-author.html">新建作者</a>-->
-                                <!--<a class="dropdown-item" href="edit-author.html">编辑作者</a>-->
-                                <!--<a class="dropdown-item" href="add-activity.html">新建活动</a>-->
-                                <a class="dropdown-item" href="activityList.html">活动列表</a>
-                                <!--<a class="dropdown-item" href="edit-activity.html">编辑活动</a>-->
-
+                                <a class="dropdown-item" href="/newsList">文章列表</a>
+                                <a class="dropdown-item" href="/authorList">作者列表</a>
+                                <a class="dropdown-item" href="/activityList">活动列表</a>
+                                <a class="dropdown-item" href="/productList">产品列表</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -389,10 +385,10 @@
                 this.getNewList(this.pageNum,this.pageSize);
             },
             methods: {
-                loginOut() { //退出
-                    window.close();
-                    window.open('./login.html','_blank')
-                },
+              loginOut() { //退出
+                location.replace('/login')
+                localStorage.removeItem("userInfo");
+              },
 
             }
 

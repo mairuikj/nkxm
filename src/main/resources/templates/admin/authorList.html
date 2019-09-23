@@ -79,7 +79,8 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="products.html">文章列表</a>
                             <a class="dropdown-item" href="javascript:;">作者列表</a>
-                            <a class="dropdown-item" href="jactivityList.html">活动列表</a>
+                            <a class="dropdown-item" href="activityList.html">活动列表</a>
+                          <a class="dropdown-item" href="productsList.html">产品列表</a>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -189,19 +190,6 @@
                 window.location.href = './edit-author.html?id='+item.id;
             },
 
-
-            delType(item) {
-                getPromise({id: item.id},'newsType/del').then(res => {
-                    if(res.flag == 0) {
-                        this.$message({
-                            message: '删除成功',
-                            type: 'success'
-                        });
-                    }
-                } , err => {
-                    console.log(err)
-                })
-            },
             getAuthorList(pageNum,pageSize) { //获取作者列表
                 let data = {
                     pageNum,
@@ -238,7 +226,7 @@
                                 message: '删除成功',
                                 type: 'success'
                             });
-                            this.getAuthorList(this.pageNum,this.pageSize);
+                          location.reload();
                         }
                     }
                 } ,err => {

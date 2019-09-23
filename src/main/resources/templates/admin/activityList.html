@@ -75,9 +75,12 @@
                             <span> 更多功能 <i class="fas fa-angle-down"></i> </span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="products.html">文章列表</a>
-                            <a class="dropdown-item" href="authorList.html">作者列表</a>
-                            <a class="dropdown-item" href="javascript:;">活动列表</a>
+
+
+                          <a class="dropdown-item" href="products.html">文章列表</a>
+                          <a class="dropdown-item" href="authorList.html">作者列表</a>
+                          <a class="dropdown-item" href="javascript:;">活动列表</a>
+                          <a class="dropdown-item" href="productsList.html">产品列表</a>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -90,24 +93,6 @@
                         <a class="nav-link" href="accounts.html">
                             <i class="far fa-user"></i> 用户信息
                         </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                            <i class="fas fa-cog"></i>
-                            <span> Settings <i class="fas fa-angle-down"></i> </span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Profile</a>
-                            <a class="dropdown-item" href="#">Billing</a>
-                            <a class="dropdown-item" href="#">Customize</a>
-                        </div>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
@@ -209,25 +194,6 @@
                 window.location.href = './edit-activity.html?id='+item.id;
             },
 
-
-            delType(item) {
-                getPromise({id: item.id},'newsType/del').then(res => {
-                    if(res.flag == 0) {
-                        this.$message({
-                            message: '删除成功',
-                            type: 'success'
-                        });
-                        let inputs = document.getElementsByTagName("input");
-                        for (let i = 0; i < inputs.length; i++) {
-                            if (inputs[i].type == "checkbox") {
-                                inputs[i].type = "checkbox"
-                            }
-                        }
-                    }
-                } , err => {
-                    console.log(err)
-                })
-            },
             getActivityList(pageNum,pageSize) { //获取活动列表
                 let data = {
                     pageNum,
@@ -264,7 +230,7 @@
                                 message: '删除成功',
                                 type: 'success'
                             });
-                            this.getActivityList(this.pageNum,this.pageSize);
+                          location.reload();
                         }
                     }
                 } ,err => {
