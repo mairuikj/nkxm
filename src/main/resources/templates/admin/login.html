@@ -93,7 +93,8 @@
         postPromise(data,'user/backstage').then(res => {
          if(res.flag == 0) {
           localStorage.setItem("userInfo", JSON.stringify(res.map.session_user));
-           location.replace('/index')
+          location.replace('/index')
+          //window.location.href='/index';
          }else {
            alert('您的用户名或密码错误')
          }
