@@ -154,7 +154,7 @@
                                     <div>
                                         <el-date-picker
                                                 style="width: 100%;height: 50px;"
-                                                v-model="from.endtime"
+                                                v-model="from.activitytime"
                                                 type="datetime"
                                                 placeholder="选择日期时间">
                                         </el-date-picker>
@@ -168,7 +168,7 @@
                                     <div>
                                         <el-date-picker
                                                 style="width: 100%;height: 50px;"
-                                                v-model="from.activitytime"
+                                                v-model="from.endtime"
                                                 type="datetime"
                                                 placeholder="选择日期时间">
                                         </el-date-picker>
@@ -279,7 +279,7 @@
                 let end =  new Date(this.from.endtime)
                 let dateTime2 = end.getFullYear() + '-' + (end.getMonth() + 1) + '-' + end.getDate() + ' ' + end.getHours() + ':' + end.getMinutes() + ':' + end.getSeconds();
                 this.from.activitytime = dateTime;
-                this.from.endTime = dateTime2
+                this.from.endtime = dateTime2
                 postPromise(this.from,'activity/add').then(res => {
                     if(res.flag == 0) {
                         this.$message({
