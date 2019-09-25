@@ -56,4 +56,20 @@ public class NewsController {
         return newsService.hide(request,ids);
     }
 
+    @RequestMapping("/details")
+    public DataPackJSON details(HttpServletRequest request,int id){
+        return newsService.details(request,id);
+    }
+
+    @RequestMapping("/number")
+    public DataPackJSON number(HttpServletRequest request){
+        return newsService.number(request);
+    }
+
+
+    @RequestMapping("/byType")
+    public DataPackJSON byType(HttpServletRequest request,int pageNum,int pageSize,Integer newsType){
+        return newsService.byType(request,pageNum,pageSize,newsType);
+    }
+
 }
