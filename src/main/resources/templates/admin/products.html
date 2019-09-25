@@ -134,7 +134,7 @@
                                     <th scope="row"><input type="checkbox" @click.stop="sleectId(item)"/></th>
                                     <td><img :src="item.toppicture" alt="" width="50px"></td>
                                     <td class="tm-product-name overName">{{item.title}}</td>
-                                    <td>{{item.author}}</td>
+                                    <td>{{item.writer.name}}</td>
                                     <td>{{item.creattime}}</td>
                                     <td>{{item.remarks == 0 ?'显示' : '隐藏'}}</td>
                                     <td>

@@ -76,5 +76,10 @@ public interface NewsMapper {
     List<News> hb(String str);
 
     @Select("select * from news where newsType=#{newsType} and remarks='0'")
-    List<News> byType(Integer newsType);
+    List<News> byType(@Param("newsType") Integer newsType);
+
+    List<News> selNewsAndAuthor();
+
+    //手机端详情
+    News selectByPrimaryKey2(@Param("id")Integer newsid);
 }

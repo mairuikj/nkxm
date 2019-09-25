@@ -115,7 +115,8 @@ public class NewsService {
 
         PageHelper.startPage(pageNum,pageSize);
        // List list=newsMapper.selNewsAndNewsType(id);//关联了newstype
-        List list=newsMapper.selAll();
+        //List list=newsMapper.selAll();
+        List list=newsMapper.selNewsAndAuthor();
 
         //得到分页的结果对象
         PageInfo<News> pageInfo = new PageInfo<>(list);
@@ -178,7 +179,7 @@ public class NewsService {
         }else {
             viewNumberMapper.newsNumberAdd(id);
         }
-        News news=newsMapper.selectByPrimaryKey(id);
+        News news=newsMapper.selectByPrimaryKey2(id);
         DataPackJSON dataPackJSON=new DataPackJSON();
         Map map=new HashMap();
         HttpSession session = request.getSession();
