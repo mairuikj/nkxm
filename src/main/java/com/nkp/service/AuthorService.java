@@ -5,7 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.nkp.config.utils.DataPackJSON;
 import com.nkp.dao.AuthorMapper;
 import com.nkp.pojo.Author;
-import com.nkp.pojo.News;
 import com.nkp.pojo.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,7 +99,7 @@ public class AuthorService {
         List list=authorMapper.selAll();
 
         //得到分页的结果对象
-        PageInfo<News> pageInfo = new PageInfo<>(list);
+        PageInfo<Author> pageInfo = new PageInfo<>(list);
         //得到分页中的person条目对象(分页后的list)
         List pageList = pageInfo.getList();
 

@@ -63,7 +63,7 @@ public interface NewsMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(News record);
-    @Select("select * from news")
+    @Select("select * from news ORDER BY newsId DESC")
     List<News> selAll();
 
     @Select("select * from news where newsType=#{typeid}")

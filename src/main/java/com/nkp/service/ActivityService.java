@@ -5,16 +5,13 @@ import com.github.pagehelper.PageInfo;
 import com.nkp.config.utils.DataPackJSON;
 import com.nkp.dao.ActivityMapper;
 import com.nkp.pojo.Activity;
-import com.nkp.pojo.News;
 import com.nkp.pojo.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ActivityService {
@@ -100,7 +97,7 @@ public class ActivityService {
         List list=activityMapper.selAll();
 
         //得到分页的结果对象
-        PageInfo<News> pageInfo = new PageInfo<>(list);
+        PageInfo<Activity> pageInfo = new PageInfo<>(list);
         //得到分页中的person条目对象(分页后的list)
         List pageList = pageInfo.getList();
 
@@ -113,4 +110,46 @@ public class ActivityService {
         dataPackJSON.setMap(map);
         return dataPackJSON;
     }
+
+    public DataPackJSON getActivity(HttpServletRequest request, int pageNum, int pageSize, Integer id) {
+        DataPackJSON dataPackJSON=new DataPackJSON();
+        Map map=new HashMap();
+        PageHelper.startPage(pageNum,pageSize);
+        List<Activity> list=activityMapper.selAllDesc();
+        for(Activity activity:list){
+
+            activity.setRemarks(belongCalendar(new Date(),activity.getActivitytime(),
+                    activity.getEndtime()));
+
+        }
+        PageInfo<Activity> pageInfo = new PageInfo<>(list);
+        List pageList = pageInfo.getList();
+        dataPackJSON.setNumber((int)pageInfo.getTotal());
+        dataPackJSON.setFlag(0);
+        dataPackJSON.setMsg("SUCCESS");
+        map.put("pageList",pageList);
+        dataPackJSON.setMap(map);
+        return dataPackJSON;
+    }
+
+    public static String belongCalendar(Date nowTime, Date beginTime, Date endTime) {
+            Calendar date = Calendar.getInstance();
+            date.setTime(nowTime);
+            Calendar begin = Calendar.getInstance();
+            begin.setTime(beginTime);
+            Calendar end = Calendar.getInstance();
+            end.setTime(endTime);
+            if(!date.after(begin)){
+                return "未开始";
+            }
+            if (date.after(begin) && date.before(end)) {
+                return "已开始";
+            }
+            if (nowTime.compareTo(beginTime) == 0 || nowTime.compareTo(endTime) == 0) {
+                return "已开始";
+            } else {
+                return "已结束";
+            }
+    }
+
 }
