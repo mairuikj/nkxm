@@ -70,7 +70,7 @@ public interface NewsMapper {
     List<News> selByTypeId(Integer typeid);
 
     List<News> selNewsAndNewsType(@Param("id") Integer id);
-    @Update("update news set remarks='0' where newsId=#{id}")
+    @Update("update news set remarks='1' where newsId=#{id}")
     int hide(Integer id);
     @Select("select * from news where newsId in #{str}")
     List<News> hb(String str);
