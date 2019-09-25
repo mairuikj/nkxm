@@ -119,7 +119,8 @@
                                 <th scope="col">&nbsp;</th>
                                 <th scope="col">活动图片</th>
                                 <th scope="col">活动名称</th>
-                                <th scope="col">活动时间</th>
+                                <th scope="col">开始时间</th>
+                                <th scope="col">结束时间</th>
                                 <th scope="col">活动地址</th>
                                 <th scope="col">活动价格</th>
                                 <th scope="col">操作</th>
@@ -131,6 +132,7 @@
                                 <td><img :src="item.activitypictures" alt="" width="50px"></td>
                                 <td class="tm-product-name overName">{{item.name}}</td>
                                 <td>{{item.activitytime}}</td>
+                                <td>{{item.endtime}}</td>
                                 <td>{{item.activityaddress}}</td>
                                 <td>￥{{item.price}}元</td>
                                 <td>
