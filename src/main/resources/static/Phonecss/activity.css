@@ -1,0 +1,40 @@
+
+.content > div{
+	border: 1px solid #a7bbbe;
+	margin-top: 1rem;
+	font-size: 1.2rem
+}
+.coverMap > img{
+	width: 100%;
+	display: block;
+}
+.info{
+	padding: 0 1rem;
+	background: #f1f1f1;
+}
+.info > div {
+	display: flex;
+	justify-content: space-between;
+	padding-top: .8rem;
+	padding-bottom:  .8em
+}
+.state{
+	border: 1px solid #8fa5a9;
+	background: #fab4b6;
+	color: #fff;
+	padding: .2rem .7rem;
+	border-radius: 10px;
+}
+.title{
+	font-size: 1.4rem
+}
+.address{
+	display: flex;
+	align-items: center;
+	justify-content: flex-start !important;
+}
+.address > img{
+	width: 1.5rem;
+	height: 1.5rem;
+	margin-right: 1rem
+}

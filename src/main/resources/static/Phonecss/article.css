@@ -1,0 +1,34 @@
+.baner > img{
+	width: 100%;
+	display: block;
+}
+.article{
+	padding: 0 20px;
+	height: 3rem;
+	background: #ccc;
+}
+.article > div:nth-child(1){
+	display: flex;
+	justify-content: center;
+}
+.articleList{
+	margin-top: 1rem
+}
+.articleList > li{
+	height: 6rem;
+	background: #ccc;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 20px;
+	margin-bottom: .8rem;
+}
+.articleList > li > div{
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+.articleList > li > img{
+	height: 100%;
+	width: 6rem;
+}
