@@ -1,0 +1,49 @@
+.content{
+	padding: 0 1rem;
+}
+.style{
+	border: 1px solid #88a3a7;
+	margin-top: 1rem;
+	margin-bottom: 3rem
+}
+.style > img{
+	width: 100%;
+}
+.style > div{
+	
+	background: #f1f1f1;
+	font-size: 1.4rem
+}
+.icon{
+	display: flex;
+	justify-content: center;
+	margin-bottom: 1.5rem
+}
+.icon > img{
+	width: 7em;
+	height: 5rem
+}
+.title{
+	display: flex;
+	justify-content: center;
+	font-size: 1.8rem
+}
+.lsitContent{
+	margin-top: 3rem;
+	margin-bottom: 1rem;
+	font-size: 1.4rem
+}
+.look{
+	display: flex;
+	justify-content: center;
+}
+.look > div{
+	height: 4rem;
+	width: 10rem;
+	background: #00afef;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 30px
+}

@@ -1,15 +1,16 @@
-.baner > img{
-	width: 100%;
-	display: block;
-}
 .article{
 	padding: 0 20px;
-	height: 3rem;
-	background: #ccc;
+    height: 6rem;
+    background: #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.3rem
 }
 .article > div:nth-child(1){
 	display: flex;
 	justify-content: center;
+	margin-top: .8rem
 }
 .articleList{
 	margin-top: 1rem
@@ -31,4 +32,12 @@
 .articleList > li > img{
 	height: 100%;
 	width: 6rem;
+}
+.news > img{
+	width: 100%;
+	display: block;
+	height: 15rem
+}
+.el-carousel__arrow{
+	top: 35% !important;
 }

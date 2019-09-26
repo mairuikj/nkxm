@@ -1,0 +1,73 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+html{
+	font-size: 2.2rem ;
+}
+ul li{
+	list-style: none;
+}
+a{
+	color: #333;
+	text-decoration: none;
+}
+.head{
+	padding: 0 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 5rem;
+}
+.head > img{
+	width: 7rem;
+	height: 3.5rem;
+}
+.search{
+	width: 3rem;
+	height: 3rem;
+}
+.current{
+	color: #f42222
+}
+.nav{
+	background: #ccc;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 1rem;
+	align-items: center;
+	height: 5rem;
+	font-size: 1.8rem
+}
+
+.footer{
+	height: 3rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding-bottom: 1rem;
+}
+.content{
+	padding: 0 1rem;
+	min-height: 53rem
+}
+ [v-cloak]{
+    display: none
+ }
+ .paging{
+ 	display: flex;
+ 	align-items: center;
+ 	justify-content: center;
+ 	height: 4rem;
+ }
+.el-pager > .number{
+ 	width: 2rem !important;
+ 	height: 2rem !important;
+ 	line-height: 2rem !important
+ }
+ .btn-prev,.btn-next,.more{
+ 	width: 2rem !important;
+ 	height: 2rem !important;
+ 	line-height: 2rem !important
+ }
