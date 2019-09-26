@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作者列表</title>
+	<link rel="stylesheet" type="text/css" href="../../static/Phonecss/public.css">
+	<link rel="stylesheet" type="text/css" href="../../static/Phonecss/author.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/elementUi.css">
+	<script type="text/javascript" src="../../static/js/font.js"></script>
+	<script type="text/javascript" src="../../static/js/vue.min.js"></script>
+	<script type="text/javascript" src="../../static/js/request.js"></script>
+	<script type="text/javascript" src="../../static/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="../../static/js/elementUi.js"></script>
+</head>
+<body>
+	<div id="index" v-cloak>
+		<div class="head">
+			<img src="">
+			<div >
+				<img src="" class="search">
+			</div>
+		</div>
+		<ul class="nav">
+			<li><a href="./mews-list.html?id=1">热点</a></li>
+			<li><a href="./mews-list.html?id=2">新政</a></li>
+			<li><a class="current" href="javascript:;">百家</a></li>
+			<li><a href="./mews-list.html?id=3">课堂</a></li>
+			<li><a href="activity-list.html">活动</a></li>
+			<li><a href="surplusticket-list.html">盈票</a></li>
+		</ul>
+		<div class="content">
+			<ul>
+				<li v-for="(item,index) in list" @click="detail(item)">
+					<div class="authorImg"><img :src="item.headpicture"></div>
+					<div class="authorInfo">
+						<span>{{item.name}}</span>
+						<span>{{item.identity}}</span>
+						<p>{{item.introduce}}</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="paging" v-if="total > 10">
+			<el-pagination
+				@current-change="swichPage"
+			 	background
+			  	layout="prev, pager, next"
+			  	:total="total">
+			</el-pagination>
+		</div>
+		<div class="footer">
+			<div>备案信息</div>
+			<div>联系方式</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	let app = new Vue({
+		el: '#index',
+		data: {
+			list: [],
+			pageNum: 1,
+			pageSize: 10,
+			total: 1,
+		},
+		mounted() {
+			this.getList(this.pageSize,this.pageNum)
+		},
+		methods:{
+			getList(pageSize,pageNum){
+				let data = {
+					pageSize,
+					pageNum
+				}
+				postPromise(data,'author/pagingSel').then(res => {
+					if(res.flag == 0) {
+						this.total = res.number
+						this.list = res.map.pageList
+					}
+				})
+			},
+			swichPage(e) {
+				this.getList(this.pageSize,e)
+			},
+
+			detail(item) {
+				window.location.href = './author-details.html?id='+item.id
+			}
+		}
+	})
+</script>
+</html>

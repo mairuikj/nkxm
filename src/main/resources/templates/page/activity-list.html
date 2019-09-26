@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>活动列表</title>
+	<link rel="stylesheet" type="text/css" href="../../static/Phonecss/public.css">
+	<link rel="stylesheet" type="text/css" href="../../static/Phonecss/activity.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/elementUi.css">
+	<script type="text/javascript" src="../../static/js/font.js"></script>
+	<script type="text/javascript" src="../../static/js/vue.min.js"></script>
+	<script type="text/javascript" src="../../static/js/request.js"></script>
+	<script type="text/javascript" src="../../static/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="../../static/js/elementUi.js"></script>
+</head>
+<body>
+	<div id="index" v-cloak>
+		<div class="head">
+			<img src="">
+			<div >
+				<img src="" class="search">
+			</div>
+		</div>
+		<ul class="nav">
+			<li><a href="./mews-list.html?id=1">热点</a></li>
+			<li><a href="./mews-list.html?id=2">新政</a></li>
+			<li><a href="./author-list.html">百家</a></li>
+			<li><a href="./mews-list.html?id=3">课堂</a></li>
+			<li><a class="current" href="javascript:;">活动</a></li>
+			<li><a href="surplusticket-list.html">盈票</a></li>
+		</ul>
+		<div class="content">
+			<div v-for="(item,index) in list">
+				<div class="coverMap">
+					<img :src="item.activitypictures == '' ? '../../static/img/timg(1).jpg' : item.activitypictures">
+				</div>
+				<div class="info">
+					<div>
+						<div class="state">{{item.remarks}}</div>
+						<div class="title">标题：{{item.name}}</div>
+					</div>
+					<div class="address">
+							<img src="../../static/img/timg.jpg">
+							<span>地址：</span>
+							<span>{{item.activityaddress}}</span>
+					</div>
+					<div class="time">开始时间：{{item.activitytime}} </div>
+					<div>结束时间：{{item.endtime}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="paging" v-if="total > 10">
+			<el-pagination
+				@current-change="swichPage"
+			 	background
+			  	layout="prev, pager, next"
+			  	:total="total">
+			</el-pagination>
+		</div>
+		
+		<div class="footer">
+			<div>备案信息</div>
+			<div>联系方式</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	let app = new Vue({
+		el: '#index',
+		data: {
+			list: [],
+			pageNum: 1,
+			pageSize: 10,
+			total: 1,
+		},
+		mounted() {
+			this.getList(this.pageSize,this.pageNum)
+		},
+		methods:{
+			getList(pageSize,pageNum){
+				let data = {
+					pageSize,
+					pageNum
+				}
+				postPromise(data,'activity/getActivity').then(res => {
+					if(res.flag == 0) {
+						this.total = res.number
+						this.list = res.map.pageList
+					}
+				})
+			},
+			swichPage(e) {
+				this.getList(this.pageSize,e)
+			}
+		}
+	})
+</script>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>盈票列表</title>
+	<link rel="stylesheet" type="text/css" href="../../static/Phonecss/public.css">
+	<link rel="stylesheet" type="text/css" href="../../static/Phonecss/surplusticket.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/elementUi.css">
+	<script type="text/javascript" src="../../static/js/font.js"></script>
+	<script type="text/javascript" src="../../static/js/vue.min.js"></script>
+	<script type="text/javascript" src="../../static/js/request.js"></script>
+	<script type="text/javascript" src="../../static/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="../../static/js/elementUi.js"></script>
+</head>
+<body>
+	<div id="index" v-cloak>
+		<div class="head">
+			<img src="">
+			<div >
+				<img src="" class="search">
+			</div>
+		</div>
+		<ul class="nav">
+			<li><a href="./article-list.html?id=1">热点</a></li>
+			<li><a href="./article-list.html?id=2">新政</a></li>
+			<li><a href="./author-list.html">百家</a></li>
+			<li><a href="./article-list.html?id=3">课堂</a></li>
+			<li><a href="./activity-list.html">活动</a></li>
+			<li><a class="current" href="javascript:;">盈票</a></li>
+		</ul>
+		<div class="content">
+			<ul>
+				<li v-for="(item,index) in list">
+					<div class="surplusticketInfo">
+						<span>{{item.name}}</span>
+						<span>2019-10-20</span>
+					</div>
+					<div class="surplusticketImg"><img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=123807196,3598291508&fm=26&gp=0.jpg"></div>
+				</li>
+			</ul>
+		</div>
+		<div class="paging" v-if="total > 10">
+			<el-pagination
+				@current-change="swichPage"
+			 	background
+			  	layout="prev, pager, next"
+			  	:total="total">
+			</el-pagination>
+		</div>
+		<div class="footer">
+			<div>备案信息</div>
+			<div>联系方式</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	let app = new Vue({
+		el: '#index',
+		data: {
+			list: [],
+			pageNum: 1,
+			pageSize: 10,
+			total:1,
+		},
+		mounted() {
+			this.getList()
+		},
+		methods:{
+			getList(){
+				let data = {
+					pageSize: this.pageSize,
+					pageNum: this.pageNum
+				}
+				postPromise(data,'product/pagingSel').then(res => {
+					if(res.flag == 0) {
+						this.total = res.number
+						this.list = res.map.pageList
+					}
+				})
+			},
+			swichPage(e) {
+				this.getList(this.pageSize,e)
+			}
+		}
+	})
+</script>
+</html>
