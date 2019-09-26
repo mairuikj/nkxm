@@ -68,13 +68,20 @@ public class AuthorService {
         return dataPackJSON;
     }
 
-    public DataPackJSON selById(HttpServletRequest request,int id){
+    public DataPackJSON selById(HttpServletRequest request,int id,int pageNum,int pageSize){
         Author author=authorMapper.selectByPrimaryKey1(id);
+
+        PageHelper.startPage(pageNum,pageSize);
         List<News> list=newsMapper.getNews(author.getId());
+        PageInfo<News> pageInfo = new PageInfo<>(list);
+        List pageList = pageInfo.getList();
         DataPackJSON dataPackJSON=new DataPackJSON();
+
+        dataPackJSON.setNumber((int)pageInfo.getTotal());
+
         Map map=new HashMap();
         map.put("author",author);
-        map.put("list",list);
+        map.put("pageList",pageList);
         dataPackJSON.setMap(map);
         dataPackJSON.setFlag(0);
         dataPackJSON.setMsg("SUCCESS");
