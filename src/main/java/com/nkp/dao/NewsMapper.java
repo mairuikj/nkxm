@@ -72,7 +72,7 @@ public interface NewsMapper {
     List<News> selNewsAndNewsType(@Param("id") Integer id);
     @Update("update news set remarks='1' where newsId=#{id}")
     int hide(Integer id);
-    @Select("select * from news where newsId in #{str}")
+    @Select("select * from news where newsId in (${str})")
     List<News> hb(String str);
 
     @Select("select * from news where newsType=#{newsType} and remarks='0'")
@@ -82,4 +82,8 @@ public interface NewsMapper {
 
     //手机端详情
     News selectByPrimaryKey2(@Param("id")Integer newsid);
+    @Select("${sql2}")
+    List<News> exqt(@Param("sql2")String sql2);
+    @Select("select newsId,title,creatTime,topPicture from news where newsId in ${temp} order by find_in_set (newsId,'${temp1}')")
+    List<News> resof(@Param("temp") String temp,@Param("temp1") String temp1);
 }

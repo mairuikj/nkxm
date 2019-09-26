@@ -171,6 +171,7 @@ public class NewsService {
     //公众号访问新闻详情
     public DataPackJSON details(HttpServletRequest request, int id) {
         ViewNumber viewNumber=viewNumberMapper.selectByNewsId(id);
+        //文章浏览量增加
         if(viewNumber==null){
             ViewNumber viewNumberTemp=new ViewNumber();
             viewNumberTemp.setNewsid(id);
@@ -180,11 +181,12 @@ public class NewsService {
             viewNumberMapper.newsNumberAdd(id);
         }
         News news=newsMapper.selectByPrimaryKey2(id);
+        List<News> list=resemble(news);
         DataPackJSON dataPackJSON=new DataPackJSON();
         Map map=new HashMap();
-        HttpSession session = request.getSession();
+
         map.put("news",news);
-        map.put("session_user",(UserInfo) session.getAttribute("session_user"));
+        map.put("resemble",list);
         dataPackJSON.setMap(map);
         dataPackJSON.setFlag(0);
         dataPackJSON.setMsg("SUCCESS");
@@ -232,5 +234,30 @@ public class NewsService {
         map.put("session_user",(UserInfo) session.getAttribute("session_user"));
         dataPackJSON.setMap(map);
         return dataPackJSON;
+    }
+
+    //获取相识新闻
+    public List<News> resemble(News pro){
+        Integer id=pro.getNewsid();
+        String sql="";
+        String sql2="";
+        String par="";
+        String[] str=pro.getKeyword().split(",|，");
+        for(String key:str){
+            sql+="select newsId from news where keyWord like "+"'"+"%"+key+"%"+"'"+" and newsId !="+id.toString()+" union all ";
+        }
+        sql=sql.substring(0,sql.length()-11);
+        sql2="select newsId from "+"("+sql+")"+" as c "+
+                "GROUP BY c.newsId ORDER BY COUNT(c.newsId) DESC";
+        List<News> list=newsMapper.exqt(sql2);
+        for(int i=0;i<5;i++){
+            par+=list.get(i).getNewsid()+",";
+        }
+        String temp1=par.substring(0,par.length()-1);
+        String temp="("+temp1+")";
+        List res=newsMapper.resof(temp,temp1);
+
+        return res;
+
     }
 }
