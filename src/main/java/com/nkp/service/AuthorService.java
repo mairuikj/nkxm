@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nkp.config.utils.DataPackJSON;
 import com.nkp.dao.AuthorMapper;
+import com.nkp.dao.NewsMapper;
 import com.nkp.pojo.Author;
 import com.nkp.pojo.News;
 import com.nkp.pojo.UserInfo;
@@ -20,6 +21,9 @@ import java.util.Map;
 public class AuthorService {
     @Autowired
     private AuthorMapper authorMapper;
+
+    @Autowired
+    private NewsMapper newsMapper;
 
     public DataPackJSON add(HttpServletRequest request, Author author){
         int res=authorMapper.insertSelective(author);
@@ -64,13 +68,20 @@ public class AuthorService {
         return dataPackJSON;
     }
 
-    public DataPackJSON selById(HttpServletRequest request,int id){
+    public DataPackJSON selById(HttpServletRequest request,int id,int pageNum,int pageSize){
         Author author=authorMapper.selectByPrimaryKey1(id);
+
+        PageHelper.startPage(pageNum,pageSize);
+        List<News> list=newsMapper.getNews(author.getId());
+        PageInfo<News> pageInfo = new PageInfo<>(list);
+        List pageList = pageInfo.getList();
         DataPackJSON dataPackJSON=new DataPackJSON();
+
+        dataPackJSON.setNumber((int)pageInfo.getTotal());
+
         Map map=new HashMap();
-        HttpSession session = request.getSession();
         map.put("author",author);
-        map.put("session_user",(UserInfo) session.getAttribute("session_user"));
+        map.put("pageList",pageList);
         dataPackJSON.setMap(map);
         dataPackJSON.setFlag(0);
         dataPackJSON.setMsg("SUCCESS");
@@ -100,7 +111,7 @@ public class AuthorService {
         List list=authorMapper.selAll();
 
         //得到分页的结果对象
-        PageInfo<News> pageInfo = new PageInfo<>(list);
+        PageInfo<Author> pageInfo = new PageInfo<>(list);
         //得到分页中的person条目对象(分页后的list)
         List pageList = pageInfo.getList();
 

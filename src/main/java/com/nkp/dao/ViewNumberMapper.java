@@ -1,6 +1,10 @@
 package com.nkp.dao;
 
 import com.nkp.pojo.ViewNumber;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+import java.util.List;
 
 public interface ViewNumberMapper {
     /**
@@ -50,4 +54,10 @@ public interface ViewNumberMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(ViewNumber record);
+    @Select("SELECT * from viewNumber WHERE newsId=#{id}")
+    ViewNumber selectByNewsId(int id);
+    @Update("UPDATE viewNumber set number=number+1 WHERE newsId=#{id}")
+    int newsNumberAdd(int id);
+    @Select("SELECT newsId,number from viewNumber ORDER BY number DESC LIMIT 10")
+    List<ViewNumber> hb();
 }

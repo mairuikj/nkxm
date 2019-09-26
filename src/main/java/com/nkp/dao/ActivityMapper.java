@@ -63,4 +63,6 @@ public interface ActivityMapper {
     int updateByPrimaryKey(Activity record);
     @Select("select * from activity")
     List<Activity> selAll();
+    @Select("SELECT * from activity ORDER BY id DESC")
+    List<Activity> selAllDesc();
 }

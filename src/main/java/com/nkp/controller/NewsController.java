@@ -45,7 +45,7 @@ public class NewsController {
     public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id){
         return newsService.pagingSel(request,pageNum,pageSize,id);
     }
-
+    //得到作者与新闻分类的下拉
     @RequestMapping("/getAT")
     public DataPackJSON getAT(HttpServletRequest request){
         return newsService.getTypeAndAuthor(request);
@@ -54,6 +54,22 @@ public class NewsController {
     @RequestMapping("/hide")
     public DataPackJSON hide(HttpServletRequest request,String ids){
         return newsService.hide(request,ids);
+    }
+    //手机端查新闻详情，含作者名称
+    @RequestMapping("/details")
+    public DataPackJSON details(HttpServletRequest request,int id){
+        return newsService.details(request,id);
+    }
+    //手机端看新闻，具体新闻浏览量增加
+    @RequestMapping("/number")
+    public DataPackJSON number(HttpServletRequest request){
+        return newsService.number(request);
+    }
+
+    //手机端查新闻列表
+    @RequestMapping("/byType")
+    public DataPackJSON byType(HttpServletRequest request,int pageNum,int pageSize,Integer newsType){
+        return newsService.byType(request,pageNum,pageSize,newsType);
     }
 
 }

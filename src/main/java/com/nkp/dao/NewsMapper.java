@@ -63,13 +63,30 @@ public interface NewsMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(News record);
-    @Select("select * from news")
+    @Select("select * from news ORDER BY newsId DESC")
     List<News> selAll();
 
     @Select("select * from news where newsType=#{typeid}")
     List<News> selByTypeId(Integer typeid);
 
     List<News> selNewsAndNewsType(@Param("id") Integer id);
-    @Update("update news set remarks='0' where newsId=#{id}")
+    @Update("update news set remarks='1' where newsId=#{id}")
     int hide(Integer id);
+    @Select("select * from news where newsId in (${str})")
+    List<News> hb(String str);
+
+    @Select("select * from news where newsType=#{newsType} and remarks='0'")
+    List<News> byType(@Param("newsType") Integer newsType);
+
+    List<News> selNewsAndAuthor();
+
+    //手机端详情
+    News selectByPrimaryKey2(@Param("id")Integer newsid);
+    //相似新闻
+    @Select("${sql2}")
+    List<News> exqt(@Param("sql2")String sql2);
+    @Select("select newsId,title,creatTime,topPicture from news where newsId in ${temp} order by find_in_set (newsId,'${temp1}')")
+    List<News> resof(@Param("temp") String temp,@Param("temp1") String temp1);
+    @Select("select * from news where author=#{id}")
+    List<News> getNews(Integer id);
 }

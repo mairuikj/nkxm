@@ -44,4 +44,9 @@ public class ActivityController {
     public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id){
         return activityService.pagingSel(request,pageNum,pageSize,id);
     }
+
+    @RequestMapping("/getActivity")
+    public DataPackJSON getActivity(HttpServletRequest request,int pageNum,int pageSize,Integer id){
+        return activityService.getActivity(request,pageNum,pageSize,id);
+    }
 }

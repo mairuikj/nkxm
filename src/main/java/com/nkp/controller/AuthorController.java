@@ -31,8 +31,8 @@ public class AuthorController {
     }
 
     @RequestMapping("/selById")
-    public DataPackJSON selById(HttpServletRequest request,int id){
-        return authorService.selById(request,id);
+    public DataPackJSON selById(HttpServletRequest request,int id,int pageNum,int pageSize){
+        return authorService.selById(request,id,pageNum,pageSize);
     }
 
     @RequestMapping("/selAll")
