@@ -236,7 +236,7 @@ public class NewsService {
         return dataPackJSON;
     }
 
-    //获取相识新闻
+    //获取相似新闻
     public List<News> resemble(News pro){
         Integer id=pro.getNewsid();
         String sql="";
@@ -250,7 +250,9 @@ public class NewsService {
         sql2="select newsId from "+"("+sql+")"+" as c "+
                 "GROUP BY c.newsId ORDER BY COUNT(c.newsId) DESC";
         List<News> list=newsMapper.exqt(sql2);
-        for(int i=0;i<5;i++){
+        int n=list.size();
+        int m=n>=5?5:n;
+        for(int i=0;i<m;i++){
             par+=list.get(i).getNewsid()+",";
         }
         String temp1=par.substring(0,par.length()-1);

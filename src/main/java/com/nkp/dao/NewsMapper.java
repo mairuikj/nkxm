@@ -82,8 +82,11 @@ public interface NewsMapper {
 
     //手机端详情
     News selectByPrimaryKey2(@Param("id")Integer newsid);
+    //相似新闻
     @Select("${sql2}")
     List<News> exqt(@Param("sql2")String sql2);
     @Select("select newsId,title,creatTime,topPicture from news where newsId in ${temp} order by find_in_set (newsId,'${temp1}')")
     List<News> resof(@Param("temp") String temp,@Param("temp1") String temp1);
+    @Select("select * from news where author=#{id}")
+    List<News> getNews(Integer id);
 }

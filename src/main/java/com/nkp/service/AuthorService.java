@@ -4,7 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nkp.config.utils.DataPackJSON;
 import com.nkp.dao.AuthorMapper;
+import com.nkp.dao.NewsMapper;
 import com.nkp.pojo.Author;
+import com.nkp.pojo.News;
 import com.nkp.pojo.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ import java.util.Map;
 public class AuthorService {
     @Autowired
     private AuthorMapper authorMapper;
+
+    @Autowired
+    private NewsMapper newsMapper;
 
     public DataPackJSON add(HttpServletRequest request, Author author){
         int res=authorMapper.insertSelective(author);
@@ -65,11 +70,11 @@ public class AuthorService {
 
     public DataPackJSON selById(HttpServletRequest request,int id){
         Author author=authorMapper.selectByPrimaryKey1(id);
+        List<News> list=newsMapper.getNews(author.getId());
         DataPackJSON dataPackJSON=new DataPackJSON();
         Map map=new HashMap();
-        HttpSession session = request.getSession();
         map.put("author",author);
-        map.put("session_user",(UserInfo) session.getAttribute("session_user"));
+        map.put("list",list);
         dataPackJSON.setMap(map);
         dataPackJSON.setFlag(0);
         dataPackJSON.setMsg("SUCCESS");
