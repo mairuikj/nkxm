@@ -109,7 +109,7 @@
 					pageNum,
 					newsType
 				}
-				postPromise(data,'news/pagingSel').then(res => {
+				postPromise(data,'news/byType').then(res => {
 					if(res.flag == 0) {
 						this.total = res.number
 						this.list = res.map.pageList;

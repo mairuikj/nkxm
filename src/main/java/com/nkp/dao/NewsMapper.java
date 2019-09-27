@@ -89,4 +89,7 @@ public interface NewsMapper {
     List<News> resof(@Param("temp") String temp,@Param("temp1") String temp1);
     @Select("select * from news where author=#{id}")
     List<News> getNews(Integer id);
+
+    @Select("select * from news where title like '%${str}%' or keyWord like '%${str}%'")
+    List<News> like(@Param("str") String str);
 }

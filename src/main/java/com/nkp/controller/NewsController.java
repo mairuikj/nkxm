@@ -72,4 +72,10 @@ public class NewsController {
         return newsService.byType(request,pageNum,pageSize,newsType);
     }
 
+    //模糊查询新闻
+    @RequestMapping("/like")
+    public DataPackJSON like(HttpServletRequest request,int pageNum,int pageSize,String str){
+        return newsService.like(request,pageNum,pageSize,str);
+    }
+
 }
