@@ -30,10 +30,10 @@
 		<ul class="nav">
 			<li><a :class="newsType == 1? 'current' : ''" href="javascript:;" @click="currentNew(1)">热点</a></li>
 			<li><a :class="newsType == 2? 'current' : ''" href="javascript:;" @click="currentNew(2)">新政</a></li>
-			<li><a  href="./author-list.html">百家</a></li>
+			<li><a  href="/authorListPhone">百家</a></li>
 			<li><a :class="newsType == 3? 'current' : ''" href="javascript:;" @click="currentNew(3)">课堂</a></li>
-			<li><a href="./activity-list.html">活动</a></li>
-			<li><a href="./surplusticket-list.html">盈票</a></li>
+			<li><a href="/activityPhone">活动</a></li>
+			<li><a href="/surplusticketlist">盈票</a></li>
 		</ul>
 		
 		<div class="block">
@@ -125,7 +125,7 @@
 				this.getList(this.pageSize,1,e)
 			},
 			detail(item){
-				window.location.href = './article-details.html?id='+ item.newsid +"&"+'currentId=' + this.newsType
+				window.location.href = '/articleDetails?id='+ item.newsid +"&"+'currentId=' + this.newsType
 			}
 
 		}

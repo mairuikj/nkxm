@@ -98,6 +98,57 @@ public class PageController {
         return "admin/productsList";
     }
 
+    //手机端页面
+    @RequestMapping("/activityPhone")//活动列表
+    public String activityListP(){
+        return "page/activity-list";
+    }
+
+    @RequestMapping("/activityDetails")//活动详情
+    public String activityDetails(){
+        return "page/activity-details";
+    }
+
+
+
+    @RequestMapping("/newsListPhone")//新闻列表
+    public String newsListPhone(){
+        return "page/news-list";
+    }
+
+    @RequestMapping("/articleDetails")//文章详情
+    public String articleDetails(){
+        return "page/article-details";
+
+    }
+
+    @RequestMapping("/authorListPhone")//作者列表
+    public String authorListPhone(){
+        return "page/author-list";
+
+    }
+
+    @RequestMapping("/authorDetails")//作者详情
+    public String authorDetails(){
+        return "page/author-details";
+
+    }
+
+
+
+    @RequestMapping("/surplusticketlist")//盈票列表
+    public String surplusticketlist(){
+        return "page/surplusticket-list";
+
+    }
+
+    @RequestMapping("/surplusticketdetails")//盈票详情
+    public String surplusticketdetails(){
+        return "page/surplusticket-details";
+
+    }
+
+
 
 
 

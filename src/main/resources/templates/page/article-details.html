@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-	<title>文章列表</title>
+	<title>文章详情</title>
 	<link rel="stylesheet" type="text/css" href="../../static/Phonecss/public.css">
 	<link rel="stylesheet" type="text/css" href="../../static/Phonecss/article.css">
 	<link rel="stylesheet" type="text/css" href="../../static/css/elementUi.css">
@@ -28,12 +28,12 @@
 			</div>
 		</div>
 		<ul class="nav">
-			<li><a :class="newsType == 1? 'current' : ''" href="./news-list.html?id=1" >热点</a></li>
-			<li><a :class="newsType == 2? 'current' : ''" href="./news-list.html?id=1">新政</a></li>
-			<li><a  href="./author-list.html">百家</a></li>
-			<li><a :class="newsType == 3? 'current' : ''" href="./news-list.html?id=1" >课堂</a></li>
-			<li><a href="./activity-list.html">活动</a></li>
-			<li><a href="./surplusticket-list.html">盈票</a></li>
+			<li><a :class="newsType == 1? 'current' : ''" href="/newsListPhone?id=1" >热点</a></li>
+			<li><a :class="newsType == 2? 'current' : ''" href="/newsListPhone?id=1">新政</a></li>
+			<li><a  href="/authorListPhone">百家</a></li>
+			<li><a :class="newsType == 3? 'current' : ''" href="/newsListPhone?id=1" >课堂</a></li>
+			<li><a href="/activityPhone">活动</a></li>
+			<li><a href="/surplusticketlist">盈票</a></li>
 		</ul>
 		<div class="details">
 			<div class="title">文章标题：{{newInfo.title}}</div>
