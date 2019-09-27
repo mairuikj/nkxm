@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>盈票列表</title>
+	<title>盈票详情</title>
 	<link rel="stylesheet" type="text/css" href="../../static/Phonecss/public.css">
 	<link rel="stylesheet" type="text/css" href="../../static/Phonecss/surplusticket.css">
 	<link rel="stylesheet" type="text/css" href="../../static/css/elementUi.css">
@@ -21,31 +21,23 @@
 			</div>
 		</div>
 		<ul class="nav">
-			<li><a href="./article-list.html?id=1">热点</a></li>
-			<li><a href="./article-list.html?id=2">新政</a></li>
+			<li><a href="./news-list.html?id=1">热点</a></li>
+			<li><a href="./news-list.html?id=2">新政</a></li>
 			<li><a href="./author-list.html">百家</a></li>
-			<li><a href="./article-list.html?id=3">课堂</a></li>
+			<li><a href="./news-list.html?id=3">课堂</a></li>
 			<li><a href="./activity-list.html">活动</a></li>
 			<li><a class="current" href="javascript:;">盈票</a></li>
 		</ul>
-		<div class="content">
-			<ul>
-				<li v-for="(item,index) in list">
-					<div class="surplusticketInfo">
-						<span>{{item.name}}</span>
-						<span>2019-10-20</span>
-					</div>
-					<div class="surplusticketImg"><img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=123807196,3598291508&fm=26&gp=0.jpg"></div>
-				</li>
-			</ul>
-		</div>
-		<div class="paging" v-if="total > 10">
-			<el-pagination
-				@current-change="swichPage"
-			 	background
-			  	layout="prev, pager, next"
-			  	:total="total">
-			</el-pagination>
+		<div style="min-height: 36rem">
+			<div class="bannerTu">
+				<img :src="info.picture" alt="">
+			</div>
+			<div class="detailC">
+				<div class="cent">
+					<strong >{{info.name}}</strong>
+				</div>
+			</div>
+			<div class="zhangwen" v-html="info.content"></div>
 		</div>
 		<div class="footer">
 			<div>备案信息</div>
@@ -57,30 +49,26 @@
 	let app = new Vue({
 		el: '#index',
 		data: {
-			list: [],
-			pageNum: 1,
-			pageSize: 10,
-			total:1,
+			info: {},
 		},
 		mounted() {
-			this.getList()
+			this.getInfo()
 		},
 		methods:{
-			getList(){
-				let data = {
-					pageSize: this.pageSize,
-					pageNum: this.pageNum
-				}
-				postPromise(data,'product/pagingSel').then(res => {
+			getQueryStringRegExp(name){
+                let reg = new RegExp("(^|\\?|&)"+ name +"=([^&]*)(\\s|&|$)", "i");
+                if (reg.test(location.href)) return unescape(RegExp.$2.replace(/\+/g, " ")); return "";
+            },
+            getInfo() {
+            	let data = {
+            		id: this.getQueryStringRegExp('id')
+            	}
+            	postPromise(data,'product/selById').then(res => {
 					if(res.flag == 0) {
-						this.total = res.number
-						this.list = res.map.pageList
+						this.info = res.map.product
 					}
 				})
-			},
-			swichPage(e) {
-				this.getList(this.pageSize,e)
-			}
+            }
 		}
 	})
 </script>

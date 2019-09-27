@@ -22,10 +22,10 @@
 			</div>
 		</div>
 		<ul class="nav">
-			<li><a href="./mews-list.html?id=1">热点</a></li>
-			<li><a href="./mews-list.html?id=2">新政</a></li>
+			<li><a href="./news-list.html?id=1">热点</a></li>
+			<li><a href="./news-list.html?id=2">新政</a></li>
 			<li><a href="./author-list.html">百家</a></li>
-			<li><a href="./mews-list.html?id=3">课堂</a></li>
+			<li><a href="./news-list.html?id=3">课堂</a></li>
 			<li><a href="./activity-list.html">活动</a></li>
 			<li><a class="current" href="javascript:;">盈票</a></li>
 		</ul>
@@ -45,7 +45,7 @@
 					<strong class="title">{{item.name}}</strong>
 					<p class="lsitContent">{{item.introduce}}</p>
 					<div class="look">
-						<div>详细了解</div>
+						<div @click="detail(item)">详细了解</div>
 					</div>
 				</li>
 			</ul>
@@ -92,6 +92,9 @@
 			},
 			swichPage(e) {
 				this.getList(e,this.pageSize)
+			},
+			detail(item) {
+				window.location.href = 'surplusticket-details.html?id='+item.id
 			}
 		}
 	})

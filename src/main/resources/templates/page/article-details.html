@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<title>文章列表</title>
+	<link rel="stylesheet" type="text/css" href="../../static/Phonecss/public.css">
+	<link rel="stylesheet" type="text/css" href="../../static/Phonecss/article.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/elementUi.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/swiper.min.css">
+	<script type="text/javascript" src="../../static/js/font.js"></script>
+	<script type="text/javascript" src="../../static/js/vue.min.js"></script>
+	<script type="text/javascript" src="../../static/js/request.js"></script>
+	<script type="text/javascript" src="../../static/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="../../static/js/elementUi.js"></script>
+	 <script src="../../static/js/swiper.min.js"></script>
+	 <style type="text/css">
+
+    
+	 </style>
+</head>
+<body>
+	<div id="index" ref="fontz">
+		<div class="head">
+			<img src="">
+			<div >
+				<img src="" class="search">
+			</div>
+		</div>
+		<ul class="nav">
+			<li><a :class="newsType == 1? 'current' : ''" href="./news-list.html?id=1" >热点</a></li>
+			<li><a :class="newsType == 2? 'current' : ''" href="./news-list.html?id=1">新政</a></li>
+			<li><a  href="./author-list.html">百家</a></li>
+			<li><a :class="newsType == 3? 'current' : ''" href="./news-list.html?id=1" >课堂</a></li>
+			<li><a href="./activity-list.html">活动</a></li>
+			<li><a href="./surplusticket-list.html">盈票</a></li>
+		</ul>
+		<div class="details">
+			<div class="title">文章标题：{{newInfo.title}}</div>
+			<div class="fun">
+				<div>
+					<div class="time">发布时间:{{newInfo.creattime}}</div>
+					<div class="name">作者姓名:{{writer}}</div>
+				</div>
+				<div class="setting">
+					<div class="fontW1" :class="currentFont == 1? 'acitve' : ''" @click="swichFont(1)">A</div>
+					<div class="fontW2" :class="currentFont == 2? 'acitve' : ''" @click="swichFont(2)">A</div>
+				</div>
+			</div>
+			<div class="zhengwen" v-html="newInfo.content"></div>
+			<div class="tab">
+				<div v-for="(item,index) in keyword">{{item}}</div>
+				 
+			</div>
+			<div clas="lists">
+				<ul>
+					<li class="item" v-for="(item,index) in list" @click="newCurrent(item)">
+						<div class="itemTitle">
+							<span class="overH">{{item.title}}</span>
+							<span class="itemTime">{{item.creattime}}</span>
+						</div>
+						<div class="itemImg">
+							<img :src="item.toppicture" alt="">
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="footer">
+			<div>备案信息</div>
+			<div>联系方式</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	let app = new Vue({
+		el: '#index',
+		data: {
+			currentFont: '1',
+			newsType:'',
+			newInfo: {},
+			writer: '',
+			keyword: [],
+			list: [],
+		},
+		mounted() {
+			this.newsType = this.getQueryStringRegExp('currentId')
+			this.getInfo(this.getQueryStringRegExp('id'))
+		},
+		methods:{
+			getQueryStringRegExp(name){
+                let reg = new RegExp("(^|\\?|&)"+ name +"=([^&]*)(\\s|&|$)", "i");
+                if (reg.test(location.href)) return unescape(RegExp.$2.replace(/\+/g, " ")); return "";
+            },
+           
+			swichFont(e){
+				if(e == 1) {
+					this.currentFont = e
+					this.$refs.fontz.style.fontSize = '2rem'
+				}else {
+					this.currentFont = e
+					this.$refs.fontz.style.fontSize = '1.6rem'
+				}
+			},
+			getInfo(id) {
+				let data ={
+					id,
+				}
+				postPromise(data,'news/details').then(res => {
+					if(res.flag == 0) {
+						this.newInfo = res.map.news;
+						this.writer = res.map.writer;
+						this.keyword = res.map.news.keyword.split('，')
+						this.list = res.map.resemble
+					}
+				})
+			},
+			newCurrent(item) {
+				this.getInfo(item.newsid)
+			}
+
+			
+
+		}
+	})
+</script>
+</html>

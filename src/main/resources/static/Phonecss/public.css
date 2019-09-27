@@ -71,3 +71,9 @@ a{
  	height: 2rem !important;
  	line-height: 2rem !important
  }
+.overH{
+	width: 15rem;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}

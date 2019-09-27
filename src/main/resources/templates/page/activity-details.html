@@ -29,33 +29,24 @@
 			<li><a class="current" href="javascript:;">活动</a></li>
 			<li><a href="surplusticket-list.html">盈票</a></li>
 		</ul>
-		<div class="content">
-			<div v-for="(item,index) in list" @click="detail(item)">
-				<div class="coverMap">
-					<img :src="item.activitypictures == '' ? '../../static/img/timg(1).jpg' : item.activitypictures">
-				</div>
-				<div class="info">
-					<div>
-						<div class="state">{{item.remarks}}</div>
-						<div class="title">标题：{{item.name}}</div>
-					</div>
-					<div class="address">
-							<img src="../../static/img/timg.jpg">
-							<span>地址：</span>
-							<span>{{item.activityaddress}}</span>
-					</div>
-					<div class="time">开始时间：{{item.activitytime}} </div>
-					<div>结束时间：{{item.endtime}}</div>
-				</div>
+		
+		<div class="detail">
+			<div class="benner">
+				<img :src="info.activitypictures" alt="">
 			</div>
-		</div>
-		<div class="paging" v-if="total > 10">
-			<el-pagination
-				@current-change="swichPage"
-			 	background
-			  	layout="prev, pager, next"
-			  	:total="total">
-			</el-pagination>
+			<div class="cont">
+				<span>标题：<strong>{{info.name}}</strong></span>
+				<span>开始时间：{{info.activitytime}}</span>
+				<span>结束时间：{{info.endtime}}</span>
+				<span>地址：{{info.activityaddress}}</span>
+				<span>价格：{{info.price == 0? '无' : info.price}}</span>
+			</div>
+			<div class="line">
+				<span>{{info.name}}</span>
+			</div>
+			<div class="zhengwen" v-html="info.content">
+				
+			</div>
 		</div>
 		
 		<div class="footer">
@@ -68,34 +59,28 @@
 	let app = new Vue({
 		el: '#index',
 		data: {
-			list: [],
-			pageNum: 1,
-			pageSize: 10,
-			total: 1,
+			info: {},
 		},
 		mounted() {
-			this.getList(this.pageSize,this.pageNum)
+			this.getInfp()
 		},
 		methods:{
-			getList(pageSize,pageNum){
+			getQueryStringRegExp(name){
+                let reg = new RegExp("(^|\\?|&)"+ name +"=([^&]*)(\\s|&|$)", "i");
+                if (reg.test(location.href)) return unescape(RegExp.$2.replace(/\+/g, " ")); return "";
+            },
+			getInfp(){
 				let data = {
-					pageSize,
-					pageNum
+					id: this.getQueryStringRegExp('id')
 				}
-				postPromise(data,'activity/getActivity').then(res => {
+				postPromise(data,'activity/selById').then(res => {
 					if(res.flag == 0) {
-						this.total = res.number
-						this.list = res.map.pageList
+						console.log(res)
+						this.info = res.map.activity
 					}
 				})
 			},
-			swichPage(e) {
-				this.getList(this.pageSize,e)
-			},
-
-			detail(item) {
-				window.location.href = './activity-details.html?id='+ item.id 
-			}
+			
 		}
 	})
 </script>

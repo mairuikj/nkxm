@@ -40,7 +40,7 @@
 		    <el-carousel height="21rem" :interval="3000" arrow="always">
 		      <el-carousel-item v-for="(item,index) in list.slice(0,3)" :key="index">
 		       <div class="news">
-						<img :src="item.toppicture">
+						<img :src="item.toppicture" @click="detail(item)">
 						<div class="article">
 							<div>{{item.title}}</div>
 							<div>时间：{{item.creattime}}</div>
@@ -50,9 +50,9 @@
 		    </el-carousel>
 		</div>
 		<ul class="articleList">
-			<li v-for="(item,index) in list.slice(3)">
+			<li v-for="(item,index) in list.slice(3)" @click="detail(item)">
 				<div>
-					<div >{{item.title}}</div>
+					<div class="overH">{{item.title}}</div>
 					<div>时间：{{item.creattime}}</div>
 				</div>
 				<img :src="item.toppicture">
@@ -123,6 +123,9 @@
 			currentNew(e){
 				this.newsType = e
 				this.getList(this.pageSize,1,e)
+			},
+			detail(item){
+				window.location.href = './article-details.html?id='+ item.newsid +"&"+'currentId=' + this.newsType
 			}
 
 		}
