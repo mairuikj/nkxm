@@ -250,6 +250,9 @@ public class NewsService {
         sql2="select newsId from "+"("+sql+")"+" as c "+
                 "GROUP BY c.newsId ORDER BY COUNT(c.newsId) DESC";
         List<News> list=newsMapper.exqt(sql2);
+        if(list.size()==0){
+            return null;
+        }
         int n=list.size();
         int m=n>=5?5:n;
         for(int i=0;i<m;i++){

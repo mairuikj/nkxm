@@ -60,7 +60,7 @@ public class NewsController {
     public DataPackJSON details(HttpServletRequest request,int id){
         return newsService.details(request,id);
     }
-    //手机端看新闻，具体新闻浏览量增加
+    //最热新闻
     @RequestMapping("/number")
     public DataPackJSON number(HttpServletRequest request){
         return newsService.number(request);
