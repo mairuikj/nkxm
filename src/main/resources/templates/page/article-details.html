@@ -22,9 +22,9 @@
 <body>
 	<div id="index" ref="fontz">
 		<div class="head">
-			<img src="">
+			<img src="../../static/img/logo.png">
 			<div >
-				<img src="" class="search">
+				<img src="../../static/img/search.png" class="search">
 			</div>
 		</div>
 		<ul class="nav">
@@ -40,7 +40,7 @@
 			<div class="fun">
 				<div>
 					<div class="time">发布时间:{{newInfo.creattime}}</div>
-					<div class="name">作者姓名:{{writer}}</div>
+					<div class="name">作者姓名:{{newInfo.writer.name}}</div>
 				</div>
 				<div class="setting">
 					<div class="fontW1" :class="currentFont == 1? 'acitve' : ''" @click="swichFont(1)">A</div>
@@ -56,7 +56,7 @@
 				<ul>
 					<li class="item" v-for="(item,index) in list" @click="newCurrent(item)">
 						<div class="itemTitle">
-							<span class="overH">{{item.title}}</span>
+							<span class="">{{item.title}}</span>
 							<span class="itemTime">{{item.creattime}}</span>
 						</div>
 						<div class="itemImg">

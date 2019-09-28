@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 	<title>文章列表</title>
 	<link rel="stylesheet" type="text/css" href="../../static/Phonecss/public.css">
 	<link rel="stylesheet" type="text/css" href="../../static/Phonecss/article.css">
@@ -22,9 +23,9 @@
 <body>
 	<div id="index">
 		<div class="head">
-			<img src="">
+			<img src="../../static/img/logo.png">
 			<div >
-				<img src="" class="search">
+				<img src="../../static/img/search.png" class="search">
 			</div>
 		</div>
 		<ul class="nav">
@@ -35,25 +36,25 @@
 			<li><a href="/activityPhone">活动</a></li>
 			<li><a href="/surplusticketlist">盈票</a></li>
 		</ul>
-		
-		<div class="block">
+		<div v-if="list == ''" class="noDate">暂无数据</div>
+		<div class="block" v-if="list != ''">
 		    <el-carousel height="21rem" :interval="3000" arrow="always">
 		      <el-carousel-item v-for="(item,index) in list.slice(0,3)" :key="index">
 		       <div class="news">
-						<img :src="item.toppicture" @click="detail(item)">
-						<div class="article">
-							<div>{{item.title}}</div>
-							<div>时间：{{item.creattime}}</div>
-						</div>
+					<img :src="item.toppicture" @click="detail(item)">
+					<div class="article">
+						<div>{{item.title}}</div>
+						<!-- <div>时间：{{item.creattime}}</div> -->
 					</div>
+				</div>
 		      </el-carousel-item>
 		    </el-carousel>
 		</div>
-		<ul class="articleList">
+		<ul class="articleList" v-if="list != ''">
 			<li v-for="(item,index) in list.slice(3)" @click="detail(item)">
 				<div>
-					<div class="overH">{{item.title}}</div>
-					<div>时间：{{item.creattime}}</div>
+					<div class="creatTitle">{{item.title}}</div>
+					<div class="creattime">时间：{{item.creattime}}</div>
 				</div>
 				<img :src="item.toppicture">
 			</li>
