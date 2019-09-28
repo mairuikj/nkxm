@@ -15,7 +15,7 @@
 }
 .articleList{
 	margin-top: 1rem;
-	min-height: 53rem
+	min-height: 53rem;
 }
 .articleList > li{
 	height: 6rem;
