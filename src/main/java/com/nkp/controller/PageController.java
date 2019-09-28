@@ -165,6 +165,17 @@ public class PageController {
 
     }
 
+    @RequestMapping("/search")//搜
+    public String search(){
+        return "page/search";
+
+    }
+    @RequestMapping("/result")//结果
+    public String result(){
+        return "page/result";
+
+    }
+
 
 
 
