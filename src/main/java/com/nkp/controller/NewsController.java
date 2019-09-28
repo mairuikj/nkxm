@@ -78,4 +78,10 @@ public class NewsController {
         return newsService.like(request,pageNum,pageSize,str);
     }
 
+    //热搜词
+    @RequestMapping("/hotSearch")
+    public DataPackJSON hotSearch(HttpServletRequest request){
+        return newsService.hotSearch(request);
+    }
+
 }

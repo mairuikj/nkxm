@@ -17,9 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class NewsService {
@@ -40,6 +38,8 @@ public class NewsService {
     public DataPackJSON add(HttpServletRequest request, News news) throws ParseException {
         news.setCreattime(NewDateTime.getDateTime("yyyy-MM-dd :hh:mm:ss"));
         news.setRemarks("0");//默认0代表新闻在前台显示
+        String str=news.getKeyword().replace(",","，");
+        news.setKeyword(str);
         int res=newsMapper.insertSelective(news);
         DataPackJSON dataPackJSON=new DataPackJSON();
         if(res==1){
@@ -289,5 +289,34 @@ public class NewsService {
         dataPackJSON.setMap(map);
         return dataPackJSON;
 
+    }
+
+    public DataPackJSON hotSearch(HttpServletRequest request) {
+        Map map=new HashMap();
+        String str="";
+        String res="";
+        DataPackJSON dataPackJSON=new DataPackJSON();
+        List<ViewNumber> list=viewNumberMapper.hb();
+        for(ViewNumber viewNumber:list){
+            str+=viewNumber.getNewsid()+",";
+        }
+        str=str.substring(0,str.length()-1);
+        List<News> list1=newsMapper.hb1(str);
+        int k=list1.size()>3?3:list1.size();
+        for(int i=0;i<k;i++){
+            res+=list1.get(i).getKeyword()+"，";
+        }
+        res=res.substring(0,res.length()-1);
+        String[] hot=res.split("，");
+        Set set = new HashSet();
+        for(int m=0;m<hot.length;m++){
+            set.add(hot[m]);
+        }
+
+        map.put("hot",set.toArray());
+        dataPackJSON.setMap(map);
+        dataPackJSON.setFlag(0);
+        dataPackJSON.setMsg("SUCCESS");
+        return dataPackJSON;
     }
 }

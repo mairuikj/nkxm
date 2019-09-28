@@ -72,8 +72,8 @@ public interface NewsMapper {
     List<News> selNewsAndNewsType(@Param("id") Integer id);
     @Update("update news set remarks='1' where newsId=#{id}")
     int hide(Integer id);
-    @Select("select * from news where newsId in (${str})")
-    List<News> hb(String str);
+    @Select("select * from news where newsId in (${str}) order by find_in_set (newsId,'${str}')")
+    List<News> hb(@Param("str") String str);
 
     @Select("select * from news where newsType=#{newsType} and remarks='0'")
     List<News> byType(@Param("newsType") Integer newsType);
@@ -92,4 +92,7 @@ public interface NewsMapper {
 
     @Select("select * from news where title like '%${str}%' or keyWord like '%${str}%'")
     List<News> like(@Param("str") String str);
+
+    @Select("select keyWord from news where newsId in (${str}) order by find_in_set (newsId,'${str}')")
+    List<News> hb1(@Param("str") String str);
 }
