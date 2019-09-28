@@ -98,6 +98,23 @@ public class PageController {
         return "admin/productsList";
     }
 
+
+    @RequestMapping("/cooperationList")//合作方列表
+    public String cooperationList(){
+        return "admin/cooperationList";
+    }
+
+
+    @RequestMapping("/editCooperation")//编辑合作方页面
+    public String editCooperation(){
+        return "admin/edit";
+    }
+
+    @RequestMapping("/addCooperation")//新增合作方页面
+    public String addCooperation(){
+        return "admin/add-cooperation";
+    }
+
     //手机端页面
     @RequestMapping("/activityPhone")//活动列表
     public String activityListP(){

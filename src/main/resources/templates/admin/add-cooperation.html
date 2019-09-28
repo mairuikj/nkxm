@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>编辑产品</title>
+    <title>增加合作单位</title>
     <link rel="stylesheet" href="../../static/css/fontawesome.min.css" />
     <link rel="stylesheet" href="../../static/ui/jquery-ui.min.css" type="text/css" />
     <link rel="stylesheet" href="../../static/css/bootstrap.min.css" />
@@ -85,7 +85,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="/addNews">
+                        <a class="nav-link" href="/addNews">
                             <i class="fas fa-shopping-cart"></i>
                             发布文章
                         </a>
@@ -95,25 +95,6 @@
                         <a class="nav-link" href="/userList">
                             <i class="far fa-user"></i> 用户信息
                         </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                        >
-                            <i class="fas fa-cog"></i>
-                            <span> Settings <i class="fas fa-angle-down"></i> </span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Profile</a>
-                            <a class="dropdown-item" href="#">Billing</a>
-                            <a class="dropdown-item" href="#">Customize</a>
-                        </div>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
@@ -137,7 +118,7 @@
                 <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
                     <div class="row">
                         <div class="col-12">
-                            <h2 class="tm-block-title d-inline-block">编辑产品</h2>
+                            <h2 class="tm-block-title d-inline-block">添加合作单位</h2>
                         </div>
                     </div>
                     <div class="row tm-edit-product-row">
@@ -146,10 +127,10 @@
                                 <div class="form-group mb-3">
                                     <label
                                             for="name"
-                                    >产品名称
+                                    >合作机构名称
                                     </label>
                                     <input
-                                            v-model="from.name"
+                                            v-model="from.name "
                                             id="name"
                                             name="name"
                                             type="text"
@@ -157,46 +138,25 @@
 
                                     />
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label
-                                            for="description"
-                                    >产品介绍</label
-                                    >
-                                    <textarea v-model="from.introduce" class="form-control validate" cols="30" rows="19"></textarea>
-                                </div>
-
+                                
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
                             <div class="tm-product-img-dummy mx-auto">
-                                <img :src="from.picture" alt="">
+                                <img :src="from.logo" alt="">
                             </div>
                             <div class="custom-file mt-3 mb-3">
-                                <input id="fileInput" type="file" style="display:none;"  @change="addImg('1',$event)"/>
+                                <input id="fileInput" type="file" style="display:none;"  @change="addImg($event)"/>
                                 <input
                                         type="button"
                                         class="btn btn-primary btn-block mx-auto"
-                                        value="上传封面图片"
+                                        value="上传LOGO"
                                         onclick="document.getElementById('fileInput').click();"
                                 />
-                            </div>
-                            <div style="margin-top: 10px">
-                                <div class="tm-product-img-dummy mx-auto">
-                                    <img :src="from.icon" alt="">
-                                </div>
-                                <div class="custom-file mt-3 mb-3">
-                                    <input id="fileInputs" type="file" style="display:none;"  @change="addImg('2',$event)"/>
-                                    <input
-                                            type="button"
-                                            class="btn btn-primary btn-block mx-auto"
-                                            value="上传产品图标"
-                                            onclick="document.getElementById('fileInputs').click();"
-                                    />
-                                </div>
                             </div>
                         </div>
                         <div id="editor"></div>
                         <div class="col-12">
-                            <button class="btn btn-primary btn-block text-uppercase" @click="saveArticles">更新产品</button>
+                            <button class="btn btn-primary btn-block text-uppercase" @click="saveArticles">保存</button>
                         </div>
                         </form>
                     </div>
@@ -206,93 +166,53 @@
     </div>
 </div>
 <script>
-    let E = window.wangEditor
-    let editor = new E('#editor')
+    //      $(function() {
+    //        $("#expire_date").datepicker();
+    //      });
     let app = new Vue({
         el: '#app',
         data: {
             currentUser: JSON.parse(localStorage.getItem('userInfo')),
             from: {
-                name: '',
-                icon: '',
-                picture: '',
-                content: '',
-                introduce: ''
+                name : '',
+                logo:'',
+
             }
         },
         mounted() {
-            this.createE();
-            this.getInfo()
+
         },
         methods: {
-            getQueryStringRegExp(name){
-                let reg = new RegExp("(^|\\?|&)"+ name +"=([^&]*)(\\s|&|$)", "i");
-                if (reg.test(location.href)) return unescape(RegExp.$2.replace(/\+/g, " ")); return "";
-            },
-            createE() {
-                editor.customConfig.showLinkImg = false
-                editor.customConfig.customUploadImg = function (files, insert) {
-                    files.map((item,index) => {
-                        let formData = new FormData();
-                        formData.append('file',item)
-                        upFile(formData,'uplode/image').then(res => {
-                            insert(res)
-                        }, err => {
-                            console.log(err)
-                        })
-                    })
-                };
-                editor.customConfig.onchange = (html) => {
-                    this.from.content = html
-                };
-                editor.create()
-            },
+
             loginOut() { //退出
                 postPromise({},'/signout').then(res => {
-
                     localStorage.removeItem("userInfo");
             })
             },
 
-            addImg(a,e) { //上传封面图片
+            addImg(e) { //上传封面图片
                 let formData = new FormData();
                 formData.append('file',e.target.files[0]);
-                if(a == 1) {
-                    upFile(formData,'uplode/image').then(res => {
-                        this.from.picture = res
-                    }, err => {
-                        console.log(err)
-                    })
-                }else {
-                    upFile(formData,'uplode/image').then(res => {
-                        this.from.icon = res
-                    }, err => {
-                        console.log(err)
-                    })
+                upFile(formData,'uplode/image').then(res => {
+                    this.from.logo = res
+                }, err => {
+                    console.log(err)
+                })
+            },
+            saveArticles() { //保存文章
+                postPromise(this.from,'cooperation/add').then(res => {
+                    if(res.flag == 0) {
+                    this.$message({
+                        message: '新建成功',
+                        type: 'success'
+                    });
                 }
-            },
-            saveArticles() { //更新保存
-                postPromise(this.from,'product/up').then(res => {
-                    if(res.flag == 0) {
-                        this.$message({
-                            message: '新建成功',
-                            type: 'success'
-                        });
-                    }
-                } ,err => {
+            } ,err => {
                     console.log(err)
                 })
             },
-            getInfo() { //回显
-                postPromise({id: this.getQueryStringRegExp('id')},'product/selById ').then(res => {
-                    if(res.flag == 0) {
-                        this.from = res.map.product
-                        editor.txt.html(res.map.product.content)
-                    }
-                } ,err => {
-                    console.log(err)
-                })
-            }
+
+
         }
     })
 </script>
