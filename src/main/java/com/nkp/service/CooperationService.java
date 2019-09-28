@@ -3,10 +3,8 @@ package com.nkp.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nkp.config.utils.DataPackJSON;
-import com.nkp.dao.AuthorMapper;
-import com.nkp.dao.NewsMapper;
-import com.nkp.pojo.Author;
-import com.nkp.pojo.News;
+import com.nkp.dao.CooperationMapper;
+import com.nkp.pojo.Cooperation;
 import com.nkp.pojo.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,15 +16,13 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class AuthorService {
-    @Autowired
-    private AuthorMapper authorMapper;
+public class CooperationService {
 
     @Autowired
-    private NewsMapper newsMapper;
+    private CooperationMapper cooperationMapper;
 
-    public DataPackJSON add(HttpServletRequest request, Author author){
-        int res=authorMapper.insertSelective(author);
+    public DataPackJSON add(HttpServletRequest request, Cooperation cooperation) {
+        int res=cooperationMapper.insertSelective(cooperation);
         DataPackJSON dataPackJSON=new DataPackJSON();
         if(res==1){
             dataPackJSON.setFlag(0);
@@ -36,12 +32,14 @@ public class AuthorService {
         dataPackJSON.setFlag(1);
         dataPackJSON.setMsg("ERROR");
         return dataPackJSON;
+
     }
-    public DataPackJSON del(HttpServletRequest request, String ids){
+
+    public DataPackJSON del(HttpServletRequest request, String ids) {
         int res=0;
         String[] id=ids.split(",");
         for(String i:id){
-            res=+authorMapper.deleteByPrimaryKey(Integer.valueOf(i));
+            res=+cooperationMapper.deleteByPrimaryKey(Integer.valueOf(i));
         }
 
         DataPackJSON dataPackJSON=new DataPackJSON();
@@ -55,8 +53,8 @@ public class AuthorService {
         return dataPackJSON;
     }
 
-    public DataPackJSON up(HttpServletRequest request, Author author){
-        int res=authorMapper.updateByPrimaryKeySelective(author);
+    public DataPackJSON up(HttpServletRequest request, Cooperation cooperation) {
+        int res=cooperationMapper.updateByPrimaryKeySelective(cooperation);
         DataPackJSON dataPackJSON=new DataPackJSON();
         if(res==1){
             dataPackJSON.setFlag(0);
@@ -68,27 +66,21 @@ public class AuthorService {
         return dataPackJSON;
     }
 
-    public DataPackJSON selById(HttpServletRequest request,int id,int pageNum,int pageSize){
-        Author author=authorMapper.selectByPrimaryKey1(id);
-
-        PageHelper.startPage(pageNum,pageSize);
-        List<News> list=newsMapper.getNews(author.getId());
-        PageInfo<News> pageInfo = new PageInfo<>(list);
-        List pageList = pageInfo.getList();
+    public DataPackJSON selById(HttpServletRequest request, int id) {
+        Cooperation cooperation=cooperationMapper.selectByPrimaryKey(id);
         DataPackJSON dataPackJSON=new DataPackJSON();
-
-        dataPackJSON.setNumber((int)pageInfo.getTotal());
-
         Map map=new HashMap();
-        map.put("author",author);
-        map.put("pageList",pageList);
+        HttpSession session = request.getSession();
+        map.put("cooperation",cooperation);
+        map.put("session_user",(UserInfo) session.getAttribute("session_user"));
         dataPackJSON.setMap(map);
         dataPackJSON.setFlag(0);
         dataPackJSON.setMsg("SUCCESS");
         return dataPackJSON;
     }
-    public DataPackJSON selAll(HttpServletRequest request){
-        List list=authorMapper.selAll();
+
+    public DataPackJSON selAll(HttpServletRequest request) {
+        List list=cooperationMapper.selAll();
         DataPackJSON dataPackJSON=new DataPackJSON();
         Map map=new HashMap();
         HttpSession session = request.getSession();
@@ -101,17 +93,17 @@ public class AuthorService {
         return dataPackJSON;
     }
 
-    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize,Integer id) {
+    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize, Integer id) {
         DataPackJSON dataPackJSON=new DataPackJSON();
         Map map=new HashMap();
         HttpSession session = request.getSession();
 
         PageHelper.startPage(pageNum,pageSize);
 
-        List list=authorMapper.selAll();
+        List list=cooperationMapper.selAll();
 
         //得到分页的结果对象
-        PageInfo<Author> pageInfo = new PageInfo<>(list);
+        PageInfo<Cooperation> pageInfo = new PageInfo<>(list);
         //得到分页中的person条目对象(分页后的list)
         List pageList = pageInfo.getList();
 
@@ -122,20 +114,6 @@ public class AuthorService {
         map.put("pageList",pageList);
         map.put("session_user",(UserInfo) session.getAttribute("session_user"));
         dataPackJSON.setMap(map);
-        return dataPackJSON;
-
-    }
-
-    public DataPackJSON selById1(HttpServletRequest request, int id) {
-        Author author=authorMapper.selectByPrimaryKey1(id);
-        DataPackJSON dataPackJSON=new DataPackJSON();
-        Map map=new HashMap();
-        HttpSession session = request.getSession();
-        map.put("activity",author);
-        map.put("session_user",(UserInfo) session.getAttribute("session_user"));
-        dataPackJSON.setMap(map);
-        dataPackJSON.setFlag(0);
-        dataPackJSON.setMsg("SUCCESS");
         return dataPackJSON;
     }
 }
