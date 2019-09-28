@@ -20,8 +20,8 @@ a{
 	height: 5rem;
 }
 .head > img{
-	width: 7rem;
-	height: 3.5rem;
+	width: 9rem;
+	height: 2.5rem;
 }
 .search{
 	width: 3rem;
@@ -47,6 +47,7 @@ a{
 	align-items: center;
 	justify-content: center;
 	padding-bottom: 1rem;
+	font-size: 1.4rem
 }
 .content{
 	padding: 0 1rem;

@@ -1,11 +1,12 @@
 .article{
-	padding: 0 20px;
-    height: 6rem;
-    background: #ccc;
+	padding: 0 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 1.3rem
+    font-size: 1.3rem;
+    position: absolute;
+    bottom:2rem;
+    color: #fff
 }
 .article > div:nth-child(1){
 	display: flex;
@@ -13,14 +14,14 @@
 	margin-top: .8rem
 }
 .articleList{
-	margin-top: 1rem
+	margin-top: 1rem;
+	min-height: 19rem
 }
 .articleList > li{
 	height: 6rem;
-	background: #ccc;
 	display: flex;
 	justify-content: space-between;
-	padding: 0 20px;
+	padding: 0 1rem;
 	margin-bottom: .8rem;
 }
 .articleList > li > div{
@@ -28,15 +29,21 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
+	flex: 1;
 }
 .articleList > li > img{
 	height: 100%;
-	width: 6rem;
+    width: 10rem;
+    margin-left: .8rem;
+    border-radius: 5px;
+}
+.news{
+	position: relative;
 }
 .news > img{
 	width: 100%;
 	display: block;
-	height: 15rem
+	height: 18rem
 }
 .el-carousel__arrow{
 	top: 35% !important;
@@ -97,8 +104,6 @@
 .item{
 	display: flex;
 	justify-content: space-between;
-	height: 6rem;
-	background: #a7bbbe;
 	padding: 0 .8rem;
 	margin-bottom: 1rem;
 }
@@ -106,15 +111,37 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
+	flex: 1;
 }
 .itemTime{
-	font-size: 1.2rem;
+	font-size: 1.4rem;
+	color: #666
 }
 .itemImg{
-	height: 100%;
-	width: 8rem
+	margin-left: .8rem;
+	width: 10rem;
 }
 .itemImg > img{
-	height: 100%;
+	border-radius: 5px;
+	
 	width: 100%
+}
+.el-carousel__indicators--horizontal{
+	bottom:-.7rem !important;
+}
+.el-carousel__container{
+	height: 18rem !important
+}
+.creattime{
+	font-size: 1.2rem;
+	color: #666
+}
+.creatTitle{
+	font-size: 1.5rem
+}
+.noDate{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 42rem
 }
