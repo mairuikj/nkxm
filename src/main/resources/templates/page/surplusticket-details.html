@@ -12,6 +12,24 @@
 	<script type="text/javascript" src="../../static/js/request.js"></script>
 	<script type="text/javascript" src="../../static/js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="../../static/js/elementUi.js"></script>
+	<style type="text/css">
+		.hezuo{
+			min-height: 4rem;
+			display: flex;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			padding: 0 1rem;
+			margin-bottom: 1rem
+		}
+		.hezuo > li{
+			width: 30%;
+			text-align: center;
+		}
+		.hezuo > li > img{
+			width: 100%;
+
+		}
+	</style>
 </head>
 <body>
 	<div id="index" v-cloak>
@@ -40,6 +58,12 @@
 			</div>
 			<div class="zhangwen" v-html="info.content"></div>
 		</div>
+		<ul class="hezuo">
+			<li v-for="item in logos">
+				<img :src="item.logo">
+				<span>{{item.name}}</span>
+			</li>
+		</ul>
 		<div class="footer">
 			<div>© 2018，盈科票据版权所有 /粤ICP备19049968号-1</div>
 			<div>热线电话：400-0192-188</div>
@@ -51,6 +75,7 @@
 		el: '#index',
 		data: {
 			info: {},
+			logos: []
 		},
 		mounted() {
 			this.getInfo()
@@ -67,6 +92,7 @@
             	postPromise(data,'product/selById').then(res => {
 					if(res.flag == 0) {
 						this.info = res.map.product
+						this.logos = res.map.logos
 					}
 				})
             },

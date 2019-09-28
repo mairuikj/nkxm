@@ -57,6 +57,18 @@
 			border:1px solid #ccc;
 			padding: 0 1rem;
 		}
+		.cloe{
+			display: flex;
+			align-items: center;
+			justify-content:center;
+			width: 100%;
+			position: fixed;
+			bottom: 2rem;
+		}
+		.cloe > img{
+			width: 2.5rem;
+			height:2.5rem
+		}
 	</style>
 </head>
 <body>
@@ -73,6 +85,7 @@
 				<li v-for="item in list" @click="search(item)">{{item}}</li>
 			</ul>
 		</div>
+		<div class="cloe"><img src="../../static/img/index_close.png" @click="back"></div>
 	</div>
 </body>
 <script type="text/javascript">
@@ -104,6 +117,10 @@
 			},
 			searchResult() {
 				this.search(this.inputVal)
+			},
+
+			back() {
+				window.history.back(-1); 
 			}
 		}
 	})
