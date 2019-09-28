@@ -31,7 +31,9 @@
 .lsitContent{
 	margin-top: 3rem;
 	margin-bottom: 1rem;
-	font-size: 1.4rem
+	font-size: 1.4rem;
+	display: flex;
+	justify-content: center;
 }
 .look{
 	display: flex;
@@ -78,5 +80,5 @@
 	margin-top: 1rem;
 	padding: 0 1rem;
 	font-size: 1.4rem;
-	min-height: 36rem
+	min-height: 20rem
 }
