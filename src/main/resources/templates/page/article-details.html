@@ -24,7 +24,7 @@
 		<div class="head">
 			<img src="../../static/img/logo.png">
 			<div >
-				<img src="../../static/img/search.png" class="search">
+				<img src="../../static/img/search.png" class="search" @click="goSearch">
 			</div>
 		</div>
 		<ul class="nav">
@@ -49,7 +49,7 @@
 			</div>
 			<div class="zhengwen" v-html="newInfo.content"></div>
 			<div class="tab">
-				<div v-for="(item,index) in keyword">{{item}}</div>
+				<div v-for="(item,index) in keyword" @click="search(item)">{{item}}</div>
 				 
 			</div>
 			<div clas="lists">
@@ -68,8 +68,8 @@
 		</div>
 		
 		<div class="footer">
-			<div>备案信息</div>
-			<div>联系方式</div>
+			<div>© 2018，盈科票据版权所有 /粤ICP备19049968号-1</div>
+			<div>热线电话：400-0192-188</div>
 		</div>
 	</div>
 </body>
@@ -79,7 +79,7 @@
 		data: {
 			currentFont: '1',
 			newsType:'',
-			newInfo: {},
+			newInfo: {writer:{}},
 			writer: '',
 			keyword: [],
 			list: [],
@@ -118,9 +118,14 @@
 			},
 			newCurrent(item) {
 				this.getInfo(item.newsid)
-			}
+			},
 
-			
+			goSearch() {
+				window.location.href = './search.html'
+			},
+			search(item) {
+				window.location.href = './result.html?keyWord='+ item
+			},
 
 		}
 	})

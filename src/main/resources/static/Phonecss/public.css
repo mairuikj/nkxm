@@ -31,7 +31,6 @@ a{
 	color: #f42222
 }
 .nav{
-	background: #ccc;
 	display: flex;
 	justify-content: space-between;
 	padding: 0 1rem;
@@ -46,8 +45,9 @@ a{
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	padding-bottom: 1rem;
-	font-size: 1.4rem
+	padding: 1rem 0;
+	font-size: 1.4rem;
+	background-color: rgba(95,95,95,.4);
 }
 .content{
 	padding: 0 1rem;

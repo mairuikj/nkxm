@@ -25,7 +25,7 @@
 		<div class="head">
 			<img src="../../static/img/logo.png">
 			<div >
-				<img src="../../static/img/search.png" class="search">
+				<img src="../../static/img/search.png" class="search" @click="goSearch">
 			</div>
 		</div>
 		<ul class="nav">
@@ -68,8 +68,8 @@
 			</el-pagination>
 		</div>
 		<div class="footer">
-			<div>备案信息</div>
-			<div>联系方式</div>
+			<div>© 2018，盈科票据版权所有 /粤ICP备19049968号-1</div>
+			<div>热线电话：400-0192-188</div>
 		</div>
 	</div>
 </body>
@@ -127,6 +127,9 @@
 			},
 			detail(item){
 				window.location.href = '/articleDetails?id='+ item.newsid +"&"+'currentId=' + this.newsType
+			},
+			goSearch() {
+				window.location.href = './search.html'
 			}
 
 		}
