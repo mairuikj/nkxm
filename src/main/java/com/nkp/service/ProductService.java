@@ -3,6 +3,7 @@ package com.nkp.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nkp.config.utils.DataPackJSON;
+import com.nkp.dao.CooperationMapper;
 import com.nkp.dao.ProductMapper;
 import com.nkp.pojo.Product;
 import com.nkp.pojo.UserInfo;
@@ -19,6 +20,8 @@ import java.util.Map;
 public class ProductService {
     @Autowired
     private ProductMapper productMapper;
+    @Autowired
+    private CooperationMapper cooperationMapper;
 
     public DataPackJSON add(HttpServletRequest request, Product product){
         int res=productMapper.insertSelective(product);
@@ -67,8 +70,10 @@ public class ProductService {
         Product product=productMapper.selectByPrimaryKey(id);
         DataPackJSON dataPackJSON=new DataPackJSON();
         Map map=new HashMap();
+        List logos=cooperationMapper.selAll();
         HttpSession session = request.getSession();
         map.put("product",product);
+        map.put("logos",logos);
         map.put("session_user",(UserInfo) session.getAttribute("session_user"));
         dataPackJSON.setMap(map);
         dataPackJSON.setFlag(0);
@@ -92,6 +97,7 @@ public class ProductService {
     public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize, Integer id) {
         DataPackJSON dataPackJSON=new DataPackJSON();
         Map map=new HashMap();
+
         HttpSession session = request.getSession();
 
         PageHelper.startPage(pageNum,pageSize);
@@ -108,6 +114,7 @@ public class ProductService {
         dataPackJSON.setMsg("SUCCESS");
 
         map.put("pageList",pageList);
+
         map.put("session_user",(UserInfo) session.getAttribute("session_user"));
         dataPackJSON.setMap(map);
         return dataPackJSON;
