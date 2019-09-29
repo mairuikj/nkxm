@@ -31,13 +31,12 @@
 			<p v-html="info.explain"></p>
 		</div>
 		<ul class="author_InfoList">
-			<li v-for="(item,index) in list">
+			<li v-for="(item,index) in list" @click="detail(item)">
 				<div class="title">
 					<span>{{item.title}}</span>
 					<span>{{item.creattime}}</span>
 				</div>
 				<div class="fenmain">
-					
 					<img :src="item.toppicture">
 				</div>
 			</li>
@@ -91,6 +90,9 @@
             },
             swichPage(e) {
 				this.getIngo(this.getQueryStringRegExp('id'),e,this.pageSize);
+			},
+			detail(item){
+				window.location.href = '/articleDetails?id='+ item.newsid 
 			},
 
 		}
