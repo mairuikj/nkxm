@@ -127,7 +127,7 @@
                                     <th scope="col">作者</th>
                                     <th scope="col">创建时间</th>
                                     <th scope="col">状态</th>
-                                    <th scope="col">操作</th>
+                                    <th scope="col" style="text-align: center;">操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -137,12 +137,14 @@
                                     <td class="tm-product-name overName">{{item.title}}</td>
                                     <td>{{item.writer.name}}</td>
                                     <td>{{item.creattime}}</td>
-                                    <td>{{item.remarks == 0 ?'显示' : '隐藏'}}</td>
+                                    <td @click.stop="isShow(item)">{{item.remarks == 0 ?'显示' : '隐藏'}}</td>
                                     <td>
+                                         <a href="javascript:;" class="tm-product-delete-link" @click.stop="top(item)">
+                                            <i style="font-size: 20px;color:#fff" class="el-icon-upload2"></i>
+                                        </a>
                                         <a href="javascript:;" class="tm-product-delete-link" @click.stop="delArticle('1',item)">
                                             <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                                        </a>
-                                    </td>
+                                        </a>                                    </td>
                                 </tr>
 
                                 </tbody>
@@ -165,9 +167,9 @@
                         <button class="btn btn-primary btn-block text-uppercase" @click="allDel">
                             多选删除
                         </button>
-                        <button class="btn btn-primary btn-block text-uppercase" @click="allHide">
+                       <!--  <button class="btn btn-primary btn-block text-uppercase" @click="allHide">
                             多选隐藏
-                        </button>
+                        </button> -->
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
@@ -358,6 +360,47 @@ let home = new Vue({
                         this.allId = ''
                         location.reload()
                     }
+                }
+            } ,err => {
+                console.log(err)
+            })
+
+        },
+
+        isShow(item) { // 显示隐藏
+        
+            postPromise({id: item.newsid,flag:item.remarks},'news/hide1').then(res => {
+                if(res.flag == 0) {
+                
+                    if(item.remarks == 0) {
+                        this.$message({
+                            message: '隐藏成功',
+                            type: 'success'
+                        });
+                    }else {
+                        this.$message({
+                            message: '显示成功',
+                            type: 'success'
+                        }); 
+                    }
+                        
+                    this.getNewList(this.pageNum,this.pageSize);
+                   
+                }
+            } ,err => {
+                console.log(err)
+            })
+
+        },
+
+        top(item) { // 置顶
+            postPromise({id: item.newsid},'news/roof').then(res => {
+                if(res.flag == 0) {
+                     this.$message({
+                        message: '置顶成功',
+                        type: 'success'
+                    }); 
+                    this.getNewList(this.pageNum,this.pageSize);
                 }
             } ,err => {
                 console.log(err)

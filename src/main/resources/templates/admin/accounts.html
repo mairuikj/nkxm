@@ -15,6 +15,9 @@
     <script src="../../static/js/request.js"></script>
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <style>
+      .activeColor{
+        color: #000
+      }
       [v-cloak]{
         display:none
       }
@@ -138,6 +141,7 @@
                     id="name"
                     name="name"
                     type="text"
+                    :class="isDisabled? 'activeColor' : ''"
                     class="form-control validate"
                   />
                 </div>
@@ -149,6 +153,7 @@
                     id="password"
                     name="password"
                     type="password"
+                    :class="isDisabled? 'activeColor' : ''"
                     class="form-control validate"
                   />
                 </div>
@@ -160,6 +165,7 @@
                     id="phone"
                     name="phone"
                     type="tel"
+                    :class="isDisabled? 'activeColor' : ''"
                     class="form-control validate"
                   />
                 </div>
