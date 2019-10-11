@@ -27,7 +27,7 @@ public class NewsController {
         return newsService.del(request,ids);
     }
     @RequestMapping("/up")
-    public DataPackJSON up(HttpServletRequest request, News news){
+    public DataPackJSON up(HttpServletRequest request, News news) throws ParseException {
         return newsService.up(request,news);
     }
 
@@ -54,6 +54,11 @@ public class NewsController {
     @RequestMapping("/hide")
     public DataPackJSON hide(HttpServletRequest request,String ids){
         return newsService.hide(request,ids);
+    }
+
+    @RequestMapping("/hide1")
+    public DataPackJSON hide1(HttpServletRequest request,Integer id,Integer flag){
+        return newsService.hide1(request,id,flag);
     }
     //手机端查新闻详情，含作者名称
     @RequestMapping("/details")
@@ -82,6 +87,11 @@ public class NewsController {
     @RequestMapping("/hotSearch")
     public DataPackJSON hotSearch(HttpServletRequest request){
         return newsService.hotSearch(request);
+    }
+
+    @RequestMapping("/roof")
+    public DataPackJSON roof(HttpServletRequest request,Integer id){
+        return newsService.roof(request,id);
     }
 
 }

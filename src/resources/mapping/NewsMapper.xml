@@ -264,7 +264,7 @@
   </select>
 
   <select id="selNewsAndAuthor"   resultMap="BaseResultMap2">
-    SELECT * FROM news a left  JOIN author b on a.author=b.id
+    SELECT * FROM news a inner  JOIN author b on a.author=b.id order by a.creatTime desc
 
   </select>
 

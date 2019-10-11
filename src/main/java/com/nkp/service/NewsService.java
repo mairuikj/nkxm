@@ -69,7 +69,8 @@ public class NewsService {
         return dataPackJSON;
     }
 
-    public DataPackJSON up(HttpServletRequest request, News news){
+    public DataPackJSON up(HttpServletRequest request, News news) throws ParseException {
+        news.setCreattime(NewDateTime.getDateTime("yyyy-MM-dd :hh:mm:ss"));
         int res=newsMapper.updateByPrimaryKeySelective(news);
         DataPackJSON dataPackJSON=new DataPackJSON();
         if(res==1){
@@ -317,6 +318,43 @@ public class NewsService {
         dataPackJSON.setMap(map);
         dataPackJSON.setFlag(0);
         dataPackJSON.setMsg("SUCCESS");
+        return dataPackJSON;
+    }
+
+    public DataPackJSON hide1(HttpServletRequest request, Integer id, Integer flag) {
+        DataPackJSON dataPackJSON=new DataPackJSON();
+        int res=0;
+        flag=flag==0?1:0;
+
+
+        res=newsMapper.hide1(id,flag);
+
+        if(res!=0){
+            dataPackJSON.setFlag(0);
+            dataPackJSON.setMsg("SUCCESS");
+            return dataPackJSON;
+        }
+        dataPackJSON.setFlag(1);
+        dataPackJSON.setMsg("ERROR");
+        return dataPackJSON;
+    }
+
+    public DataPackJSON roof(HttpServletRequest request, Integer id) {
+        DataPackJSON dataPackJSON=new DataPackJSON();
+        int res=0;
+
+        try {
+            res=newsMapper.roof(id,NewDateTime.getDateTime("yyyy-MM-dd :hh:mm:ss"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(res!=0){
+            dataPackJSON.setFlag(0);
+            dataPackJSON.setMsg("SUCCESS");
+            return dataPackJSON;
+        }
+        dataPackJSON.setFlag(1);
+        dataPackJSON.setMsg("ERROR");
         return dataPackJSON;
     }
 }

@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.Date;
 import java.util.List;
 
 public interface NewsMapper {
@@ -75,7 +76,7 @@ public interface NewsMapper {
     @Select("select * from news where newsId in (${str}) order by find_in_set (newsId,'${str}')")
     List<News> hb(@Param("str") String str);
 
-    @Select("select * from news where newsType=#{newsType} and remarks='0'")
+    @Select("select * from news where newsType=#{newsType} and remarks='0' order by creatTime desc")
     List<News> byType(@Param("newsType") Integer newsType);
 
     List<News> selNewsAndAuthor();
@@ -95,4 +96,12 @@ public interface NewsMapper {
 
     @Select("select keyWord from news where newsId in (${str}) order by find_in_set (newsId,'${str}')")
     List<News> hb1(@Param("str") String str);
+
+
+    @Update("update news set remarks=#{flag} where newsId=#{id}")
+    int hide1(Integer id,Integer flag);
+
+    @Update("update news set creatTime=#{dateTime} where newsId=#{id}")
+    int roof(Integer id, Date dateTime);
+
 }
