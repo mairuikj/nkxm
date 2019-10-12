@@ -27,7 +27,17 @@ public class NewsController {
         return newsService.del(request,ids);
     }
     @RequestMapping("/up")
-    public DataPackJSON up(HttpServletRequest request, News news) throws ParseException {
+    public DataPackJSON up(HttpServletRequest request,  Integer newsid,Integer newstype,String title,Integer author,String toppicture,String keyword,
+    String remarks,String content) throws ParseException {
+        News news=new News();
+        news.setNewsid(newsid);
+        news.setNewstype(newstype);
+        news.setTitle(title);
+        news.setAuthor(author);
+        news.setToppicture(toppicture);
+        news.setKeyword(keyword);
+        news.setRemarks(remarks);
+        news.setContent(content);
         return newsService.up(request,news);
     }
 
