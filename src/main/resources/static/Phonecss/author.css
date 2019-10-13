@@ -114,7 +114,8 @@
 	border-radius: 5px;
 }
 .author_InfoList{
-	margin-bottom: 3rem
+	margin-bottom: 3rem;
+	min-height: 40rem;
 }
 .author_InfoList .title{
 	display: flex;

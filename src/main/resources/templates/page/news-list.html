@@ -20,7 +20,7 @@
     
 	 </style>
 </head>
-<body style="overflow: hidden;">
+<body >
 	<div id="index">
 		<div class="head">
 			<img src="../../static/img/logo.png">
@@ -38,7 +38,7 @@
 		</ul>
 		<div v-if="list == ''" class="noDate">暂无数据</div>
 		<div class="block" v-if="list != ''">
-		    <el-carousel height="21rem" :interval="3000" arrow="never">
+		    <el-carousel height="21rem" :interval="3000" >
 		      	<el-carousel-item v-for="(item,index) in list.slice(0,3)" :key="index">
 			       <div class="news">
 						<img :src="item.toppicture" @click="detail(item)">

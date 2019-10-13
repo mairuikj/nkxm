@@ -19,10 +19,17 @@
 
     	.articleList{
     		min-height: 60rem;
+			margin-top: 2rem;
     	}
     	.noDate{
     		min-height: 60rem;
     	}
+		 .items{
+			 display: flex;
+			 justify-content: space-around;
+			 flex: 1;
+			 flex-direction: column;
+		 }
 	 </style>
 </head>
 <body>
@@ -45,13 +52,16 @@
 		<ul class="articleList" v-if="list != ''">
 			<li v-for="(item,index) in list" @click="detail(item)">
 				<div>
-					<div class="creatTitle">{{item.title}}</div>
-					<div class="creattime">时间：{{item.creattime}}</div>
+					<div class="items">
+						<div class="creatTitle">{{item.title}}</div>
+						<div class="creattime">{{item.creattime}}</div>
+					</div>
+					<img :src="item.toppicture">
 				</div>
-				<img :src="item.toppicture">
+
 			</li>
 		</ul>
-		<div class="paging" v-if="total > 10">
+		<div class="paging" v-if="total > 5">
 			<el-pagination
 				@current-change="swichPage"
 			 	background

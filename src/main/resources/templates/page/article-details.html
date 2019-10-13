@@ -15,8 +15,21 @@
 	<script type="text/javascript" src="../../static/js/elementUi.js"></script>
 	 <script src="../../static/js/swiper.min.js"></script>
 	 <style type="text/css">
+		 #index{
+			 position: relative;
+		 }
+		.zhiyin{
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			background: rgba(0,0,0,.5);
 
-    
+		}
+    	.zhiyin >img{
+			width: 100%;
+		}
 	 </style>
 </head>
 <body>
@@ -80,6 +93,9 @@
 			<div>© 2018，盈科票据版权所有 /粤ICP备19049968号-1</div>
 			<div>热线电话：400-0192-188</div>
 		</div>
+		<div class="zhiyin" v-if="showFx" @click="hideFx">
+			<img src="../../static/img/fx.png" alt="">
+		</div>
 	</div>
 </body>
 <script type="text/javascript">
@@ -92,6 +108,7 @@
 			writer: '',
 			keyword: [],
 			list: [],
+			showFx:false
 		},
 		mounted() {
 			this.newsType = this.getQueryStringRegExp('currentId')
@@ -99,7 +116,11 @@
 		},
 		methods:{
 			fenxiang() {
-				alert('请点击右上角进行分享')
+				this.showFx = true;
+				document.documentElement.scrollTop = 0
+			},
+			hideFx() {
+				this.showFx = false
 			},
 			getQueryStringRegExp(name){
                 let reg = new RegExp("(^|\\?|&)"+ name +"=([^&]*)(\\s|&|$)", "i");

@@ -14,7 +14,7 @@
 	margin-top: .8rem
 }
 .articleList{
-	margin-top: 8rem;
+	margin-top: 2rem;
 	min-height: 30rem;
 }
 .articleList > li{
@@ -136,10 +136,10 @@
 	width: 100%
 }
 .el-carousel__indicators--horizontal{
-	bottom:-.7rem !important;
+	bottom:6rem !important;
 }
 .el-carousel__container{
-	height: 18rem !important
+	height: 24rem !important
 }
 .creattime{
 	font-size: 1.2rem;
@@ -167,12 +167,17 @@
 	font-size: 1.6rem;
 	margin-bottom: 1rem
 }
-.el-carousel__item{
-	overflow: visible !important
-}
-.el-carousel--horizontal{
-	overflow-x: visible !important
-}
+/*.el-carousel__item{*/
+/*	overflow: visible !important*/
+/*}*/
+/*.el-carousel--horizontal{*/
+/*	overflow-x: visible !important*/
+/*}.el-carousel__item{*/
+/*	overflow: visible !important*/
+/*}*/
+/*.el-carousel--horizontal{*/
+/*	overflow-x: visible !important*/
+/*}*/
 .name{
 	margin:1rem 0;
 }
@@ -198,5 +203,6 @@
 }
 .fenxiang >img{
 	width: 3rem;
-	margin-right: 1rem
+	margin-right: 1rem;
+	height: 3rem;
 }
