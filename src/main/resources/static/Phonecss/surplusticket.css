@@ -33,6 +33,7 @@
 	font-size: 1.4rem;
 	display: flex;
 	justify-content: center;
+	line-height: 2rem
 }
 .look{
 	display: flex;
