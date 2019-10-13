@@ -36,7 +36,8 @@ a{
 	padding: 0 1rem;
 	align-items: center;
 	height: 5rem;
-	font-size: 1.8rem
+	font-size: 1.8rem;
+	background-color:#f0f0f0;
 }
 
 .footer{
@@ -47,7 +48,8 @@ a{
 	justify-content: center;
 	padding: 1rem 0;
 	font-size: 1.4rem;
-	background-color: rgba(95,95,95,.4);
+	background-color:#333333;
+	color: #fff
 }
 .content{
 	padding: 0 1rem;
@@ -77,4 +79,10 @@ a{
 	overflow: hidden;
 	text-overflow:ellipsis;
 	white-space: nowrap;
+}
+
+.el-icon-document,.el-icon-tickets{
+	color: #9fcad7;
+	margin-right: .5rem;
+	font-size: 1.8rem
 }
