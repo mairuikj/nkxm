@@ -37,19 +37,26 @@
 				<div class="info">
 					<div>
 						<div class="state">{{item.remarks}}</div>
-						<div class="title">标题：{{item.name}}</div>
+						<div class="title">{{item.name}}</div>
 					</div>
 					<div class="address">
+						<div>
 							<img src="../../static/img/timg.jpg">
-							<span>地址：</span>
-							<span>{{item.activityaddress}}</span>
+							<div style="display: flex;flex:1;align-items: center;">
+								<span>地址：</span>
+								<span class="dizhi">{{item.activityaddress}}</span>
+							</div>
+						</div>
+						<div class="shijian">
+							{{item.activitytime}} ~{{item.endtime}}
+						</div>
 					</div>
-					<div class="time">开始时间：{{item.activitytime}} </div>
-					<div>结束时间：{{item.endtime}}</div>
+					<!-- <div class="time">开始时间：</div>
+					<div>结束时间：</div> -->
 				</div>
 			</div>
 		</div>
-		<div class="paging" v-if="total > 10">
+		<div class="paging" v-if="total > 5">
 			<el-pagination
 				@current-change="swichPage"
 			 	background
@@ -84,7 +91,13 @@
 				}
 				postPromise(data,'activity/getActivity').then(res => {
 					if(res.flag == 0) {
-						this.total = res.number
+						this.total = res.number//activitytime
+						
+						res.map.pageList.map((item) => {
+							item.activitytime = item.activitytime.slice(0,10).substring(5,10).replace(/-/,'月')+'日'
+							item.endtime = item.endtime.slice(0,10).substring(5,10).replace(/-/,'月')+'日	'
+							
+						})
 						this.list = res.map.pageList
 					}
 				})

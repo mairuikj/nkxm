@@ -35,11 +35,11 @@
 				<img :src="info.activitypictures" alt="">
 			</div>
 			<div class="cont">
-				<span>标题：<strong>{{info.name}}</strong></span>
-				<span>开始时间：{{info.activitytime}}</span>
-				<span>结束时间：{{info.endtime}}</span>
-				<span>地址：{{info.activityaddress}}</span>
-				<span>价格：{{info.price == 0? '无' : info.price}}</span>
+				<span><strong style="font-size: 1.6rem">{{info.name}}</strong></span>
+				<span class="se">时间：{{info.activitytime}}~{{info.endtime}}</span>
+				
+				<span class="se">地址：{{info.activityaddress}}</span>
+				<span class="se">价格：{{info.price == 0? '免费' : info.price}}</span>
 			</div>
 			<div class="line">
 				<span>{{info.name}}</span>

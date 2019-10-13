@@ -39,8 +39,8 @@
 			<div class="title">文章标题：{{newInfo.title}}</div>
 			<div class="fun">
 				<div>
-					<div class="time">发布时间:{{newInfo.creattime}}</div>
-					<div class="name">作者姓名:{{newInfo.writer.name}}</div>
+					<div class="time" style="color: #b0b0b0">{{newInfo.creattime}}</div>
+					<div class="name">作者:{{newInfo.writer.name}}</div>
 				</div>
 				<div class="setting">
 					<div class="fontW1" :class="currentFont == 1? 'acitve' : ''" @click="swichFont(1)">A</div>
@@ -48,20 +48,29 @@
 				</div>
 			</div>
 			<div class="zhengwen" v-html="newInfo.content"></div>
+			<div class="fenxiang">
+				<img src="../../static/img/QQ.png" @click="fenxiang">
+				<img src="../../static/img/wx.png" @click="fenxiang">
+				<img src="../../static/img/wb.png" @click="fenxiang">
+			</div>
 			<div class="tab">
 				<div v-for="(item,index) in keyword" @click="search(item)">{{item}}</div>
 				 
 			</div>
 			<div clas="lists">
+				<div class="xiangguan"><i class="el-icon-document"></i>相关新闻</div>
 				<ul>
 					<li class="item" v-for="(item,index) in list" @click="newCurrent(item)">
-						<div class="itemTitle">
-							<span class="">{{item.title}}</span>
-							<span class="itemTime">{{item.creattime}}</span>
+						<div>
+							<div class="itemTitle">
+								<span class="">{{item.title}}</span>
+								<span class="itemTime">{{item.creattime}}</span>
+							</div>
+							<div class="itemImg">
+								<img :src="item.toppicture" alt="">
+							</div>
 						</div>
-						<div class="itemImg">
-							<img :src="item.toppicture" alt="">
-						</div>
+						
 					</li>
 				</ul>
 			</div>
@@ -89,6 +98,9 @@
 			this.getInfo(this.getQueryStringRegExp('id'))
 		},
 		methods:{
+			fenxiang() {
+				alert('请点击右上角进行分享')
+			},
 			getQueryStringRegExp(name){
                 let reg = new RegExp("(^|\\?|&)"+ name +"=([^&]*)(\\s|&|$)", "i");
                 if (reg.test(location.href)) return unescape(RegExp.$2.replace(/\+/g, " ")); return "";
@@ -98,9 +110,11 @@
 				if(e == 1) {
 					this.currentFont = e
 					this.$refs.fontz.style.fontSize = '2rem'
+					this.$refs.fontz.style.color = '#333'
 				}else {
 					this.currentFont = e
 					this.$refs.fontz.style.fontSize = '1.6rem'
+					this.$refs.fontz.style.color = '#888'
 				}
 			},
 			getInfo(id) {

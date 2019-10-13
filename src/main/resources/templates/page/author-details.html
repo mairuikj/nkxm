@@ -17,28 +17,39 @@
 	<div id="index" v-cloak>
 		<div class=author_Info>
 			<div class="userImg">
-				<img :src="info.headpicture">
+				<div>
+					<img :src="info.headpicture">
+				</div>
 			</div>
 			<div class="userName">{{info.name}}</div>
 			<div class="shnefen">{{info.identity}}</div>
 		</div>
-		<div class="jianjie">
+		<!-- <div class="jianjie">
 			<div>作者简介:</div>
 			<p>{{info.introduce}}</p>
-		</div>
+		</div> -->
 		<div class="xaingqing">
-			<div>作者详情:</div>
+			<div><i class="el-icon-tickets"></i>简介</div>
 			<p v-html="info.explain"></p>
+		</div>
+		<div class="xiangg">
+			<div>
+				<i class="el-icon-document"></i>
+				相关新闻
+			</div>
 		</div>
 		<ul class="author_InfoList">
 			<li v-for="(item,index) in list" @click="detail(item)">
-				<div class="title">
-					<span>{{item.title}}</span>
-					<span>{{item.creattime}}</span>
+				<div>
+					<div class="title">
+						<span>{{item.title}}</span>
+						<span style="color: #d8d8da">{{item.creattime}}</span>
+					</div>
+					<div class="fenmain">
+						<img :src="item.toppicture">
+					</div>
 				</div>
-				<div class="fenmain">
-					<img :src="item.toppicture">
-				</div>
+				
 			</li>
 		</ul>
 		<div class="paging" v-if="total > 10">
@@ -84,6 +95,9 @@
 						console.log(res)
 						this.info = res.map.author
 						this.total = res.number
+						res.map.pageList.map((item) => {
+							item.creattime = item.creattime.slice(0,10)
+						})
 						this.list = res.map.pageList
 					}
 				})
