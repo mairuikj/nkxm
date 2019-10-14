@@ -71,7 +71,8 @@
 .fun{
 	display: flex;
 	justify-content: space-between;
-	margin-top: .8rem;
+	margin-top: 1rem;
+	margin-bottom: 1rem
 }
 .fontW1{
 	font-size: 2rem;
@@ -136,10 +137,10 @@
 	width: 100%
 }
 .el-carousel__indicators--horizontal{
-	bottom:6rem !important;
+	bottom:8rem !important;
 }
 .el-carousel__container{
-	height: 24rem !important
+	height: 26rem !important
 }
 .creattime{
 	font-size: 1.2rem;
@@ -156,12 +157,13 @@
 }
 .cont{
 	background: #f0f0f0;
-	height: 6rem;
+	height: 8rem;
 	font-size: 1.4rem;
 	padding-left: 1rem;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
+	align-content: space-around;
 }
 .ti{
 	font-size: 1.6rem;

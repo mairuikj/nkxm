@@ -136,7 +136,7 @@
 }
 .xiangg >div{
 	display: flex;
-	
+	font-size: 1.6rem;
 	border-bottom: 1px solid #ccc;
 	height: 2rem;
 	align-items: center;
