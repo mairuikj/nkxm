@@ -30,7 +30,7 @@
 		</div> -->
 		<div class="xaingqing">
 			<div><i class="el-icon-tickets"></i>简介</div>
-			<p v-html="info.explain"></p>
+			<p v-html="info.introduce" style="text-indent: 2em"></p>
 		</div>
 		<div class="xiangg">
 			<div>
@@ -38,7 +38,7 @@
 				相关新闻
 			</div>
 		</div>
-		<ul class="author_InfoList">
+		<ul class="author_InfoList" v-if="list != ''">
 			<li v-for="(item,index) in list" @click="detail(item)">
 				<div>
 					<div class="title">
@@ -49,9 +49,11 @@
 						<img :src="item.toppicture">
 					</div>
 				</div>
-				
 			</li>
 		</ul>
+		<div v-if="list == ''" style="text-align: center;min-height: 23rem;margin-top: 2rem">
+			暂无相关新闻
+		</div>
 		<div class="paging" v-if="total > 10">
 			<el-pagination
 				@current-change="swichPage"

@@ -49,14 +49,15 @@
 		</ul>
 		<div style="min-height: 36rem">
 			<div class="bannerTu">
-				<img :src="info.picture" alt="">
+				<img :src="info.picture == ''?'../../static/img/mo.png' : info.picture" alt="">
 			</div>
 			<div class="detailC">
 				<div class="cent">
 					<strong >{{info.name}}</strong>
 				</div>
 			</div>
-			<div class="zhangwen" v-html="info.content"></div>
+			<div v-if="info.content != ''" class="zhangwen" v-html="info.content"></div>
+			<div v-if="info.content == ''" style="margin-top: 2rem;text-align: center;">暂无内容介绍</div>
 		</div>
 		<ul class="hezuo">
 			<li v-for="item in logos">

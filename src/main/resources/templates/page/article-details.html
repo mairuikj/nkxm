@@ -49,11 +49,14 @@
 			<li><a href="/surplusticketlist">盈票</a></li>
 		</ul>
 		<div class="details">
-			<div class="title">文章标题：{{newInfo.title}}</div>
+			<div class="title">{{newInfo.title}}</div>
 			<div class="fun">
 				<div>
-					<div class="time" style="color: #b0b0b0">{{newInfo.creattime}}</div>
-					<div class="name">作者:{{newInfo.writer.name}}</div>
+					<div class="time" style="color: #b0b0b0;font-size: 1.8rem">
+						{{newInfo.creattime}} 
+						<span style="margin-left: .8rem">作者:{{newInfo.writer.name}}</span>
+					</div>
+					<!-- <div class="name">作者:{{newInfo.writer.name}}</div> -->
 				</div>
 				<div class="setting">
 					<div class="fontW1" :class="currentFont == 1? 'acitve' : ''" @click="swichFont(1)">A</div>
@@ -66,7 +69,7 @@
 				<img src="../../static/img/wx.png" @click="fenxiang">
 				<img src="../../static/img/wb.png" @click="fenxiang">
 			</div>
-			<div class="tab">
+			<div class="tab" v-if="keyword != ''">
 				<div v-for="(item,index) in keyword" @click="search(item)">{{item}}</div>
 				 
 			</div>
@@ -94,7 +97,7 @@
 			<div>热线电话：400-0192-188</div>
 		</div>
 		<div class="zhiyin" v-if="showFx" @click="hideFx">
-			<img src="../../static/img/fx.png" alt="">
+			<img src="../../static/img/fx.png" alt="" @click="hideFx">
 		</div>
 	</div>
 </body>
@@ -118,6 +121,7 @@
 			fenxiang() {
 				this.showFx = true;
 				document.documentElement.scrollTop = 0
+				document.body.scrollTop = 0
 			},
 			hideFx() {
 				this.showFx = false
@@ -131,11 +135,11 @@
 				if(e == 1) {
 					this.currentFont = e
 					this.$refs.fontz.style.fontSize = '2rem'
-					this.$refs.fontz.style.color = '#333'
+					
 				}else {
 					this.currentFont = e
 					this.$refs.fontz.style.fontSize = '1.6rem'
-					this.$refs.fontz.style.color = '#888'
+					
 				}
 			},
 			getInfo(id) {
@@ -144,6 +148,7 @@
 				}
 				postPromise(data,'news/details').then(res => {
 					if(res.flag == 0) {
+						res.map.news.creattime = res.map.news.creattime.substring(0,res.map.news.creattime.length-3);
 						this.newInfo = res.map.news;
 						this.writer = res.map.writer;
 						this.keyword = res.map.news.keyword.split('，')
