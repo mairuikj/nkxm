@@ -16,6 +16,16 @@
 		.content{
 			min-height: 60rem;
 		}
+		.authorInfo span{
+			margin-bottom: .6rem
+		}
+		.over{
+			color: #b599b3;
+			width: 20rem;
+			overflow: hidden;
+			text-overflow:ellipsis;
+			white-space: nowrap;
+		}
 	</style>
 </head>
 <body>
@@ -39,9 +49,9 @@
 				<li v-for="(item,index) in list" @click="detail(item)">
 					<div class="authorImg"><img :src="item.headpicture"></div>
 					<div class="authorInfo">
-						<span>{{item.name}}</span>
+						<span style="font-weight: 800">{{item.name}}</span>
 						<span>{{item.identity}}</span>
-						<p>{{item.introduce}}</p>
+						<p class="over">{{item.introduce}}</p>
 					</div>
 				</li>
 			</ul>
