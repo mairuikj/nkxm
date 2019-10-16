@@ -177,8 +177,20 @@
                             onclick="document.getElementById('fileInput').click();"
                     />
                   </div>
+
+                   <div class="custom-file mt-3 mb-3">
+                    <input
+                            type="button"
+                            class="btn btn-primary btn-block mx-auto"
+                            value="清除富文本样式"
+                            @click="clear()"
+                    />
+                  </div>
                 </div>
                 <div id="editor"></div>
+               <!--   <div class="col-12">
+                  <button class="btn btn-primary btn-block text-uppercase" @click="saveArticles">清除富文本样式</button>
+                </div> -->
                 <div class="col-12">
                   <button class="btn btn-primary btn-block text-uppercase" @click="saveArticles">保存新建文章</button>
                 </div>
@@ -193,6 +205,8 @@
 //      $(function() {
 //        $("#expire_date").datepicker();
 //      });
+      let E = window.wangEditor
+      let editor = new E('#editor')
       let app = new Vue({
           el: '#app',
           data: {
@@ -211,12 +225,10 @@
           mounted() {
               this.createE();
               this.getInfo()
-
           },
           methods: {
               createE() {
-                  let E = window.wangEditor
-                  let editor = new E('#editor')
+                 
                   editor.customConfig.showLinkImg = false
                   editor.customConfig.customUploadImg = function (files, insert) {
                       files.map((item,index) => {
@@ -231,6 +243,7 @@
                   };
                   editor.customConfig.onchange = (html) => {
                      this.from.content = html
+                     console.log(html)
                   };
                   editor.create()
               },
@@ -277,6 +290,15 @@
                       console.log(err)
                   })
               },
+
+              clear() {
+                  this.from.content = this.from.content.replace(/(\n)/g, "");  
+                      this.from.content = this.from.content.replace(/(\t)/g, "");  
+                      this.from.content = this.from.content.replace(/(\r)/g, "");  
+                      this.from.content = this.from.content.replace(/<\/?[^>]*>/g, "");  
+                      this.from.content = this.from.content.replace(/\s*/g, "");
+                      editor.txt.html(this.from.content)
+              }
 
 
           }
