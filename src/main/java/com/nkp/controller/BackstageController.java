@@ -1,16 +1,20 @@
 package com.nkp.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.nkp.config.utils.DataPackJSON;
 import com.nkp.pojo.UserInfo;
 import com.nkp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -18,8 +22,10 @@ import java.util.Map;
 public class BackstageController {
     @Autowired
     private UserService userService;
-    @RequestMapping("/backstage")
-    public DataPackJSON backStage(String userName, String userPW, HttpServletRequest request){
+    @Autowired
+    private RestTemplate restTemplate;
+
+/*    public DataPackJSON backStage(String userName, String userPW, HttpServletRequest request){
         UserInfo userInfo=userService.check(userName,userPW);
         DataPackJSON dataPackJSON=new DataPackJSON();
         Map map=new HashMap();
@@ -35,6 +41,37 @@ public class BackstageController {
         dataPackJSON.setMsg("ERROR");
         return dataPackJSON;
 
+    }*/
+    //访问外部API
+    public  String visitThirdParties(MultiValueMap<String, String> params,String url){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
+        return response.getBody();
+
+    }
+    //获取验证码
+    @RequestMapping("/getcode")
+    public DataPackJSON getCode(String phone){
+        DataPackJSON dataPackJSON=new DataPackJSON();
+        //等待调用获取验证码API
+        return dataPackJSON;
+    }
+    //登录
+    @RequestMapping("/backstage")
+    public DataPackJSON backStage(String phone, String code, HttpServletRequest request){
+        DataPackJSON dataPackJSON=new DataPackJSON();
+        MultiValueMap<String, String> params= new LinkedMultiValueMap<>();
+        params.add("phone",phone);
+        params.add("verifyCode",code);
+        params.add("token","DLO3303A10XMDO39X0TYZQAP3LXDJ3X19283E2RXWIK");
+        String res=this.visitThirdParties(params,"https://console.yingpiao360.com/api/common/send-verify-code");
+        if(res!=null){
+            JSONObject data = (JSONObject) JSON.parse(res);
+        }
+        return dataPackJSON;
     }
 
     @RequestMapping("/findAllUser")

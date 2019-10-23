@@ -38,8 +38,11 @@ public class NewsService {
     public DataPackJSON add(HttpServletRequest request, News news) throws ParseException {
         news.setCreattime(NewDateTime.getDateTime("yyyy-MM-dd :hh:mm:ss"));
         news.setRemarks("0");//默认0代表新闻在前台显示
-        String str=news.getKeyword().replace(",","，");
-        news.setKeyword(str);
+        if(news.getKeyword()!=null){
+            String str=news.getKeyword().replace(",","，");
+            news.setKeyword(str);
+        }
+
         int res=newsMapper.insertSelective(news);
         DataPackJSON dataPackJSON=new DataPackJSON();
         if(res==1){
