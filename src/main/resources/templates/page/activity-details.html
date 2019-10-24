@@ -73,7 +73,7 @@
 				let data = {
 					id: this.getQueryStringRegExp('id')
 				}
-				postPromise(data,'activity/selById').then(res => {
+				postPromise(data,'activity/pselById').then(res => {
 					if(res.flag == 0) {
 						console.log(res)
 						this.info = res.map.activity

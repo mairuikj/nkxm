@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 
 @RestController
 @RequestMapping("/activity")
@@ -18,7 +19,7 @@ public class ActivityController {
     private ActivityService activityService;
 
     @RequestMapping("/add")
-    public DataPackJSON add(HttpServletRequest request, Activity activity){
+    public DataPackJSON add(HttpServletRequest request, Activity activity) throws ParseException {
         return activityService.add(request,activity);
     }
     @RequestMapping("/del")
@@ -48,5 +49,11 @@ public class ActivityController {
     @RequestMapping("/getActivity")
     public DataPackJSON getActivity(HttpServletRequest request,int pageNum,int pageSize,Integer id){
         return activityService.getActivity(request,pageNum,pageSize,id);
+    }
+
+    //手机端查看，活动查看次数+1
+    @RequestMapping("/pselById")
+    public DataPackJSON pselById(HttpServletRequest request,int id){
+        return activityService.pselById(request,id);
     }
 }

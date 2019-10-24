@@ -3,6 +3,7 @@ package com.nkp.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nkp.config.utils.DataPackJSON;
+import com.nkp.config.utils.NewDateTime;
 import com.nkp.dao.ActivityMapper;
 import com.nkp.pojo.Activity;
 import com.nkp.pojo.UserInfo;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.*;
 
 @Service
@@ -18,7 +20,9 @@ public class ActivityService {
     @Autowired
     private ActivityMapper activityMapper;
 
-    public DataPackJSON add(HttpServletRequest request, Activity activity){
+    public DataPackJSON add(HttpServletRequest request, Activity activity) throws ParseException {
+        activity.setCreatetime(NewDateTime.getDateTime("yyyy-MM-dd :hh:mm:ss"));
+        activity.setAnumber(0);
         int res=activityMapper.insertSelective(activity);
         DataPackJSON dataPackJSON=new DataPackJSON();
         if(res==1){
@@ -49,6 +53,11 @@ public class ActivityService {
     }
 
     public DataPackJSON up(HttpServletRequest request, Activity activity){
+        try {
+            activity.setCreatetime(NewDateTime.getDateTime("yyyy-MM-dd :hh:mm:ss"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         int res=activityMapper.updateByPrimaryKeySelective(activity);
         DataPackJSON dataPackJSON=new DataPackJSON();
         if(res==1){
@@ -73,6 +82,21 @@ public class ActivityService {
         dataPackJSON.setMsg("SUCCESS");
         return dataPackJSON;
     }
+
+    public DataPackJSON pselById(HttpServletRequest request,int id){
+        activityMapper.upanumber(id);
+        Activity activity=activityMapper.selectByPrimaryKey(id);
+        DataPackJSON dataPackJSON=new DataPackJSON();
+        Map map=new HashMap();
+        HttpSession session = request.getSession();
+        map.put("activity",activity);
+        map.put("session_user",(UserInfo) session.getAttribute("session_user"));
+        dataPackJSON.setMap(map);
+        dataPackJSON.setFlag(0);
+        dataPackJSON.setMsg("SUCCESS");
+        return dataPackJSON;
+    }
+
     public DataPackJSON selAll(HttpServletRequest request){
         List list=activityMapper.selAll();
         DataPackJSON dataPackJSON=new DataPackJSON();
