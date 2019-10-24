@@ -3,6 +3,7 @@ package com.nkp.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nkp.config.utils.DataPackJSON;
+import com.nkp.config.utils.NewDateTime;
 import com.nkp.dao.CooperationMapper;
 import com.nkp.dao.ProductMapper;
 import com.nkp.pojo.Product;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +26,11 @@ public class ProductService {
     private CooperationMapper cooperationMapper;
 
     public DataPackJSON add(HttpServletRequest request, Product product){
+        try {
+            product.setCreattime(NewDateTime.getDateTime("yyyy-MM-dd :hh:mm:ss"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         int res=productMapper.insertSelective(product);
         DataPackJSON dataPackJSON=new DataPackJSON();
         if(res==1){
