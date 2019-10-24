@@ -31,6 +31,10 @@ public class ProductService {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        if(product.getKeyword()!=null){
+            String str=product.getKeyword().replace(",","，");
+            product.setKeyword(str);
+        }
         int res=productMapper.insertSelective(product);
         DataPackJSON dataPackJSON=new DataPackJSON();
         if(res==1){
