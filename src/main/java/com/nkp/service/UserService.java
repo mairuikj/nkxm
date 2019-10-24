@@ -2,6 +2,7 @@ package com.nkp.service;
 
 
 import com.nkp.config.utils.DataPackJSON;
+import com.nkp.dao.ShrioMapper;
 import com.nkp.dao.UserInfoMapper;
 import com.nkp.pojo.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,9 @@ public class UserService {
 
     @Autowired
     private UserInfoMapper userDao;
+
+    @Autowired
+    private ShrioMapper shrioMapper;
 
 
 
@@ -74,14 +79,15 @@ public class UserService {
 
         //map.put("session_user",request.getSession().getAttribute("session_user"));
         map.put("session_user",userInfo);
+        List<List> shrio=new ArrayList<>();
+        for(int i=1;i<=5;i++){
+            List temp=shrioMapper.selShrio(id,i);
+            shrio.add(temp);
+        }
+        map.put("shrio",shrio);
         dataPackJSON.setFlag(0);
         dataPackJSON.setMsg("SUCCESS");
-        if("admin".equals(userInfo.getUsername())){
-            List list=userDao.findAllUser();
-            map.put("list",list);
-        }else {
-            map.put("list",null);
-        }
+
         dataPackJSON.setMap(map);
         return dataPackJSON;
     }
