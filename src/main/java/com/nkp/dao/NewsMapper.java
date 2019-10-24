@@ -103,5 +103,7 @@ public interface NewsMapper {
 
     @Update("update news set creatTime=#{dateTime} where newsId=#{id}")
     int roof(Integer id, Date dateTime);
-
+    //此作者发布了多少新闻
+    @Select("SELECT COUNT(*) from news GROUP BY author HAVING author=#{id}")
+    Integer selByAuthor(Integer id);
 }

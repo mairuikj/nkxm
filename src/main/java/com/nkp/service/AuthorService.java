@@ -115,7 +115,12 @@ public class AuthorService {
 
         PageHelper.startPage(pageNum,pageSize);
 
-        List list=authorMapper.selAll();
+        List<Author> list=authorMapper.selAll();
+        for(Author author:list){
+            Integer i=newsMapper.selByAuthor(author.getId());
+            i=(i==null?0:i);
+            author.setRemarks(i.toString());
+        }
 
         //得到分页的结果对象
         PageInfo<Author> pageInfo = new PageInfo<>(list);
