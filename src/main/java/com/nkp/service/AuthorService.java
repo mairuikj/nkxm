@@ -3,6 +3,7 @@ package com.nkp.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nkp.config.utils.DataPackJSON;
+import com.nkp.config.utils.NewDateTime;
 import com.nkp.dao.AuthorMapper;
 import com.nkp.dao.NewsMapper;
 import com.nkp.pojo.Author;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,11 @@ public class AuthorService {
     private NewsMapper newsMapper;
 
     public DataPackJSON add(HttpServletRequest request, Author author){
+        try {
+            author.setCreatetime(NewDateTime.getDateTime("yyyy-MM-dd :hh:mm:ss"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         int res=authorMapper.insertSelective(author);
         DataPackJSON dataPackJSON=new DataPackJSON();
         if(res==1){
