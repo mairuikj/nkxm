@@ -1,6 +1,8 @@
 package com.nkp.dao;
 
 import com.nkp.pojo.UserInfo;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -56,4 +58,7 @@ public interface UserInfoMapper {
     UserInfo check(String userName, String userPW);
 
     List<UserInfo> findAllUser();
+
+    @Select("select * from userInfo where userPhone=#{phone}")
+    UserInfo selectByPhone(@Param("phone") String phone);
 }
