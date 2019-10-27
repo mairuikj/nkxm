@@ -1,211 +1,222 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>新建文章</title>
-    <link rel="stylesheet" href="../../static/css/fontawesome.min.css" />
-    <link rel="stylesheet" href="../../static/ui/jquery-ui.min.css" type="text/css" />
-    <link rel="stylesheet" href="../../static/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../../static/css/templatemo-style.css">
-    <link rel="stylesheet" href="../../static/css/elementUi.css">
-    <script src="../../static/js/jquery-3.3.1.min.js"></script>
-    <script src="../../static/ui/jquery-ui.min.js"></script>
-    <script src="../../static/js/bootstrap.min.js"></script>
-    <script src="../../static/js/vue.min.js"></script>
-    <script src="../../static/js/elementUi.js"></script>
-    <script src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
-    <script src="../../static/js/request.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>新建文章</title>
+  <link rel="stylesheet" href="../../static/css/fontawesome.min.css" />
+  <link rel="stylesheet" href="../../static/ui/jquery-ui.min.css" type="text/css" />
+  <link rel="stylesheet" href="../../static/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../../static/css/templatemo-style.css">
+  <link rel="stylesheet" href="../../static/css/elementUi.css">
+  <script src="../../static/js/jquery-3.3.1.min.js"></script>
+  <script src="../../static/ui/jquery-ui.min.js"></script>
+  <script src="../../static/js/bootstrap.min.js"></script>
+  <script src="../../static/js/vue.min.js"></script>
+  <script src="../../static/js/elementUi.js"></script>
+  <script src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
+  <script src="../../static/js/request.js"></script>
 
-    <style>
-      [v-cloak]{
-        display:none
-      }
-      #editor{
-        margin-bottom:20px;
-        width: 100%;
-        background: #fff;
-      }
-      .w-e-text{
-        overflow-y: auto;
-      }
-      .tm-product-img-dummy > img{
-        height: 100%;
-        width: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="app" v-cloak>
-      <nav class="navbar navbar-expand-xl">
-        <div class="container h-100">
-          <a class="navbar-brand" href="javascript:;">
-            <h1 class="tm-site-title mb-0">盈票公众号管理</h1>
-          </a>
-          <button
-                  class="navbar-toggler ml-auto mr-0"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#navbarSupportedContent"
-                  aria-controls="navbarSupportedContent"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-          >
-            <i class="fas fa-bars tm-nav-icon"></i>
-          </button>
+  <style>
+    [v-cloak]{
+      display:none
+    }
+    #editor{
+      margin-bottom:20px;
+      width: 100%;
+      background: #fff;
+    }
+    .w-e-text{
+      overflow-y: auto;
+    }
+    .tm-product-img-dummy > img{
+      height: 100%;
+      width: 100%;
+    }
+    .weizhiLine{
+      height:2px;
+    }
+  </style>
+</head>
+<body>
+<div id="app" v-cloak>
+  <nav class="navbar navbar-expand-xl">
+    <div class="container h-100">
+      <a class="navbar-brand" href="javascript:;">
+        <h1 class="tm-site-title mb-0">盈票公众号管理</h1>
+      </a>
+      <button
+              class="navbar-toggler ml-auto mr-0"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars tm-nav-icon"></i>
+      </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto h-100">
-              <!--<li class="nav-item">
-                 <a class="nav-link" href="/index">
-                   <i class="fas fa-tachometer-alt"></i> 数据统计
-                   <span class="sr-only">(current)</span>
-                 </a>
-               </li>-->
-              <li class="nav-item dropdown">
-                <a
-                        class="nav-link dropdown-toggle"
-                        href="#"
-                        id="navbarDropdown"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                >
-                  <i class="far fa-file-alt"></i>
-                  <span> 更多功能 <i class="fas fa-angle-down"></i> </span>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/newsList">文章列表</a>
-                  <a class="dropdown-item" href="/authorList">作者列表</a>
-                  <a class="dropdown-item" href="/activityList">活动列表</a>
-                  <a class="dropdown-item" href="/productList">产品列表</a>
-                  <a class="dropdown-item" href="/cooperationList">合作方列表</a>
-                </div>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="javascript:;">
-                  <i class="fas fa-shopping-cart"></i>
-                  发布文章
-                </a>
-              </li>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto h-100">
+         <!--<li class="nav-item">
+             <a class="nav-link" href="/index">
+               <i class="fas fa-tachometer-alt"></i> 数据统计
+               <span class="sr-only">(current)</span>
+             </a>
+           </li>-->
+          <li class="nav-item dropdown">
+            <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+            >
+              <i class="far fa-file-alt"></i>
+              <span>更多功能<i class="fas fa-angle-down"></i> </span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <!-- <a class="dropdown-item" href="/newsList">文章列表</a> -->
+              <a class="dropdown-item" href="/authorList">作者列表</a>
+              <a class="dropdown-item" href="/activityList">活动列表</a>
+              <a class="dropdown-item" href="/productList">产品列表</a>
+              <a class="dropdown-item" href="/cooperationList">合作方列表</a>
+            </div>
+          </li>
+         <!--  <li class="nav-item">
+            <a class="nav-link active" href="/addNews">
+              <i class="fas fa-shopping-cart"></i>
+              编辑文章
+            </a>
+          </li> -->
+          <li class="nav-item dropdown">
+            <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+            >
+               <img class="titleIcon" src="../../static/img/wenzhang.png">
+              <span>文章<i class="fas fa-angle-down"></i></span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/newsList">文章列表</a>
+              
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/userList">
+              <i class="far fa-user"></i> 用户信息
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link d-block" href="/signout" @click="loginOut">
+              <span>{{currentUser.username}}</span>
+              <img
+                      style="width: 50px;height: 50px;border-radius: 50%"
+                      :src="currentUser.purl"
+                      alt="">
+              退出
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-              <li class="nav-item">
-                <a class="nav-link" href="/userList">
-                  <i class="far fa-user"></i> 用户信息
-                </a>
-              </li>
-            </ul>
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link d-block" href="/signout" @click="loginOut">
-                  <span>{{currentUser.username}}</span>
-                  <img
-                          style="width: 50px;height: 50px;border-radius: 50%"
-                          :src="currentUser.purl"
-                          alt="">
-                  退出
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <div class="container tm-mt-big tm-mb-big">
-        <div class="row">
-          <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
-            <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-              <div class="row">
-                <div class="col-12">
-                  <h2 class="tm-block-title d-inline-block">新建文章</h2>
-                </div>
+  <div class="container tm-mt-big tm-mb-big">
+   <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+    <div class="row currentWzhi">
+      <div class="col-12">
+        <span class="weizhi">您的位置:</span>
+       <span class="subweizhi">文章/新建文章</span>
+      </div>
+    </div>
+    <div class="weizhiLine"></div>
+    <div class="row">
+      <!-- <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto"> -->
+      <div class="mx-auto">
+          <div class="row tm-edit-product-row">
+            <div class="imgWidth">
+              <div class="fengmian">封面</div>
+              <div class="tm-product-img-dummy mx-auto imgWidth">
+                <img :src="from.toppicture" alt="">
               </div>
-              <div class="row tm-edit-product-row">
-                <div class="col-xl-6 col-lg-6 col-md-12">
-                  <form action="" class="tm-edit-product-form">
-                    <div class="form-group mb-3">
-                      <label
-                              for="name"
-                      >文章标题
-                      </label>
-                      <input
-                              v-model="from.title"
-                              id="name"
-                              name="name"
-                              type="text"
-                              class="form-control validate"
-
-                      />
-                    </div>
-                    <div class="form-group mb-3">
-                      <label
-                              for="description"
-                      >关键词</label
-                      >
-                      <input v-model="from.keyword" class="form-control validate" placeholder="注：关键词请用逗号隔开。如：票据，ABS，"/>
-                    </div>
-                    <div class="form-group mb-3">
-                      <label
-                              for="category"
-                      >作者</label
-                      >
-                      <select class="custom-select tm-select-accounts" v-model="from.author">
-                        <option v-for="(item,index) in author" :value="item.id">{{item.name}}</option>
-                      </select>
-                    </div>
-                    <div class="form-group mb-3">
-                      <label
-                              for="category"
-                      >文章类型</label
-                      >
-                      <select class="custom-select tm-select-accounts" v-model="from.newstype">
-                        <option v-for="(items,idx) in articleType" :value="items.typeid">{{items.name}}</option>
-                      </select>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-                  <div class="tm-product-img-dummy mx-auto">
-                    <img :src="from.toppicture" alt="">
-                  </div>
-                  <div class="custom-file mt-3 mb-3">
-                    <input id="fileInput" type="file" style="display:none;"  @change="addImg($event)"/>
-                    <input
-                            type="button"
-                            class="btn btn-primary btn-block mx-auto"
-                            value="上传封面图片"
-                            onclick="document.getElementById('fileInput').click();"
-                    />
-                  </div>
-
-                   <div class="custom-file mt-3 mb-3">
-                    <input
-                            type="button"
-                            class="btn btn-primary btn-block mx-auto"
-                            value="清除富文本样式"
-                            @click="clear()"
-                    />
-                  </div>
-                </div>
-                <div id="editor"></div>
-               <!--   <div class="col-12">
-                  <button class="btn btn-primary btn-block text-uppercase" @click="saveArticles">清除富文本样式</button>
-                </div> -->
-                <div class="col-12">
-                  <button class="btn btn-primary btn-block text-uppercase" @click="saveArticles">保存新建文章</button>
-                </div>
-                </form>
+              <div class="parentButton">
+                <input id="fileInput" type="file" style="display:none;"  @change="addImg($event)"/>
+                <input
+                  type="button"
+                  class="btn upButton"
+                  value="上传封面图片"
+                  onclick="document.getElementById('fileInput').click();"
+                />
               </div>
             </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 ml120">
+              <form action="" class="tm-edit-product-form">
+                <div class="form-group mb-3">
+                  <label
+                          for="name"
+                  >文章标题
+                  </label>
+                  <input
+                    v-model="from.title"
+                    type="text"
+                    class="form-contro"
+                  />
+                </div>
+                <div class="form-group mb-3">
+                  <label
+                          for="description"
+                  >关键词</label
+                  >
+
+                  <input v-model="from.keyword" class="form-contro" placeholder="注：关键词请用逗号隔开。如：票据，ABS，"/>
+                </div>
+                <div class="form-group mb-3">
+                  <label
+                          for="category"
+                  >作者</label
+                  >
+                  <select class="custom-selectt" v-model="from.author">
+                    <option v-for="(item,index) in author" :value="item.id">{{item.name}}</option>
+                  </select>
+                </div>
+                <div class="form-group mb-3">
+                  <label
+                          for="category"
+                  >文章类型</label
+                  >
+                  <select class="custom-selectt" v-model="from.newstype">
+                    <option v-for="(items,idx) in articleType" :value="items.typeid">{{items.name}}</option>
+                  </select>
+                </div>
+            </div>
+            
+            <div id="editor"></div>
+            <div class="funBao">
+              <button class="btn backs" @click="goBack">返回</button>
+              <button class="btn backs"  @click="clear()">清楚正文格式,重新排版</button>
+              <button class="btn baocun" @click="saveArticles">保存</button>
+            </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
-    <script>
-//      $(function() {
-//        $("#expire_date").datepicker();
-//      });
-      let E = window.wangEditor
+  </div>
+</div>
+<script>
+    let E = window.wangEditor
       let editor = new E('#editor')
       let app = new Vue({
           el: '#app',
@@ -298,11 +309,14 @@
                       this.from.content = this.from.content.replace(/<\/?[^>]*>/g, "");  
                       this.from.content = this.from.content.replace(/\s*/g, "");
                       editor.txt.html(this.from.content)
-              }
+              },
 
+              goBack() {
+
+              }
 
           }
       })
-    </script>
-  </body>
+</script>
+</body>
 </html>
