@@ -18,6 +18,9 @@
    <script src="https://cdn.dingxiang-inc.com/ctu-group/captcha-ui/index.js"></script>
   </head>
   <style>
+    html，body,#login{
+      overflow: hidden;
+    }
     html,body,#login,.row{
       height: 100%;
     }
@@ -27,9 +30,6 @@
       justify-content: center;
     }
     .dx_captcha {
-      width: 330px !important
-    }
-    .dx_captcha_basic_bg > canvas{
       width: 330px !important
     }
   </style>
@@ -104,7 +104,7 @@
   let login = new Vue({
     el: '#login',
     data: {
-        userName: '',
+        userName: '15149463702',
         userPW: '',
         ifShow: false,
         token: '',
@@ -147,6 +147,7 @@
       getHuaKuai() {
         var myCaptcha = _dx.Captcha(document.getElementById('c1'), {
             style: 'inline',
+            width: '330px',
             appId: '774c3a1f9e8f735c6245a1c43b6d455f', //appId，在控制台中“应用管理”或“应用配置”模块获取
             success:  (token)=> {
               //请求发送短信
