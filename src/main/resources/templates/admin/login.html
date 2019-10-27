@@ -26,12 +26,16 @@
       align-items: center;
       justify-content: center;
     }
+    .dx_captcha {
+      width: 330px !important
+    }
   </style>
   <body>
     <div class="" id="login">
-       <!--  <div>
-          <img src="../../static/img/logo.png">
-        </div> -->
+        <div style="margin-left: 50px;display: flex;align-items: center;margin-top: 20px">
+          <img src="../../static/img/tupian.png">
+          <span style="font-size: 22px;color: #fff;margin-left: 20px">盈票服务号管理</span>
+        </div>
       <div class="row">
         <div class="col-12 mx-auto tm-login-col">
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
@@ -97,7 +101,7 @@
   let login = new Vue({
     el: '#login',
     data: {
-        userName: '15149463702',
+        userName: '',
         userPW: '',
         ifShow: false,
         token: '',
@@ -139,7 +143,7 @@
 
       getHuaKuai() {
         var myCaptcha = _dx.Captcha(document.getElementById('c1'), {
-            style: 'embed',
+            style: 'inline',
             appId: '774c3a1f9e8f735c6245a1c43b6d455f', //appId，在控制台中“应用管理”或“应用配置”模块获取
             success:  (token)=> {
               //请求发送短信
