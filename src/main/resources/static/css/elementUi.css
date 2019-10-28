@@ -23,6 +23,84 @@
 	width: 25px;
 	margin-bottom: 5px
 }
+ul li{
+	margin: 0;
+	padding: 0;
+	list-style: none
+}
 .fengmian{
 	margin-bottom: 5px;
+}
+.boxTable{
+	width: 100%;
+	
+	background: #fff;
+	padding:15px
+}
+.tables{
+	border: 1px solid #222;
+	width: 100%;
+	/*min-height: 441px;*/
+	border-bottom: 0
+}
+.tableT,.tableC{
+	display: flex;
+	padding: 0;
+	border-bottom: 1px solid #222;
+	margin-bottom: 0
+}
+.tableT > li {
+	height: 30px;
+	align-items: center;
+	justify-content: center;
+	background: #e4e4e4;
+	color: #222;
+	display: flex;
+	border-right: 1px solid #222
+}
+.tableT > li:last-child,.tableC > li:last-child{
+	border-right: 0
+}
+.tableC > li{
+	height: 40px;
+	text-align: center;
+	color: #222;
+	line-height: 40px;
+	border-right: 1px solid #222
+}
+.tableC > li:nth-child(1) {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.tableC > li:nth-child(3) {
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	padding-left: 10px
+}
+input[type="checkbox"]{
+	width: 14px !important;
+	height: 14px !important;
+	background-color: #e4e4e4 !important;
+	border-radius: 0;
+
+}
+.lastLi > span{
+	cursor: pointer;
+}
+.currentTbale{
+	background: #ff9966
+}
+.parentTale > ul:nth-child(1){
+	background: #ff9966	
+}
+.parentTale > ul:nth-child(2){
+	background: #ff9966	
+}
+.parentTale > ul:nth-child(3){
+	background: #ff9966	
+}
+.xianshi{
+	cursor: pointer;
 }

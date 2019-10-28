@@ -403,7 +403,7 @@ thead {
 }
 input[type="checkbox"] {
   cursor: pointer;
-  -webkit-appearance: none;
+ /* -webkit-appearance: none;*/
   appearance: none;
   background-color: #394e64;
   background-position: center;
