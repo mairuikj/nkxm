@@ -171,6 +171,51 @@
             </div>
         </nav>
         <div class="container mt-5">
+            <div class="listFun">
+                <div>
+                     <input 
+                        v-model="condition"
+                        type="" 
+                        placeholder="请输入标题关键词" 
+                        class="searchInpt">
+                    <div>
+                       <!--  <el-date-picker
+                            style="border-radius: none;border-color: #444"
+                          v-model="datetime"
+                          value-format="yyyy-M-MM"
+                          type="date"
+                          placeholder="选择日期">
+                        </el-date-picker> -->
+
+                        <el-date-picker
+                        value-format="yyyy-MM-dd HH:mm:ss"
+                          
+                            v-model="datetime"
+                            type="datetime"
+                            placeholder="请选择选择日期时间">
+                        </el-date-picker>
+                    </div>
+                    <button class="btns" @click="search">搜索</button>
+                </div>
+               <div class="addAlls" @click="addNews">新增文章</div>
+            </div>
+            <div class="subFun">
+                <span>文章类型：</span>
+                <div class="typeList">
+                    <div 
+                        :class="currentType == '1' ? 'currentType' : ''"  
+                        @click="selectType(1)">热点
+                    </div>
+                    <div 
+                        :class="currentType == '2' ? 'currentType' : ''"  
+                        @click="selectType(2)">新政
+                    </div>
+                    <div 
+                        :class="currentType == '3' ? 'currentType' : ''"  
+                        @click="selectType(3)">课堂
+                    </div>
+                </div>
+            </div>
             <div class="boxTable">
                 <div class="tables">
                     <ul class="tableT">
@@ -183,9 +228,11 @@
                         <li style="width: 10%">状态</li>
                         <li style="width: 12%">操作</li>
                     </ul>
-                    <div class="parentTale">
+                    <div class="parentTale" v-if="newList != ''">
                         <ul class="tableC" v-for="(item,index) in newList">
-                            <li style="width: 5%"><input type="checkbox" name=""></li>
+                            <li style="width: 5%">
+                                <input type="checkbox" name="" @change="changeBox(item,index)">
+                            </li>
                             <li style="width: 5%">{{index + 1}}</li>
                             <li style="width: 36%">{{item.title}}</li>
                             <li style="width: 10%">{{item.writer.name}}</li>
@@ -203,11 +250,17 @@
                                 <span v-else-if="index == 1"></span> 
                                 <span v-else-if="index == 2"></span> 
                                 <span v-else @click="top(item)">顶置</span>
-                                <span>编辑</span> 
-                                <span>删除</span>
+                                <span @click="details(item)">编辑</span> 
+                                <span @click="delArticle('1',item)">删除</span>
                             </li>
                         </ul>
                     </div>
+                    <div v-else class="zanwu">
+                        暂无数据
+                    </div>
+                </div>
+                <div>
+                    <div class="delBtn" @click="allDel">批量删除</div>
                 </div>
                 <div style="display: flex;justify-content: center;margin-top: 20px">
                     <el-pagination
@@ -219,111 +272,7 @@
                     </el-pagination>
                 </div>
             </div>
-            <!-- <div class="row tm-content-row">
-                <div class="col-sm-12 col-md-12 tm-block-col">
-                    <div class="tm-block tm-block-products">
-                        <div class="tm-product-table-container">
-                            <table class="table table-hover tm-table-small tm-product-table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">&nbsp;</th>
-                                    <th scope="col">封面图片</th>
-                                    <th scope="col">文章标题</th>
-                                    <th scope="col">作者</th>
-                                    <th scope="col">创建时间</th>
-                                    <th scope="col">状态</th>
-                                    <th scope="col" style="text-align: center;">操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="(item,index) in newList" @click="details(item)">
-                                    <th scope="row"><input type="checkbox" @click.stop="sleectId(item)"/></th>
-                                    <td><img :src="item.toppicture" alt="" width="50px"></td>
-                                    <td class="tm-product-name overName">{{item.title}}</td>
-                                    <td>{{item.writer.name}}</td>
-                                    <td>{{item.creattime}}</td>
-                                    <td @click.stop="isShow(item)">{{item.remarks == 0 ?'显示' : '隐藏'}}</td>
-                                    <td>
-                                         <a href="javascript:;" class="tm-product-delete-link" @click.stop="top(item)">
-                                            <i style="font-size: 20px;color:#fff" class="el-icon-upload2"></i>
-                                        </a>
-                                        <a href="javascript:;" class="tm-product-delete-link" @click.stop="delArticle('1',item)">
-                                            <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                                        </a>                                    </td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-                            <table class="tables">
-                               <tr>
-                                   <th>序号</th>
-                                   <th>文章标题</th>
-                                   <th>作者</th>
-                                   <th>封面图片</th>
-                                   <th>发布时间</th>
-                                   <th>状态</th>
-                                   <th>操作</th>
-                               </tr>
-                           </table>
-                            <div style="display: flex;justify-content: center;margin-top: 20px">
-                                <el-pagination
-                                        v-if="newList != '' "
-                                        @current-change="currenPage"
-                                        background
-                                        layout="prev, pager, next"
-                                        :total="total">
-                                </el-pagination>
-                            </div>
-
-                        </div>
-                      
-                        <a
-                                href="/addNews"
-                                class="btn btn-primary btn-block text-uppercase mb-3">新建文章</a>
-                        <button class="btn btn-primary btn-block text-uppercase" @click="allDel">
-                            多选删除
-                        </button>
-                        <button class="btn btn-primary btn-block text-uppercase" @click="allHide">
-                            多选隐藏
-                        </button>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
-                    <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
-                        <h2 class="tm-block-title">新闻类型</h2>
-                        <div class="tm-product-table-container">
-                            <table class="table tm-table-small tm-product-table">
-                                <tbody>
-                                <tr v-for="(item,index) in typeList">
-                                    <td class="tm-product-name">{{item.name}}</td>
-                                    <td class="text-center">
-                                        <a href="javascript:;" class="tm-product-delete-link" @click="delType(item)">
-                                            <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                  
-                        <button class="btn btn-primary btn-block text-uppercase mb-3" @click="dialogFormVisible = true">新增新闻类型</button>
-                    </div>
-                </div>
-            </div> -->
         </div>
-
-
-        <el-dialog title="新闻类型" :visible.sync="dialogFormVisible">
-            <el-form >
-                <el-form-item label="类型名称" :label-width="formLabelWidth">
-                    <el-input v-model="typeName" auto-complete="off"></el-input>
-                </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="confirm">确 定</el-button>
-            </div>
-        </el-dialog>
     </div>
     <script>
 
@@ -331,80 +280,43 @@ let home = new Vue({
     el: '#home',
     data: {
         currentUser: JSON.parse(localStorage.getItem('userInfo')),
-        dialogFormVisible: false,
-        typeName: '',
-        formLabelWidth: '120px',
-        typeList: [],
+    
+        condition: '',
         newList: [],
         total:1,
         pageNum:1,
         pageSize: 10,
-        allId: '',
+        allId: [],
+        datetime: '',
+        currentType: '',
     },
-    mounted(){
-        this.getTypeList();
+    mounted(){ 
         this.getNewList(this.pageNum,this.pageSize);
     },
     methods: {
         loginOut() { //退出
             postPromise({},'/signout').then(res => {
-
                 localStorage.removeItem("userInfo");
-        })
+            })
         },
         details(item) { //详情页面
             window.location.href = '/editNews?id='+item.newsid;
-          console.log(item)
         },
-        confirm() { //确认提交新闻类型
-            getPromise({name: this.typeName},'newsType/add').then(res => {
-                if(res.flag == 0) {
-                  this.dialogFormVisible = false;
-                  this.getTypeList();
-                  this.$message({
-                      message: '新建成功',
-                      type: 'success'
-                  });
-                }else if(res.flag == 1) {
-                    this.$message({
-                        message: '内容重复',
-                        type: 'warning'
-                    });
-                }
-            } , err => {
-                console.log(err)
-            })
-        },
-        getTypeList() { //新闻类型列表
-            postPromise({},'newsType/selAll').then(res => {
-                if(res.flag == 0) {
-                    this.typeList = res.map.list
-                  // console.log(res)
-                }
-            } ,err => {
-                console.log(err)
-            })
-        },
-        delType(item) {
-            getPromise({id: item.id},'newsType/del').then(res => {
-                if(res.flag == 0) {
-                    this.getTypeList()
-                    this.$message({
-                        message: '删除成功',
-                        type: 'success'
-                    });
-                }
-            } , err => {
-                console.log(err)
-            })
-        },
-        getNewList(pageNum,pageSize) { //获取新闻列表
+        
+        
+        getNewList(pageNum, pageSize,condition, type,date) { //获取新闻列表
             let data = {
                 pageNum,
-                pageSize
+                pageSize,
+                condition,
+                type,
+                date,
             }
             postPromise(data,'news/pagingSel').then(res => {
                 if(res.flag == 0) {
+                    res.map.pageList.map(item => {
+                        item.isChecked = false
+                    })
                     this.newList = res.map.pageList
                     this.total = res.number
                 }
@@ -412,7 +324,7 @@ let home = new Vue({
                 console.log(err)
             })
         },
-        currenPage(e) {
+        currenPage(e) { //切换分页
             this.getNewList(e,this.pageSize)
         },
 
@@ -430,11 +342,15 @@ let home = new Vue({
             postPromise(data,'news/del').then(res => {
                 if(res.flag == 0) {
                     if(res.flag == 0) {
-                        this.$message({
+                       this.$message({
                             message: '删除成功',
                             type: 'success'
                         });
-                      location.reload();
+                    
+                        setTimeout(() => {
+                            location.reload();
+                        },1400)
+                      
                     }
                 }
             } ,err => {
@@ -442,49 +358,23 @@ let home = new Vue({
             })
         },
 
-        sleectId(item) { //多选
-            this.allId += item.newsid + ','
-        },
+    
 
         allDel() { //多选删除
             if(this.allId == ''){
                 this.$message({
                     message: '请选择要删除的新闻',
-                    type: 'success'
+                    type: 'warning'
                 });
                 return
             }
-           this.delArticle('2',this.allId)
-            this.allId = ''
+            this.delArticle('2',this.allId.join(','))
+            this.allId = []
         },
 
-        allHide() { //多选隐藏
-            if(this.allId == ''){
-                this.$message({
-                    message: '请选择要隐藏的新闻',
-                    type: 'success'
-                });
-                return
-            }
-            postPromise({ids: this.allId},'news/hide').then(res => {
-                if(res.flag == 0) {
-                    if(res.flag == 0) {
-                        this.$message({
-                            message: '隐藏成功',
-                            type: 'success'
-                        });
-                        this.allId = ''
-                        location.reload()
-                    }
-                }
-            } ,err => {
-                console.log(err)
-            })
-
-        },
+        
 
         isShow(item) { // 显示隐藏
-        
             postPromise({id: item.newsid,flag:item.remarks},'news/hide1').then(res => {
                 if(res.flag == 0) {
                 
@@ -522,6 +412,28 @@ let home = new Vue({
                 console.log(err)
             })
 
+        },
+        selectType(e) { //类型选择
+            this.currentType = e
+            this.getNewList(this.pageNum, this.pageSize, this.condition, e,this.datetime)
+        },
+
+        changeBox(e,index) { //复选框
+            e.isChecked = !e.isChecked
+            if(e.isChecked) {
+                this.allId.push(e.newsid)
+            }else {
+                let idx = this.allId.indexOf(e.newsid)
+                this.allId.splice(idx,1)
+            }
+        },
+
+        addNews() {// 新建文章
+            window.location.href = '/addNews';
+        },
+
+        search() { // 搜素
+            this.getNewList(this.pageNum, this.pageSize, this.condition, this.currentType,this.datetime)
         }
 
     }

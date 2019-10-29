@@ -104,3 +104,99 @@ input[type="checkbox"]{
 .xianshi{
 	cursor: pointer;
 }
+.listFun{
+	width: 100%;
+	height: 60px;
+	background: #fff;
+	padding: 0 15px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.listFun > div{
+	display: flex;
+	align-items: center;
+}
+.searchInpt{
+	height: 40px;
+	outline: none;
+	border:1px solid #666;
+	padding-left: 15px;
+	margin-right: 15px
+}
+
+.el-input__inner{
+	border-color: #666;
+	border-radius: 0 !important;
+}
+.btns,.addAlls{
+	width: 140px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	border:0;
+	background: #169bd5;
+	outline: none;
+	margin-left: 50px;
+	cursor: pointer;
+}
+.subFun{
+	display: flex;
+	align-items: center;
+	width: 100%;
+	padding: 0 15px;
+	background: #fff
+}
+.typeList{
+	display: flex;
+
+}
+.typeList > div{
+	width: 60px;
+	height: 30px;
+	border: 1px solid #169bd5;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 10px;
+	cursor: pointer;
+}
+.currentType{
+	background: #169bd5;
+	color: #fff
+}
+.delBtn{
+	width: 70px;
+	height: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border:1px solid #169bd5;
+	color: #169bd5;
+	font-size: 14px;
+	margin-top: 10px;
+	cursor: pointer;
+}
+.el-input__inner:hover{
+	border-color: #444 !important
+}
+.zanwu{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-bottom: 1px solid #222
+}
+.container {
+	padding-bottom: 30px
+}
+.mt-5, .my-5{
+	margin-top: 2rem!important;
+}
+.form-controls{
+	height: 50px;
+	width: 100%;
+	padding-left: 20px
+}

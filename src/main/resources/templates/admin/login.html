@@ -33,8 +33,8 @@
       align-items: center;
       justify-content: center;
     }
-    .dx_captcha {
-      width: 330px !important
+    .dx_captcha_basic_bar {
+      width: 370px !important
     }
   </style>
   <body>
@@ -60,7 +60,7 @@
                       v-model="userName"
                       placeholder="请输入手机号码"
                       type="text"
-                      class="form-control validate"
+                      class="form-controls"
                       required
                     />
                   </div>
@@ -70,24 +70,26 @@
                       v-model="userPW"
                        placeholder="请输入验证码"
                       type="text"
-                      class="form-control validate"
+                      class="form-controls"
                       required
                     />
                     <button  
                        v-if="isTime"
                       @click="setCode"
                       class="btn btn-primary " 
-                      style="position: absolute;top:0;right: 0;height:100%">发送验证码
+                      style="position: absolute;top:0;right: 0;height:100%;background: #169bd5;color: #fff;border: none;outline: none;">发送验证码
                     </button>
                      <button  
+
                       v-else
                       class="btn btn-primary " 
-                      style="position: absolute;top:0;right: 0;height:100%">{{time}}秒后重新获取
+                      style="position: absolute;top:0;right: 0;height:100%;background: #169bd5;color:#fff;border: none;outline: none">{{time}}秒后重新获取
                     </button>
                   </div>
                   <div id="c1" style="width: 100%"></div>
                   <div class="form-group mt-4">
                     <button
+                    style="background: #169bd5;color: #fff;border: none;outline: none"
                       class="btn btn-primary btn-block text-uppercase"
                       @click="signIn"
                     >
@@ -108,7 +110,7 @@
   let login = new Vue({
     el: '#login',
     data: {
-        userName: '15149463702',
+        userName: '',
         userPW: '',
         ifShow: false,
         token: '',
@@ -151,7 +153,7 @@
       getHuaKuai() {
         var myCaptcha = _dx.Captcha(document.getElementById('c1'), {
             style: 'inline',
-            width: '330px',
+            width: '370px',
             appId: '774c3a1f9e8f735c6245a1c43b6d455f', //appId，在控制台中“应用管理”或“应用配置”模块获取
             success:  (token)=> {
               //请求发送短信
