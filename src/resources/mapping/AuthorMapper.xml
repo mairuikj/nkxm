@@ -170,4 +170,20 @@
       remarks = #{remarks,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selLike" parameterType="com.nkp.pojo.Author" resultMap="BaseResultMap">
+    select * from author where 1=1
+    <if test="name != null">
+      and name like "%${name}%"
+    </if>
+    <if test="atype != null">
+      and atype = #{atype,jdbcType=INTEGER}
+    </if>
+    <if test="creattime != null">
+      DATE_FORMAT(a.creatTime, '%Y-%m-%d') = DATE_FORMAT(#{creattime},'%Y-%m-%d') and
+    </if>
+    order by createTime asc
+
+
+  </select>
 </mapper>

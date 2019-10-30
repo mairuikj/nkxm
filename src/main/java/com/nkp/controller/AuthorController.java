@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/author")
@@ -41,8 +42,8 @@ public class AuthorController {
     }
 
     @RequestMapping("/pagingSel")
-    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id){
-        return authorService.pagingSel(request,pageNum,pageSize,id);
+    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id,String condition, Integer type, Date date){
+        return authorService.pagingSel(request,pageNum,pageSize,id,condition,type,date);
     }
 
     @RequestMapping("/selById1")

@@ -40,7 +40,7 @@
 </head>
 <body>
 <div id="app" v-cloak>
-  <nav class="navbar navbar-expand-xl">
+  <!--<nav class="navbar navbar-expand-xl">
     <div class="container h-100">
       <a class="navbar-brand" href="javascript:;">
         <h1 class="tm-site-title mb-0">盈票公众号管理</h1>
@@ -59,12 +59,12 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mx-auto h-100">
-         <!--<li class="nav-item">
+         &lt;!&ndash;<li class="nav-item">
              <a class="nav-link" href="/index">
                <i class="fas fa-tachometer-alt"></i> 数据统计
                <span class="sr-only">(current)</span>
              </a>
-           </li>-->
+           </li>&ndash;&gt;
           <li class="nav-item dropdown">
             <a
                     class="nav-link dropdown-toggle"
@@ -79,19 +79,19 @@
               <span>更多功能<i class="fas fa-angle-down"></i> </span>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <!-- <a class="dropdown-item" href="/newsList">文章列表</a> -->
+              &lt;!&ndash; <a class="dropdown-item" href="/newsList">文章列表</a> &ndash;&gt;
               <a class="dropdown-item" href="/authorList">作者列表</a>
               <a class="dropdown-item" href="/activityList">活动列表</a>
               <a class="dropdown-item" href="/productList">产品列表</a>
               <a class="dropdown-item" href="/cooperationList">合作方列表</a>
             </div>
           </li>
-         <!--  <li class="nav-item">
+         &lt;!&ndash;  <li class="nav-item">
             <a class="nav-link active" href="/addNews">
               <i class="fas fa-shopping-cart"></i>
               编辑文章
             </a>
-          </li> -->
+          </li> &ndash;&gt;
           <li class="nav-item dropdown">
             <a
                     class="nav-link dropdown-toggle"
@@ -130,6 +130,128 @@
         </ul>
       </div>
     </div>
+  </nav>-->
+  <nav class="navbar navbar-expand-xl">
+    <div class="container h-100">
+      <img src="../../static/img/tupian1.png">
+      <a class="navbar-brand" href="javascript:;">
+        <h1 class="tm-site-title mb-0">盈票服务号管理</h1>
+      </a>
+      <button
+              class="navbar-toggler ml-auto mr-0"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars tm-nav-icon"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto h-100">
+          <li class="nav-item dropdown">
+            <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+            >
+              <img class="titleIcon" src="../../static/img/wenzhang.png">
+              <span>文章</span>
+            </a>
+
+          </li>
+          <li class="nav-item dropdown">
+            <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+            >
+              <img class="titleIcon" src="../../static/img/zuozhe.png">
+              <span>作者</span>
+            </a>
+
+          </li>
+          <li class="nav-item dropdown">
+            <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+            >
+              <img class="titleIcon" src="../../static/img/huodong.png">
+              <span>活动</span>
+            </a>
+
+          </li>
+          <li class="nav-item dropdown">
+            <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+            >
+              <img class="titleIcon" src="../../static/img/chanpin.png">
+              <span>产品</span>
+            </a>
+
+          </li>
+          <li class="nav-item dropdown">
+            <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+            >
+              <img class="titleIcon" src="../../static/img/xitong.png">
+              <span>系统</span>
+            </a>
+          </li>
+          <!--  <li class="nav-item">
+               <a class="nav-link " href="/addNews">
+                   <i class="fas fa-shopping-cart"></i> 发布文章
+               </a>
+           </li> -->
+
+          <li class="nav-item">
+            <a class="nav-link" href="/userList">
+              <i class="far fa-user"></i> 用户信息
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link d-block" href="/signout" @click="loginOut">
+
+              <img
+                      style="width: 50px;height: 50px;border-radius: 50%"
+                      :src="currentUser.purl"
+                      alt="">
+              <span>{{currentUser.username}}</span>
+              退出
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </nav>
 
   <div class="container tm-mt-big tm-mb-big">
@@ -155,7 +277,7 @@
                 <input
                   type="button"
                   class="btn upButton"
-                  value="上传封面图片"
+                  value="选择图片"
                   onclick="document.getElementById('fileInput').click();"
                 />
               </div>
@@ -171,6 +293,7 @@
                     v-model="from.title"
                     type="text"
                     class="form-contro"
+                    placeholder="请输入文章标题，25字以内"
                   />
                 </div>
                 <div class="form-group mb-3">
@@ -179,7 +302,7 @@
                   >关键词</label
                   >
 
-                  <input v-model="from.keyword" class="form-contro" placeholder="注：关键词请用逗号隔开。如：票据，ABS，"/>
+                  <input v-model="from.keyword" class="form-contro" placeholder="多个关键词请用逗号隔开。如：票据，ABS，"/>
                 </div>
                 <div class="form-group mb-3">
                   <label
@@ -298,6 +421,9 @@
                             message: '更新成功',
                             type: 'warning'
                         });
+                        setTimeout(() => {
+                        this.goBack();
+                        },1400);
                     }
                 } ,err => {
                     console.log(err)
@@ -324,7 +450,7 @@
             },
 
             goBack() {
-              window.history.back(-1); 
+              location.replace('/newsList');
             }
         }
     })

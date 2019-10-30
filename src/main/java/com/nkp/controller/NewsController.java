@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/news")
@@ -52,8 +53,8 @@ public class NewsController {
     }
 
     @RequestMapping("/pagingSel")
-    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id){
-        return newsService.pagingSel(request,pageNum,pageSize,id);
+    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize, Integer id, String condition, Integer type, Date date){
+        return newsService.pagingSel(request,pageNum,pageSize,id,condition,type,date);
     }
     //得到作者与新闻分类的下拉
     @RequestMapping("/getAT")

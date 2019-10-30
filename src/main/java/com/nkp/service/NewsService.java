@@ -112,7 +112,7 @@ public class NewsService {
         return dataPackJSON;
     }
 
-    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize,Integer id) {
+    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize, Integer id, String condition, Integer type, Date date) {
         DataPackJSON dataPackJSON=new DataPackJSON();
         Map map=new HashMap();
         HttpSession session = request.getSession();
@@ -120,7 +120,7 @@ public class NewsService {
         PageHelper.startPage(pageNum,pageSize);
        // List list=newsMapper.selNewsAndNewsType(id);//关联了newstype
         //List list=newsMapper.selAll();
-        List list=newsMapper.selNewsAndAuthor();
+        List list=newsMapper.selNewsAndAuthor(condition,type,date);
 
         //得到分页的结果对象
         PageInfo<News> pageInfo = new PageInfo<>(list);

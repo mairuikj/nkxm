@@ -1,8 +1,10 @@
 package com.nkp.dao;
 
 import com.nkp.pojo.Author;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Date;
 import java.util.List;
 
 public interface AuthorMapper {
@@ -57,4 +59,6 @@ public interface AuthorMapper {
     List<Author> selAll();
     @Select("select * from author where id=#{id}")
     Author selectByPrimaryKey1(int id);
+
+    List<Author> selLike(@Param("name") String condition, @Param("atype") Integer type, @Param("creattime") Date date);
 }

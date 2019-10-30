@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,14 +109,14 @@ public class AuthorService {
         return dataPackJSON;
     }
 
-    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize,Integer id) {
+    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize, Integer id, String condition, Integer type, Date date) {
         DataPackJSON dataPackJSON=new DataPackJSON();
         Map map=new HashMap();
         HttpSession session = request.getSession();
 
         PageHelper.startPage(pageNum,pageSize);
 
-        List<Author> list=authorMapper.selAll();
+        List<Author> list=authorMapper.selLike(condition,type,date);
         for(Author author:list){
             Integer i=newsMapper.selByAuthor(author.getId());
             i=(i==null?0:i);
