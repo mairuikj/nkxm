@@ -20,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -193,6 +194,11 @@ public class BackstageController {
             }
         }
 
+    }
+
+    @RequestMapping("/pagingSel")
+    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id,String condition, Integer type, Date date){
+        return userService.pagingSel(request,pageNum,pageSize,id,condition,type,date);
     }
 
 

@@ -4,6 +4,7 @@ import com.nkp.pojo.UserInfo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Date;
 import java.util.List;
 
 public interface UserInfoMapper {
@@ -61,4 +62,6 @@ public interface UserInfoMapper {
 
     @Select("select * from userInfo where userPhone=#{phone}")
     UserInfo selectByPhone(@Param("phone") String phone);
+
+    List<UserInfo> selLike(@Param("userName") String condition, @Param("type") Integer type, @Param("createTime") Date date);
 }
