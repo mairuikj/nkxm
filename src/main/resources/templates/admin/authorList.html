@@ -36,6 +36,9 @@
             overflow:hidden;
             text-overflow:ellipsis;
         }
+        .typeList > div{
+            width: 145px
+        }
     </style>
 </head>
 <body id="reportsPage">
@@ -63,12 +66,8 @@
                     <li class="nav-item dropdown">
                         <a
                                 class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
+                                href="/newsList"
+                            
                         >
                             <img class="titleIcon" src="../../static/img/wenzhang.png">
                             <span>文章</span>
@@ -78,12 +77,8 @@
                     <li class="nav-item dropdown">
                         <a
                                 class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
+                                href="/authorList"
+                                
                         >
                             <img class="titleIcon" src="../../static/img/zuozhe.png">
                             <span>作者</span>
@@ -93,7 +88,7 @@
                     <li class="nav-item dropdown">
                         <a
                                 class="nav-link dropdown-toggle"
-                                href="#"
+                                href="/activityList"
                                 id="navbarDropdown"
                                 role="button"
                                 data-toggle="dropdown"
@@ -108,12 +103,8 @@
                     <li class="nav-item dropdown">
                         <a
                                 class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
+                                href="/productList"
+                               
                         >
                             <img class="titleIcon" src="../../static/img/chanpin.png">
                             <span>产品</span>
@@ -123,26 +114,11 @@
                     <li class="nav-item dropdown">
                         <a
                                 class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
+                                href="/userList"
+                               
                         >
                             <img class="titleIcon" src="../../static/img/xitong.png">
                             <span>系统</span>
-                        </a>
-                    </li>
-                    <!--  <li class="nav-item">
-                         <a class="nav-link " href="/addNews">
-                             <i class="fas fa-shopping-cart"></i> 发布文章
-                         </a>
-                     </li> -->
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/userList">
-                            <i class="far fa-user"></i> 用户信息
                         </a>
                     </li>
                 </ul>
@@ -232,7 +208,9 @@
                         <li style="width: 10%">
                             {{item.atype == 1?'盈票供应链研究院':item.atype == 2?'大创知服':'自媒体撰稿人'}}
                         </li>
-                        <li style="width: 30%;word-break: break-all">{{item.introduce}}</li>
+                        <li 
+                            style="width: 30%; overflow:hidden;
+            text-overflow:ellipsis;white-space: nowrap;padding:0 5px">{{item.introduce}}</li>
                         <li style="width: 12%">{{item.remarks}}</li>
                         <li style="width: 10%">{{item.createtime}}</li>
                         <li style="width: 10%" class="lastLi">

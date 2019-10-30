@@ -63,8 +63,7 @@
                         <li class="nav-item dropdown">
                             <a
                                 class="nav-link dropdown-toggle"
-                                href="/newsList"
-
+                                href="javascript:;"
                             >
                                <img class="titleIcon" src="../../static/img/wenzhang.png">
                               <span>文章</span>
@@ -75,7 +74,7 @@
                             <a
                                 class="nav-link dropdown-toggle"
                                 href="/authorList"
-
+                                
                             >
                                <img class="titleIcon" src="../../static/img/zuozhe.png">
                               <span>作者</span>
@@ -86,7 +85,7 @@
                             <a
                                 class="nav-link dropdown-toggle"
                                 href="/activityList"
-
+                               
                             >
                                <img class="titleIcon" src="../../static/img/huodong.png">
                               <span>活动</span>
@@ -97,7 +96,7 @@
                             <a
                                 class="nav-link dropdown-toggle"
                                 href="/productList"
-
+                                
                             >
                                <img class="titleIcon" src="../../static/img/chanpin.png">
                               <span>产品</span>
@@ -108,18 +107,12 @@
                             <a
                                 class="nav-link dropdown-toggle"
                                 href="/userList"
+                               
                             >
                                <img class="titleIcon" src="../../static/img/xitong.png">
                               <span>系统</span>
                             </a>
                         </li>
-                       <!--  <li class="nav-item">
-                            <a class="nav-link " href="/addNews">
-                                <i class="fas fa-shopping-cart"></i> 发布文章
-                            </a>
-                        </li> -->
-                        
-
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
@@ -195,7 +188,7 @@
                         <li style="width: 10%">状态</li>
                         <li style="width: 12%">操作</li>
                     </ul>
-                    <div class="parentTale" v-if="newList != ''">
+                    <div class="" v-if="newList != ''">
                         <ul class="tableC" v-for="(item,index) in newList">
                             <li style="width: 5%">
                                 <input type="checkbox" name="" @change="changeBox(item,index)">
@@ -206,7 +199,7 @@
                             <li style="width: 8%">
                                 {{item.toppicture == '' ? '无' : '是'}}
                              </li>
-                            <li style="width: 16%">{{item.creattime.substring(0,10)}}</li>
+                            <li style="width: 16%">{{item.creattime}}</li>
                             <li style="width: 10%">
                                 <span class="xianshi" @click="isShow(item)">
                                     {{item.remarks == 0 ?'显示' : '隐藏'}}

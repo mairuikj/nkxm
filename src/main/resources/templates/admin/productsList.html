@@ -63,12 +63,7 @@
                     <li class="nav-item dropdown">
                         <a
                                 class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
+                                href="/newsList"
                         >
                             <img class="titleIcon" src="../../static/img/wenzhang.png">
                             <span>文章</span>
@@ -78,12 +73,7 @@
                     <li class="nav-item dropdown">
                         <a
                                 class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
+                                href="/authorList "
                         >
                             <img class="titleIcon" src="../../static/img/zuozhe.png">
                             <span>作者</span>
@@ -93,12 +83,7 @@
                     <li class="nav-item dropdown">
                         <a
                                 class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
+                                href="/activityList"
                         >
                             <img class="titleIcon" src="../../static/img/huodong.png">
                             <span>活动</span>
@@ -108,12 +93,7 @@
                     <li class="nav-item dropdown">
                         <a
                                 class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
+                                href="javascript:;"   
                         >
                             <img class="titleIcon" src="../../static/img/chanpin.png">
                             <span>产品</span>
@@ -123,26 +103,10 @@
                     <li class="nav-item dropdown">
                         <a
                                 class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
+                                href="/userList "
                         >
                             <img class="titleIcon" src="../../static/img/xitong.png">
                             <span>系统</span>
-                        </a>
-                    </li>
-                    <!--  <li class="nav-item">
-                         <a class="nav-link " href="/addNews">
-                             <i class="fas fa-shopping-cart"></i> 发布文章
-                         </a>
-                     </li> -->
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/userList">
-                            <i class="far fa-user"></i> 用户信息
                         </a>
                     </li>
                 </ul>
@@ -220,7 +184,7 @@
                     <li style="width: 12%">发布时间</li>
                     <li style="width: 10%">操作</li>
                 </ul>
-                <div class="parentTale" v-if="productList != ''">
+                <div class="" v-if="productList != ''">
                     <ul class="tableC" v-for="(item,index) in productList">
                         <li style="width: 5%">
                             <input type="checkbox" name="" @change="changeBox(item,index)">
@@ -231,8 +195,17 @@
                             {{item.ptype == 1?'银票产品':item.atype == 2?'商票产品':'工具产品'}}
                         </li>
                         <li style="width: 12%">{{item.keyword}}</li>
-                        <li style="width: 34%">{{item.introduce}}</li>
-                        <li style="width: 12%">{{item.creattime}}</li>
+                        <li 
+                            style="width: 34%;
+                            padding:0 5px;
+                            overflow: hidden;
+                            text-overflow:ellipsis;
+                            white-space: nowrap;
+                            " >{{item.introduce}}
+                        </li>
+                        <li style="width: 12%">
+                            {{item.creattime.substring(0,10)}}
+                        </li>
                         <li style="width: 10%" class="lastLi">
                             <span @click="details(item)">编辑</span>
                             <span @click="delArticle('1',item)">删除</span>
