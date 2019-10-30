@@ -215,10 +215,10 @@
                     <li style="width: 5%">序号</li>
                     <li style="width: 14%">活动名称</li>
                     <li style="width: 10%">活动类型</li>
-                    <li style="width: 12%">活动价格(元)</li>
-                    <li style="width: 12%">开始时间</li>
-                    <li style="width: 12%">结束时间</li>
-                    <li style="width: 10%">打开次数</li>
+                    <li style="width: 10%">活动价格(元)</li>
+                    <li style="width: 16%">开始时间</li>
+                    <li style="width: 16%">结束时间</li>
+                    <li style="width: 8%">打开次数</li>
                     <li style="width: 12%">发布时间</li>
                     <li style="width: 10%">操作</li>
                 </ul>
@@ -232,11 +232,13 @@
                         <li style="width: 10%">
                             {{item.atype == 1?'盈票抽奖':item.atype == 2?'行业论坛':'研究院会议'}}
                         </li>
-                        <li style="width: 12%">{{item.price}}</li>
-                        <li style="width: 12%">{{item.activitytime}}</li>
-                        <li style="width: 12%">{{item.endtime}}</li>
-                        <li style="width: 10%">{{item.anumber}}</li>
-                        <li style="width: 12%">{{item.createTime}}</li>
+                        <li style="width: 10%">{{item.price}}</li>
+                        <li style="width: 16%">{{item.activitytime}}</li>
+                        <li style="width: 16%">{{item.endtime}}</li>
+                        <li style="width: 8%">{{item.anumber}}</li>
+                        <li style="width: 12%">
+                            {{item.createtime.substring(0,10)}}
+                        </li>
                         <li style="width: 10%" class="lastLi">
                             <span @click="details(item)">编辑</span>
                             <span @click="delArticle('1',item)">删除</span>
