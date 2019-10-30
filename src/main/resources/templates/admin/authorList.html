@@ -184,10 +184,10 @@
                 <ul class="tableT">
                     <li style="width: 5%"></li>
                     <li style="width: 5%">序号</li>
-                    <li style="width: 10%">作者名称</li>
+                    <li style="width: 8%">作者名称</li>
                     <li style="width: 10%">身份标签</li>
-                    <li style="width: 10%">所属机构</li>
-                    <li style="width: 30%">简介</li>
+                    <li style="width: 14%">所属机构</li>
+                    <li style="width: 28%">简介</li>
                     <li style="width: 12%">已发布文章数</li>
                     <li style="width: 10%">入驻时间</li>
                     <li style="width: 10%">操作</li>
@@ -198,16 +198,19 @@
                             <input type="checkbox" name="" @change="changeBox(item,index)">
                         </li>
                         <li style="width: 5%">{{index + 1}}</li>
-                        <li style="width: 10%">{{item.name}}</li>
+                        <li style="width: 8%">{{item.name}}</li>
                         <li style="width: 10%">{{item.identity}}</li>
-                        <li style="width: 10%">
+                        <li style="width: 14%">
                             {{item.atype == 1?'盈票供应链研究院':item.atype == 2?'大创知服':'自媒体撰稿人'}}
                         </li>
                         <li 
-                            style="width: 30%; overflow:hidden;
+                            style="width: 28%; overflow:hidden;
             text-overflow:ellipsis;white-space: nowrap;padding:0 5px">{{item.introduce}}</li>
                         <li style="width: 12%">{{item.remarks}}</li>
-                        <li style="width: 10%">{{item.createtime}}</li>
+                        <li style="width: 10%">
+                            <!-- {{item.createtime}} <--></-->
+                            {{item.createtime.substring(0,10)}}
+                        </li>
                         <li style="width: 10%" class="lastLi">
                             <span @click="details(item)">编辑</span>
                             <span @click="delArticle('1',item)">删除</span>
@@ -276,6 +279,10 @@
                     res.map.pageList.map(item => {
                         item.isChecked = false
                     })
+                    // res.map.pageList.map(item => {
+                    //     console.log(item.createtime)
+                    //     //item.createtime = item.createtime.substring(0,10)
+                    // })
                     this.authorList = res.map.pageList
                     this.total = res.number
                 }
