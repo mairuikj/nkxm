@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class ProductService {
 
     public DataPackJSON add(HttpServletRequest request, Product product){
         try {
-            product.setCreattime(NewDateTime.getDateTime("yyyy-MM-dd :hh:mm:ss"));
+            product.setCreattime(NewDateTime.getDateTime("yyyy-MM-dd :HH:mm:ss"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -105,7 +106,7 @@ public class ProductService {
         return dataPackJSON;
     }
 
-    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize, Integer id) {
+    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize, Integer id, Integer integer, String condition, Integer type, Date date) {
         DataPackJSON dataPackJSON=new DataPackJSON();
         Map map=new HashMap();
 
@@ -113,7 +114,7 @@ public class ProductService {
 
         PageHelper.startPage(pageNum,pageSize);
 
-        List list=productMapper.selAll();
+        List list=productMapper.selLike(condition,type,date);
 
         //得到分页的结果对象
         PageInfo<Product> pageInfo = new PageInfo<>(list);

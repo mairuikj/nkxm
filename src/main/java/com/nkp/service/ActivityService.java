@@ -21,7 +21,7 @@ public class ActivityService {
     private ActivityMapper activityMapper;
 
     public DataPackJSON add(HttpServletRequest request, Activity activity) throws ParseException {
-        activity.setCreatetime(NewDateTime.getDateTime("yyyy-MM-dd :hh:mm:ss"));
+        activity.setCreatetime(NewDateTime.getDateTime("yyyy-MM-dd :HH:mm:ss"));
         activity.setAnumber(0);
         int res=activityMapper.insertSelective(activity);
         DataPackJSON dataPackJSON=new DataPackJSON();
@@ -54,7 +54,7 @@ public class ActivityService {
 
     public DataPackJSON up(HttpServletRequest request, Activity activity){
         try {
-            activity.setCreatetime(NewDateTime.getDateTime("yyyy-MM-dd :hh:mm:ss"));
+            activity.setCreatetime(NewDateTime.getDateTime("yyyy-MM-dd :HH:mm:ss"));
         } catch (ParseException e) {
             e.printStackTrace();
         }

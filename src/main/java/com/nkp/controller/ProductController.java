@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/product")
@@ -41,8 +42,8 @@ public class ProductController {
     }
 
     @RequestMapping("/pagingSel")
-    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id){
-        return productService.pagingSel(request,pageNum,pageSize,id);
+    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id,String condition, Integer type, Date date){
+        return productService.pagingSel(request,pageNum,pageSize,id,id,condition,type,date);
     }
 
 }

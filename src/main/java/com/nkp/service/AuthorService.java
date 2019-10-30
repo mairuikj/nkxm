@@ -30,7 +30,7 @@ public class AuthorService {
 
     public DataPackJSON add(HttpServletRequest request, Author author){
         try {
-            author.setCreatetime(NewDateTime.getDateTime("yyyy-MM-dd :hh:mm:ss"));
+            author.setCreatetime(NewDateTime.getDateTime("yyyy-MM-dd :HH:mm:ss"));
         } catch (ParseException e) {
             e.printStackTrace();
         }

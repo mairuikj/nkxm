@@ -36,7 +36,7 @@ public class NewsService {
 
 
     public DataPackJSON add(HttpServletRequest request, News news) throws ParseException {
-        news.setCreattime(NewDateTime.getDateTime("yyyy-MM-dd :hh:mm:ss"));
+        news.setCreattime(NewDateTime.getDateTime("yyyy-MM-dd :HH:mm:ss"));
         news.setRemarks("0");//默认0代表新闻在前台显示
         if(news.getKeyword()!=null){
             String str=news.getKeyword().replace(",","，");
@@ -73,7 +73,7 @@ public class NewsService {
     }
 
     public DataPackJSON up(HttpServletRequest request, News news) throws ParseException {
-        news.setCreattime(NewDateTime.getDateTime("yyyy-MM-dd :hh:mm:ss"));
+        news.setCreattime(NewDateTime.getDateTime("yyyy-MM-dd :HH:mm:ss"));
         int res=newsMapper.updateByPrimaryKeySelective(news);
         DataPackJSON dataPackJSON=new DataPackJSON();
         if(res==1){
@@ -347,7 +347,7 @@ public class NewsService {
         int res=0;
 
         try {
-            res=newsMapper.roof(id,NewDateTime.getDateTime("yyyy-MM-dd :hh:mm:ss"));
+            res=newsMapper.roof(id,NewDateTime.getDateTime("yyyy-MM-dd :HH:mm:ss"));
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -2,6 +2,7 @@ package com.nkp.service;
 
 
 import com.nkp.config.utils.DataPackJSON;
+import com.nkp.config.utils.NewDateTime;
 import com.nkp.dao.ShrioMapper;
 import com.nkp.dao.UserInfoMapper;
 import com.nkp.pojo.UserInfo;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +50,11 @@ public class UserService {
     }
 
     public boolean addUser(UserInfo userInfo) {
+        try {
+            userInfo.setCreatetime(NewDateTime.getDateTime("yyyy-MM-dd :HH:mm:ss"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         int res=userDao.insertSelective(userInfo);
         if(res==1){
             return true;

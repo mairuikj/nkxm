@@ -212,4 +212,21 @@
       remarks = #{remarks,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selLike" parameterType="com.nkp.pojo.Product" resultMap="ResultMapWithBLOBs">
+    select * from product where 1=1
+    <if test="name != null and name.trim() !=''">
+      and name like "%${name}%"
+    </if>
+    <if test="ptype != null">
+      and ptype = #{ptype,jdbcType=INTEGER}
+    </if>
+    <if test="creattime != null">
+      and DATE_FORMAT(creatTime, '%Y-%m-%d') = DATE_FORMAT(#{creattime},'%Y-%m-%d')
+    </if>
+    order by creatTime desc
+
+
+  </select>
+
 </mapper>

@@ -1,8 +1,10 @@
 package com.nkp.dao;
 
 import com.nkp.pojo.Product;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ProductMapper {
@@ -63,4 +65,6 @@ public interface ProductMapper {
     int updateByPrimaryKey(Product record);
     @Select("select * from product")
     List<Product> selAll();
+
+    List<Product> selLike(@Param("name") String condition, @Param("ptype") Integer type, @Param("creattime") Date date);
 }
