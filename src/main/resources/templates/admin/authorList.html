@@ -77,7 +77,7 @@
                     <li class="nav-item dropdown">
                         <a
                                 class="nav-link dropdown-toggle"
-                                href="/authorList"
+                                href="javascript:;"
                                 
                         >
                             <img class="titleIcon" src="../../static/img/zuozhe.png">
@@ -89,11 +89,6 @@
                         <a
                                 class="nav-link dropdown-toggle"
                                 href="/activityList"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
                         >
                             <img class="titleIcon" src="../../static/img/huodong.png">
                             <span>活动</span>
@@ -197,7 +192,7 @@
                     <li style="width: 10%">入驻时间</li>
                     <li style="width: 10%">操作</li>
                 </ul>
-                <div class="parentTale" v-if="authorList != ''">
+                <div class="" v-if="authorList != ''">
                     <ul class="tableC" v-for="(item,index) in authorList">
                         <li style="width: 5%">
                             <input type="checkbox" name="" @change="changeBox(item,index)">
