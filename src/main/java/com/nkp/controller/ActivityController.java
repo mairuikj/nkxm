@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/activity")
@@ -42,8 +43,8 @@ public class ActivityController {
     }
 
     @RequestMapping("/pagingSel")
-    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id){
-        return activityService.pagingSel(request,pageNum,pageSize,id);
+    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id,String condition, Integer type, Date date){
+        return activityService.pagingSel(request,pageNum,pageSize,id,condition,type,date);
     }
 
     @RequestMapping("/getActivity")

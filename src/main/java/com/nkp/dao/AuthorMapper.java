@@ -60,5 +60,5 @@ public interface AuthorMapper {
     @Select("select * from author where id=#{id}")
     Author selectByPrimaryKey1(int id);
 
-    List<Author> selLike(@Param("name") String condition, @Param("atype") Integer type, @Param("creattime") Date date);
+    List<Author> selLike(@Param("name") String condition, @Param("atype") Integer type, @Param("createtime") Date date);
 }

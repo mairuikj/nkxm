@@ -179,10 +179,10 @@
     <if test="atype != null">
       and atype = #{atype,jdbcType=INTEGER}
     </if>
-    <if test="creattime != null">
-      DATE_FORMAT(a.creatTime, '%Y-%m-%d') = DATE_FORMAT(#{creattime},'%Y-%m-%d') and
+    <if test="createtime != null">
+      DATE_FORMAT(createTime, '%Y-%m-%d') = DATE_FORMAT(#{createtime},'%Y-%m-%d') and
     </if>
-    order by createTime asc
+    order by createTime desc
 
 
   </select>

@@ -1,9 +1,11 @@
 package com.nkp.dao;
 
 import com.nkp.pojo.Activity;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ActivityMapper {
@@ -68,4 +70,6 @@ public interface ActivityMapper {
     List<Activity> selAllDesc();
     @Update("update activity set anumber=anumber+1 where id=#{id} ")
     int upanumber(int id);
+
+    List<Activity> selLike(@Param("name") String condition, @Param("atype") Integer type, @Param("createtime") Date date);
 }

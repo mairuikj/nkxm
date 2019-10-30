@@ -17,7 +17,6 @@
     <script src="../../static/js/elementUi.js"></script>
     <script src="https://unpkg.com/wangeditor@3.1.1/release/wangEditor.min.js"></script>
     <script src="../../static/js/request.js"></script>
-
     <style>
         [v-cloak]{
             display:none
@@ -34,24 +33,19 @@
             height: 100%;
             width: 100%;
         }
-        .el-input__inner{
-            border-radius: 0 !important;
-            color: #fff !important;
-            height: 50px !important;
-            background-color:#54657d;
-            border: none;
-        }
-        .el-date-picker{
-            z-index: 99999 !important;
+        .weizhiLine{
+            height:2px;
         }
     </style>
 </head>
 <body>
 <div id="app" v-cloak>
+
     <nav class="navbar navbar-expand-xl">
         <div class="container h-100">
+            <img src="../../static/img/tupian1.png">
             <a class="navbar-brand" href="javascript:;">
-                <h1 class="tm-site-title mb-0">盈票公众号管理</h1>
+                <h1 class="tm-site-title mb-0">盈票服务号管理</h1>
             </a>
             <button
                     class="navbar-toggler ml-auto mr-0"
@@ -67,15 +61,9 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto h-100">
-                    <!--<li class="nav-item">
-                        <a class="nav-link" href="/index">
-                            <i class="fas fa-tachometer-alt"></i> 数据统计
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>-->
                     <li class="nav-item dropdown">
                         <a
-                                class="nav-link dropdown-toggle active"
+                                class="nav-link dropdown-toggle"
                                 href="#"
                                 id="navbarDropdown"
                                 role="button"
@@ -83,37 +71,91 @@
                                 aria-haspopup="true"
                                 aria-expanded="false"
                         >
-                            <i class="far fa-file-alt"></i>
-                            <span> 更多功能 <i class="fas fa-angle-down"></i> </span>
+                            <img class="titleIcon" src="../../static/img/wenzhang.png">
+                            <span>文章</span>
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="/newsList">文章列表</a>
-                          <a class="dropdown-item" href="/authorList">作者列表</a>
-                          <a class="dropdown-item" href="/activityList">活动列表</a>
-                          <a class="dropdown-item" href="/productList">产品列表</a>
-                            <a class="dropdown-item" href="/cooperationList">合作方列表</a>
-                        </div>
+
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="/addNews">
-                        <i class="fas fa-shopping-cart"></i> 发布文章
-                      </a>
+                    <li class="nav-item dropdown">
+                        <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                id="navbarDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                        >
+                            <img class="titleIcon" src="../../static/img/zuozhe.png">
+                            <span>作者</span>
+                        </a>
+
                     </li>
+                    <li class="nav-item dropdown">
+                        <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                id="navbarDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                        >
+                            <img class="titleIcon" src="../../static/img/huodong.png">
+                            <span>活动</span>
+                        </a>
+
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                id="navbarDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                        >
+                            <img class="titleIcon" src="../../static/img/chanpin.png">
+                            <span>产品</span>
+                        </a>
+
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                id="navbarDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                        >
+                            <img class="titleIcon" src="../../static/img/xitong.png">
+                            <span>系统</span>
+                        </a>
+                    </li>
+                    <!--  <li class="nav-item">
+                         <a class="nav-link " href="/addNews">
+                             <i class="fas fa-shopping-cart"></i> 发布文章
+                         </a>
+                     </li> -->
 
                     <li class="nav-item">
-                      <a class="nav-link" href="/userList">
-                        <i class="far fa-user"></i> 用户信息
-                      </a>
+                        <a class="nav-link" href="/userList">
+                            <i class="far fa-user"></i> 用户信息
+                        </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link d-block" href="/signout" @click="loginOut">
-                            <span>{{currentUser.username}}</span>
+
                             <img
                                     style="width: 50px;height: 50px;border-radius: 50%"
                                     :src="currentUser.purl"
                                     alt="">
+                            <span>{{currentUser.username}}</span>
                             退出
                         </a>
                     </li>
@@ -121,17 +163,36 @@
             </div>
         </div>
     </nav>
+
     <div class="container tm-mt-big tm-mb-big">
-        <div class="row">
-            <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
-                <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-                    <div class="row">
-                        <div class="col-12">
-                            <h2 class="tm-block-title d-inline-block">新建活动</h2>
-                        </div>
-                    </div>
+        <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+            <div class="row currentWzhi">
+                <div class="col-12">
+                    <span class="weizhi">您的位置:</span>
+                    <span class="subweizhi">活动/编辑活动</span>
+                </div>
+            </div>
+            <div class="weizhiLine"></div>
+            <div class="row">
+                <!-- <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto"> -->
+                <div class="mx-auto">
                     <div class="row tm-edit-product-row">
-                        <div class="col-xl-6 col-lg-6 col-md-12">
+                        <div class="imgWidth">
+                            <div class="fengmian">封面</div>
+                            <div class="tm-product-img-dummy mx-auto imgWidth">
+                                <img :src="from.activitypictures" alt="">
+                            </div>
+                            <div class="parentButton">
+                                <input id="fileInput" type="file" style="display:none;"  @change="addImg($event)"/>
+                                <input
+                                        type="button"
+                                        class="btn upButton"
+                                        value="选择图片"
+                                        onclick="document.getElementById('fileInput').click();"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 ml120">
                             <form action="" class="tm-edit-product-form">
                                 <div class="form-group mb-3">
                                     <label
@@ -140,73 +201,77 @@
                                     </label>
                                     <input
                                             v-model="from.name"
-                                            id="name"
-                                            name="name"
                                             type="text"
-                                            class="form-control validate"
-
+                                            class="form-contro"
+                                            placeholder="请输入活动名称，25字以内"
                                     />
                                 </div>
                                 <div class="form-group mb-3">
                                     <label
                                             for="description"
-                                    >开始时间</label
+                                    >活动地址</label
                                     >
-                                    <div>
-                                        <el-date-picker
-                                                style="width: 100%;height: 50px;"
-                                                v-model="from.activitytime"
-                                                type="datetime"
-                                                placeholder="选择日期时间">
-                                        </el-date-picker>
-                                    </div>
+
+                                    <input v-model="from.activityaddress" class="form-contro" placeholder="请输入地址"/>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label
                                             for="description"
-                                    >结束时间</label
+                                    >活动价格(元)</label
                                     >
-                                    <div>
-                                        <el-date-picker
-                                                style="width: 100%;height: 50px;"
-                                                v-model="from.endtime"
-                                                type="datetime"
-                                                placeholder="选择日期时间">
-                                        </el-date-picker>
-                                    </div>
+
+                                    <input v-model="from.price" class="form-contro" />
                                 </div>
+
                                 <div class="form-group mb-3">
                                     <label
                                             for="category"
-                                    >活动地址</label
+                                    >活动类型</label
                                     >
-                                    <input v-model="from.activityaddress" class="form-control validate" />
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label
-                                            for="category"
-                                    >活动价格</label
-                                    >
-                                    <input v-model="from.price" class="form-control validate" type="number"/>
+                                    <select class="custom-selectt" v-model="from.atype">
+                                        <option value="1">盈票抽奖</option>
+                                        <option value="2">行业论坛</option>
+                                        <option value="3">研究院会议</option>
+                                    </select>
                                 </div>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-                            <div class="tm-product-img-dummy mx-auto">
-                                <img :src="from.activitypictures" alt="">
-                            </div>
-                            <div class="custom-file mt-3 mb-3">
-                                <input id="fileInput" type="file" style="display:none;"  @change="addImg($event)"/>
-                                <input
-                                        type="button"
-                                        class="btn btn-primary btn-block mx-auto"
-                                        value="上传活动图片"
-                                        onclick="document.getElementById('fileInput').click();"
-                                />
+
+                        <div class="form-group mb-3">
+                            <label
+                                    for="description"
+                            >开始时间</label
+                            >
+                            <div>
+                                <el-date-picker
+                                        style="width: 100%;height: 50px;"
+                                        v-model="from.activitytime"
+                                        type="datetime"
+                                        placeholder="选择日期时间">
+                                </el-date-picker>
                             </div>
                         </div>
+                        <div class="form-group mb-3">
+                            <label
+                                    for="description"
+                            >结束时间</label
+                            >
+                            <div>
+                                <el-date-picker
+                                        style="width: 100%;height: 50px;"
+                                        v-model="from.endtime"
+                                        type="datetime"
+                                        placeholder="选择日期时间">
+                                </el-date-picker>
+                            </div>
+                        </div>
+
+
+                        <span>活动正文</span>
                         <div id="editor"></div>
-                        <div class="col-12">
-                            <button class="btn btn-primary btn-block text-uppercase" @click="saveArticles">更新活动</button>
+                        <div class="funBao">
+                            <button class="btn backs" @click="goBack">返回</button>
+                            <button class="btn backs"  @click="clear()">清楚正文格式,重新排版</button>
+                            <button class="btn baocun" @click="saveArticles">保存</button>
                         </div>
                         </form>
                     </div>
@@ -229,11 +294,14 @@
                 price: '',
                 content:'',
                 activitypictures: '',
+                atype:'',
+
             }
         },
         mounted() {
             this.createE();
-            this.getInfo();
+            this.getDetail();
+
         },
         methods: {
             getQueryStringRegExp(name){
@@ -245,13 +313,13 @@
                 editor.customConfig.customUploadImg = function (files, insert) {
                     files.map((item,index) => {
                         let formData = new FormData();
-                        formData.append('file',item)
-                        upFile(formData,'uplode/image').then(res => {
-                            insert(res)
-                        }, err => {
-                            console.log(err)
-                        })
+                    formData.append('file',item)
+                    upFile(formData,'uplode/image').then(res => {
+                        insert(res)
+                    }, err => {
+                        console.log(err)
                     })
+                })
                 };
                 editor.customConfig.onchange = (html) => {
                     this.from.content = html
@@ -264,7 +332,7 @@
             })
             },
 
-            addImg(e) { //上传活动图片
+            addImg(e) { //上传封面图片
                 let formData = new FormData();
                 formData.append('file',e.target.files[0]);
                 upFile(formData,'uplode/image').then(res => {
@@ -275,8 +343,10 @@
             },
 
 
+            saveArticles() { //保存
+                //this.from.id = this.getQueryStringRegExp('id');
 
-            saveArticles() { //保存文章
+                delete this.from.createtime
                 let d = new Date(this.from.activitytime)
                 let dateTime = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                 let end =  new Date(this.from.endtime)
@@ -285,25 +355,40 @@
                 this.from.endtime = dateTime2
                 postPromise(this.from,'activity/up').then(res => {
                     if(res.flag == 0) {
-                        this.$message({
-                            message: '更新成功',
-                            type: 'success'
-                        });
-                    }
-                } ,err => {
+                    this.$message({
+                        message: '更新成功',
+                        type: 'warning'
+                    });
+                    setTimeout(() => {
+                        this.goBack();
+                },1400);
+                }
+            } ,err => {
                     console.log(err)
                 })
             },
-
-            getInfo() {
+            getDetail() {
                 postPromise({id: this.getQueryStringRegExp('id')},'activity/selById').then(res => {
                     if(res.flag == 0) {
-                        this.from = res.map.activity
-                        editor.txt.html(res.map.activity.content)
-                    }
-                } ,err => {
-                    console.log(err)
+                    this.from = res.map.activity
+                    editor.txt.html(res.map.activity.content)
+                }
+            }, err => {
+
                 })
+            },
+
+            clear() {
+                this.from.content = this.from.content.replace(/(\n)/g, "");
+                this.from.content = this.from.content.replace(/(\t)/g, "");
+                this.from.content = this.from.content.replace(/(\r)/g, "");
+                this.from.content = this.from.content.replace(/<\/?[^>]*>/g, "");
+                this.from.content = this.from.content.replace(/\s*/g, "");
+                editor.txt.html(this.from.content)
+            },
+
+            goBack() {
+                location.replace('/activityList');
             }
         }
     })
