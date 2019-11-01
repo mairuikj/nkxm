@@ -64,4 +64,6 @@ public interface UserInfoMapper {
     UserInfo selectByPhone(@Param("phone") String phone);
 
     List<UserInfo> selLike(@Param("userName") String condition, @Param("type") Integer type, @Param("createTime") Date date);
+    @Select("select count(0) from userInfo where userPhone=#{userphone} or userName=#{username}")
+    int zc(@Param("username") String username, @Param("userphone") String userphone);
 }

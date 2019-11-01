@@ -10,6 +10,21 @@
     <result column="uid" jdbcType="INTEGER" property="uid" />
     <result column="cid" jdbcType="INTEGER" property="cid" />
   </resultMap>
+
+  <resultMap id="BaseResultMap2" type="com.nkp.pojo.Shrio">
+
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="cid" jdbcType="INTEGER" property="cid" />
+
+    <association property="surl" javaType="com.nkp.pojo.Surl">
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="url" property="url" jdbcType="VARCHAR" />
+
+    </association>
+
+  </resultMap>
+
   <sql id="Base_Column_List">
     <!--
       WARNING - @mbggenerated
@@ -98,4 +113,10 @@
       cid = #{cid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByUrl" parameterType="java.lang.String" resultMap="BaseResultMap2">
+    select * from shrio a inner join surl b on a.cid=b.id where b.url=#{url,jdbcType=VARCHAR}
+
+
+  </select>
 </mapper>

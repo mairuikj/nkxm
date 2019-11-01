@@ -5,10 +5,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.nkp.config.utils.DataPackJSON;
 import com.nkp.dao.ShrioMapper;
 import com.nkp.dao.UserInfoMapper;
+import com.nkp.pojo.Shrio;
 import com.nkp.pojo.UserInfo;
 import com.nkp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -121,8 +124,20 @@ public class BackstageController {
 
 
     @RequestMapping("/add")
-    public DataPackJSON addUser(HttpServletRequest request,UserInfo userInfo,@RequestBody JSONObject jsonParam){
+    @Transactional
+    public DataPackJSON addUser(HttpServletRequest request,@RequestBody JSONObject jsonParam){
         DataPackJSON dataPackJSON=new DataPackJSON();
+        UserInfo userInfo=new UserInfo();
+        userInfo.setUsername(jsonParam.getString("username"));
+        userInfo.setPurl(jsonParam.getString("purl"));
+        userInfo.setUserphone(jsonParam.getString("userphone"));
+        userInfo.setType(jsonParam.getInteger("type"));
+        int num=userInfoMapper.zc(jsonParam.getString("username"),jsonParam.getString("userphone"));
+        if(num!=0){
+            dataPackJSON.setFlag(1);
+            dataPackJSON.setMsg("ERROR");
+            return dataPackJSON;
+        }
         boolean res=userService.addUser(userInfo);
         if(res){
             upshrio(jsonParam,userInfo.getUserid());
@@ -136,8 +151,15 @@ public class BackstageController {
     }
 
     @RequestMapping("/upUser")
-    public DataPackJSON upUser(HttpServletRequest request,UserInfo userInfo,@RequestBody JSONObject jsonParam){
+    public DataPackJSON upUser(HttpServletRequest request,@RequestBody JSONObject jsonParam){
+
         DataPackJSON dataPackJSON=new DataPackJSON();
+        UserInfo userInfo=new UserInfo();
+        userInfo.setUsername(jsonParam.getString("username"));
+        userInfo.setPurl(jsonParam.getString("purl"));
+        userInfo.setUserphone(jsonParam.getString("userphone"));
+        userInfo.setType(jsonParam.getInteger("type"));
+        userInfo.setUserid(jsonParam.getInteger("id"));
         boolean res=userService.upUser(userInfo);
         if(res){
             upshrio(jsonParam,userInfo.getUserid());
@@ -179,7 +201,21 @@ public class BackstageController {
 
     public  void upshrio(JSONObject jsonParam,int uid){
         //删除用户现有权限
-        //todo(更新用户权限)
+        shrioMapper.delShrio(uid);
+        List<Map<String,Object>> list=(List)jsonParam.get("jsonParam");
+        //更新权限
+        for(int i=0;i<5;i++){
+            List<Map<String,Object>> res=(List)list.get(i).get("subChecked");
+            for(int j=0;j<4;j++){
+                Integer result=(Integer)res.get(j).get("isChecked");
+                Shrio shrio=new Shrio();
+                shrio.setUid(uid);
+                shrio.setCid(result);
+                shrioMapper.insertSelective(shrio);
+
+            }
+        }
+
 
     }
 

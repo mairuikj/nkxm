@@ -1,6 +1,8 @@
 package com.nkp.dao;
 
 import com.nkp.pojo.Shrio;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
 
 public interface ShrioMapper {
     /**
@@ -50,5 +52,10 @@ public interface ShrioMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Shrio record);
+    @Delete("delete from shrio where uid=#{uid}")
+    int delShrio(int uid);
+
+    //查看此用户是否有此URL的访问权限
+    Shrio selectByUrl(@Param("url") String url);
 
 }
