@@ -16,7 +16,23 @@ function postPromise(params, path) {
     })
 };
 
-
+function jsonPromise(params, path) {
+    return new Promise((resolve, reject) => {
+       $.ajax({
+        type: "POST",
+        url: address + path,
+        data: params,
+        dataType:'JSON',
+        contentType: 'application/json',
+        success: res => {
+          resolve(res)
+        },
+        fail: rej => {
+          reject(rej)
+        }
+      });
+    })
+};
 function getPromise(params, path) {
     return new Promise((resolve, reject) => {
        $.ajax({
@@ -33,6 +49,8 @@ function getPromise(params, path) {
       });
     })
 };
+
+
 
 function upFile(params, path) {
   return new Promise((resolve, reject) => {
