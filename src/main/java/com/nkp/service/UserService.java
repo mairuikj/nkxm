@@ -14,7 +14,10 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service(value = "userService")
 public class UserService {
@@ -80,21 +83,7 @@ public class UserService {
 
     public DataPackJSON selById(HttpServletRequest request,int id) {
         DataPackJSON dataPackJSON=new DataPackJSON();
-        Map map=new HashMap();
-        UserInfo userInfo=userDao.selectByPrimaryKey(id);
-
-        //map.put("session_user",request.getSession().getAttribute("session_user"));
-        map.put("session_user",userInfo);
-        List<List> shrio=new ArrayList<>();
-        for(int i=1;i<=5;i++){
-            List temp=shrioMapper.selShrio(id,i);
-            shrio.add(temp);
-        }
-        map.put("shrio",shrio);
-        dataPackJSON.setFlag(0);
-        dataPackJSON.setMsg("SUCCESS");
-
-        dataPackJSON.setMap(map);
+        //TODO（查询用户信息，包含权限）
         return dataPackJSON;
     }
 

@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.nkp.config.utils.DataPackJSON;
 import com.nkp.dao.ShrioMapper;
 import com.nkp.dao.UserInfoMapper;
-import com.nkp.pojo.Shrio;
 import com.nkp.pojo.UserInfo;
 import com.nkp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -181,18 +179,7 @@ public class BackstageController {
 
     public  void upshrio(JSONObject jsonParam,int uid){
         //删除用户现有权限
-        shrioMapper.deleteNewShrio(uid);
-        List<List<Integer>> result=(List)jsonParam.get("shrio");
-        for(int i=0;i<result.size();i++) {
-            for (Integer cr : result.get(i)) {
-                Shrio shrio = new Shrio();
-                shrio.setUid(uid);
-                shrio.setTid(i + 1);
-                shrio.setCid(cr);
-                shrioMapper.insertSelective(shrio);
-
-            }
-        }
+        //todo(更新用户权限)
 
     }
 
