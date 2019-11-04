@@ -95,16 +95,11 @@ public class UserService {
             map.put("num",i+1);
             subChecked.add(map);
         }
-        List<List> subCheckeds=new ArrayList<>();
-        subCheckeds.add(subChecked.subList(0,4));
-        subCheckeds.add(subChecked.subList(4,8));
-        subCheckeds.add(subChecked.subList(8,12));
-        subCheckeds.add(subChecked.subList(12,16));
-        subCheckeds.add(subChecked.subList(16,20));
+
         for(int j=0;j<5;j++){
             Map map1=new HashMap<String,Object>();
             map1.put("title",j==0?"文章":j==1?"作者":j==2?"活动":j==3?"产品":"系统");
-            List<Map> temp=subCheckeds.get(j);
+            List<Map> temp=subChecked.subList(4*j,4*j+4);
 
             map1.put("subChecked",temp);
             boolean isAllElection=true;
