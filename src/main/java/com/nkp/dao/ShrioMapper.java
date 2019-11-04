@@ -3,6 +3,9 @@ package com.nkp.dao;
 import com.nkp.pojo.Shrio;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 public interface ShrioMapper {
     /**
@@ -57,5 +60,7 @@ public interface ShrioMapper {
 
     //查看此用户是否有此URL的访问权限
     Shrio selectByUrl(@Param("url") String url);
-
+    //权限回显
+    @Select("select * from shrio where uid=#{id}")
+    List<Shrio> selByuid(@Param("id") Integer id);
 }

@@ -7,6 +7,7 @@ import com.nkp.config.utils.DataPackJSON;
 import com.nkp.config.utils.NewDateTime;
 import com.nkp.dao.ShrioMapper;
 import com.nkp.dao.UserInfoMapper;
+import com.nkp.pojo.Shrio;
 import com.nkp.pojo.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service(value = "userService")
 public class UserService {
@@ -83,8 +81,52 @@ public class UserService {
 
     public DataPackJSON selById(HttpServletRequest request,int id) {
         DataPackJSON dataPackJSON=new DataPackJSON();
-        //TODO（查询用户信息，包含权限）
+        UserInfo userInfo=userDao.selectByPrimaryKey(id);
+        List<Shrio> big=shrioMapper.selByuid(id);
+        List<Map> subChecked=new ArrayList<>();
+        List<Map> jsonParam=new ArrayList<>();
+
+        for(int i=0;i<big.size();i++){
+
+            String lable=(i+1)%4==1?"增加":(i+1)%4==2?"删除":(i+1)%4==3?"编辑":"删除";
+            Map map=new HashMap<String,Object>();
+            map.put("lable",lable);
+            map.put("isChecked",big.get(i).getCid()==0?false:true);
+            map.put("num",i+1);
+            subChecked.add(map);
+        }
+        List<List> subCheckeds=new ArrayList<>();
+        subCheckeds.add(subChecked.subList(0,4));
+        subCheckeds.add(subChecked.subList(4,8));
+        subCheckeds.add(subChecked.subList(8,12));
+        subCheckeds.add(subChecked.subList(12,16));
+        subCheckeds.add(subChecked.subList(16,20));
+        for(int j=0;j<5;j++){
+            Map map1=new HashMap<String,Object>();
+            map1.put("title",j==0?"文章":j==1?"作者":j==2?"活动":j==3?"产品":"系统");
+            List<Map> temp=subCheckeds.get(j);
+
+            map1.put("subChecked",temp);
+            boolean isAllElection=true;
+            for(Map sc:temp){
+                if(!(boolean)sc.get("isChecked")){
+                    isAllElection=false;
+                    break;
+
+                }
+            }
+            map1.put("isAllElection",isAllElection);
+            jsonParam.add(map1);
+
+        }
+        Map ress=new HashMap();
+        ress.put("userInfo",userInfo);
+        ress.put("jsonParam",jsonParam);
+        dataPackJSON.setFlag(0);
+        dataPackJSON.setMsg("SUCCESS");
+        dataPackJSON.setMap(ress);
         return dataPackJSON;
+
     }
 
     public DataPackJSON oneId(int id){
