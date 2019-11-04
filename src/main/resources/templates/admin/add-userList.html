@@ -208,13 +208,13 @@
                                 <div class="form-group mb-3">
                                     <label
                                             for="name"
-                                    >作者名称
+                                    >用户名称
                                     </label>
                                     <input
                                             v-model="from.username"
                                             type="text"
                                             class="form-contro"
-                                            placeholder="请输入作者名称，8字以内"
+                                            placeholder="请输入用户名称，8字以内"
                                     />
                                 </div>
                                 <div class="form-group mb-3">
@@ -231,22 +231,15 @@
                                             for="category"
                                     >用户类型</label
                                     >
-                                    <select class="custom-selectt" v-model="from. type">
-                                        <option value="1" >盈票供应链研究院</option>
-                                        <option value="2">大创知服</option>
-                                        <option value="3">自媒体撰稿人</option>
+                                    <select class="custom-selectt" v-model="from.type">
+                                        <option value="1" >管理员</option>
+                                        <option value="2">新媒体主管</option>
+                                        <option value="3">新媒体专员</option>
                                     </select>
                                 </div>
                         </div>
 
-                        <div style="width: 100%;margin-top: 70px;margin-bottom: 20px">
-                            <label
-                                    for="introduce"
-                            >介绍</label
-                            >
 
-                            <textarea v-model="from.introduce" class="form-control" cols="100%" rows="10"></textarea>
-                        </div>
                         <div class="quanxian">
                             <label for="introduce">权限</label>
                             <div class="quanxinBox">
@@ -286,6 +279,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="h70">
+        <iframe class="iframeBox" src="/footer"></iframe>
     </div>
 </div>
 <script>

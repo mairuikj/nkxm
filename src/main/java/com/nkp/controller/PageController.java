@@ -175,6 +175,20 @@ public class PageController {
         return "page/result";
 
     }
+    @RequestMapping("/addUser")//增加用户
+    public String addUser(){
+        return "admin/add-userList";
+    }
+
+    @RequestMapping("/editUser")//编辑用户
+    public String editUser(){
+        return "admin/edit-userList";
+    }
+
+    @RequestMapping("/footer")//编辑用户
+    public String footer(){
+        return "admin/footer";
+    }
 
 
 
