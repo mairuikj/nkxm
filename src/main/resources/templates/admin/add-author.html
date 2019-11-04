@@ -191,7 +191,7 @@
                         <div class="imgWidth">
                             <div class="fengmian">头像</div>
                             <div class="tm-product-img-dummy mx-auto imgWidth">
-                                <img :src="from.purl" alt="">
+                                <img :src="from.headpicture" alt="">
                             </div>
                             <div class="parentButton">
                                 <input id="fileInput" type="file" style="display:none;"  @change="addImg($event)"/>
@@ -211,7 +211,7 @@
                                     >作者名称
                                     </label>
                                     <input
-                                            v-model="from.username"
+                                            v-model="from.name"
                                             type="text"
                                             class="form-contro"
                                             placeholder="请输入作者名称，8字以内"
@@ -219,19 +219,19 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label
-                                            for="userphone"
-                                    >手机号码</label
+                                            for="description"
+                                    >身份标签</label
                                     >
 
-                                    <input v-model="from.userphone" class="form-contro" placeholder="请输手机号码，20字以内"/>
+                                    <input v-model="from.identity" class="form-contro" placeholder="请输入身份标签，20字以内"/>
                                 </div>
 
                                 <div class="form-group mb-3">
                                     <label
                                             for="category"
-                                    >用户类型</label
+                                    >所属机构</label
                                     >
-                                    <select class="custom-selectt" v-model="from. type">
+                                    <select class="custom-selectt" v-model="from.atype">
                                         <option value="1" >盈票供应链研究院</option>
                                         <option value="2">大创知服</option>
                                         <option value="3">自媒体撰稿人</option>
@@ -247,36 +247,7 @@
 
                             <textarea v-model="from.introduce" class="form-control" cols="100%" rows="10"></textarea>
                         </div>
-                        <div class="quanxian">
-                            <label for="introduce">权限</label>
-                            <div class="quanxinBox">
-                                <ul class="quanxianT">
-                                    <li style="width: 20%">序号</li>
-                                    <li style="width: 20%">模块</li>
-                                    <li style="width: 20%">全选</li>
-                                    <li style="width: 40%">功能权限</li>
-                                </ul>
-                                 <ul class="quanxianC" v-for="(item,index) in from.jsonParam">
-                                    <li style="width: 20%">{{index + 1}}</li>
-                                    <li style="width: 20%">{{item.title}}</li>
-                                    <li style="width: 20%">
-                                        <input 
-                                        :checked="item.isAllElection" 
-                                        type="checkbox" name="" @change="changeAll(item,index)">
-                                    </li>
-                                    <li style="width: 40%" class="selectC">
-                                        <label v-for="(list,idx) in item.subChecked" >
-                                             <input 
-                                             @change="singleChecked(list,idx,item)"
-                                            :checked="list.isChecked" 
-                                            type="checkbox" name="">
-                                            {{list.lable}}
-                                        </label>
-                                       
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+
                         <div class="funBao">
                             <button class="btn backs" @click="goBack">返回</button>
                             <button class="btn baocun" @click="saveArticles">保存</button>
@@ -296,147 +267,13 @@
             currentUser: JSON.parse(localStorage.getItem('userInfo')),
             articleType: [],
             from: {
-                username : '',
-                userphone:'',
-                purl: '',
-                type:'',
-                jsonParam: [{
-                    titleName: 'article',
-                    title: '文章',
-                    isAllElection: false,
-                    subChecked: [
-                        {
-                            lable: '增加',
-                            isChecked: false,
-                            num: 1,
-                        },
-                       {
-                            lable: '删除',
-                            isChecked: false,
-                            num: 2,
-                        },
-                       {
-                            lable: '编辑',
-                            isChecked: false,
-                            num: 3,
-                        },
-                        {
-                            lable: '查看',
-                            isChecked: false,
-                            num: 4,
-                        }
-                    ]
-                    },
-                    {
-                        titleName: 'author',
-                        title: '作者',
-                        isAllElection: false,
-                        subChecked: [
-                            {
-                                lable: '增加',
-                                isChecked: false,
-                                num: 5,
-                            },
-                           {
-                                lable: '删除',
-                                isChecked: false,
-                                num: 6,
-                            },
-                           {
-                                lable: '编辑',
-                                isChecked: false,
-                                num: 7,
-                            },
-                            {
-                                lable: '查看',
-                                isChecked: false,
-                                num: 8,
-                            }
-                        ]
-                    },
-                    {
-                        titleName: 'activity',
-                        title: '活动',
-                        isAllElection: false,
-                        subChecked: [
-                            {
-                                lable: '增加',
-                                isChecked: false,
-                                num: 9,
-                            },
-                           {
-                                lable: '删除',
-                                isChecked: false,
-                                num: 10,
-                            },
-                           {
-                                lable: '编辑',
-                                isChecked: false,
-                                num: 11,
-                            },
-                            {
-                                lable: '查看',
-                                isChecked: false,
-                                num: 12,
-                            }
-                        ]
-                    },
-                    {
-                        titleName: 'product',
-                        title: '产品',
-                        isAllElection: false,
-                        subChecked: [
-                            {
-                                lable: '增加',
-                                isChecked: false,
-                                num: 13,
-                            },
-                           {
-                                lable: '删除',
-                                isChecked: false,
-                                num: 14,
-                            },
-                           {
-                                lable: '编辑',
-                                isChecked: false,
-                                num: 15,
-                            },
-                            {
-                                lable: '查看',
-                                isChecked: false,
-                                num: 16,
-                            }
-                        ]
-                    },
-                    {
-                        titleName: 'system',
-                        title: '系统',
-                        isAllElection: false,
-                        subChecked: [
-                            {
-                                lable: '增加',
-                                isChecked: false,
-                                num: 17,
-                            },
-                           {
-                                lable: '删除',
-                                isChecked: false,
-                                num: 18,
-                            },
-                           {
-                                lable: '编辑',
-                                isChecked: false,
-                                num: 19,
-                            },
-                            {
-                                lable: '查看',
-                                isChecked: false,
-                                num: 20,
-                            }
-                        ]
-                    }
-                ]
+                name : '',
+                headpicture:'',
+                identity: '',
+                introduce: '',
+                atype:'',
             },
+
 
             
         },
@@ -455,7 +292,7 @@
                 let formData = new FormData();
                 formData.append('file',e.target.files[0]);
                 upFile(formData,'uplode/image').then(res => {
-                    this.from.purl = res
+                    this.from.headpicture = res
                 }, err => {
                     console.log(err)
                 })
@@ -464,7 +301,7 @@
 
             saveArticles() { //保存作者
                 // this.from.id = this.getQueryStringRegExp('id');
-                this.from.jsonParam.map((item) => {
+                /*this.from.jsonParam.map((item) => {
                     item.subChecked.map((subItem) => {
                         if(subItem.isChecked){
                             subItem.isChecked = subItem.num
@@ -472,12 +309,14 @@
                              subItem.isChecked = 0
                         }
                     })
-                })
+                })*/
                 // console.log(this.from)
                 // delete this.from.creattime
                 // delete this.from.explain
 
-                jsonPromise(JSON.stringify(this.from),'user/add').then(res => {
+                delete this.from.creattime
+                delete this.from.explain
+                postPromise(this.from,'author/add').then(res => {
                     if(res.flag == 0) {
                     this.$message({
                         message: '保存成功',
