@@ -173,10 +173,15 @@ public class BackstageController {
     }
 
     @RequestMapping("/del")
-    public DataPackJSON del(HttpServletRequest request,int id){
+    public DataPackJSON del(HttpServletRequest request,String ids){
+        int res=0;
+        String[] id=ids.split(",");
+        for(String i:id){
+            res=+userInfoMapper.deleteByPrimaryKey(Integer.valueOf(i));
+        }
+
         DataPackJSON dataPackJSON=new DataPackJSON();
-        boolean res=userService.del(id);
-        if(res){
+        if(res!=0){
             dataPackJSON.setFlag(0);
             dataPackJSON.setMsg("SUCCESS");
             return dataPackJSON;

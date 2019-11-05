@@ -88,7 +88,7 @@ public class UserService {
 
         for(int i=0;i<big.size();i++){
 
-            String lable=(i+1)%4==1?"增加":(i+1)%4==2?"删除":(i+1)%4==3?"编辑":"删除";
+            String lable=(i+1)%4==1?"增加":(i+1)%4==2?"删除":(i+1)%4==3?"编辑":"查看";
             Map map=new HashMap<String,Object>();
             map.put("lable",lable);
             map.put("isChecked",big.get(i).getCid()==0?false:true);
