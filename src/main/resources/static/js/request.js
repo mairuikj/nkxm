@@ -71,22 +71,39 @@ function upFile(params, path) {
   })
 };
 
-function postAjax(interface, datas) {
-    let postData;
-    $.ajax({
-        type: "POST",
-        dataType:'JSON',
-        url: address + interface,
-        data: datas,
-        async: false,
-        processData: false,
-        contentType: false,
-        error: function(error) {
-            console.log(error);
-        },
-        success: function(res) {
-          postData = res;
+function postAjax(interface, datas,url,then) {
+  let isTrue = false;
+  $.ajax({
+      type: "POST",
+      dataType:'JSON',
+      url: address + interface,
+      data: datas,
+      async:false, 
+      error: function(error) {
+          console.log(error);
+      },
+      success: function(res) {
+        if( res.flag == 1) {
+          then.$message({
+            message: '您没有权限',
+            type: 'warning'
+          }); 
+          
+        }else {
+          if(url != '') {
+            window.location.href = url;
+          }else {
+            isTrue = true
+          }
         }
-    });
-    return postData;
+       
+      }
+  });
+  return isTrue
+}
+
+
+Storage.get = function(name) {
+  let info = localStorage.getItem(name);
+  return JSON.parse(info).userid
 }

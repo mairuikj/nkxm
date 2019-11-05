@@ -292,47 +292,62 @@ let home = new Vue({
         },
 
         delArticle(e,item) { //删除文章
-            let data ={}
-            if(e == 1) {
-                data = {
-                    ids: item.newsid
-                }
-            }else if(e ==2) {
-                data = {
-                    ids: item
-                }
+            let datas = {
+                id: Storage.get('userInfo'),
+                url: '/news/del',
             }
-            postPromise(data,'news/del').then(res => {
-                if(res.flag == 0) {
-                    if(res.flag == 0) {
-                       this.$message({
-                            message: '删除成功',
-                            type: 'success'
-                        });
-                    
-                        setTimeout(() => {
-                            location.reload();
-                        },1400)
-                      
+            let res = postAjax('user/checkShrio',datas,'',this)
+            if(res) {
+                let data ={}
+                if(e == 1) {
+                    data = {
+                        ids: item.newsid
+                    }
+                }else if(e ==2) {
+                    data = {
+                        ids: item
                     }
                 }
-            } ,err => {
-                console.log(err)
-            })
+                postPromise(data,'news/del').then(res => {
+                    if(res.flag == 0) {
+                        if(res.flag == 0) {
+                           this.$message({
+                                message: '删除成功',
+                                type: 'success'
+                            });
+                        
+                            setTimeout(() => {
+                                location.reload();
+                            },1400)
+                          
+                        }
+                    }
+                } ,err => {
+                    console.log(err)
+                })
+            }
         },
 
     
 
         allDel() { //多选删除
-            if(this.allId == ''){
-                this.$message({
-                    message: '请选择要删除的新闻',
-                    type: 'warning'
-                });
-                return
+             let datas = {
+                id: Storage.get('userInfo'),
+                url: '/news/del',
             }
-            this.delArticle('2',this.allId.join(','))
-            this.allId = []
+            let res = postAjax('user/checkShrio',datas,'',this)
+            if(res) {
+                if(this.allId == ''){
+                    this.$message({
+                        message: '请选择要删除的新闻',
+                        type: 'warning'
+                    });
+                    return
+                }
+                this.delArticle('2',this.allId.join(','))
+                this.allId = []
+            }
+            
         },
 
         
@@ -392,7 +407,11 @@ let home = new Vue({
         },
 
         addNews() {// 新建文章
-            window.location.href = '/addNews';
+            let datas = {
+                id: Storage.get('userInfo'),
+                url: '/addNews',
+            }
+            postAjax('user/checkShrio',datas,'/addNews',this)
         },
 
         search() { // 搜素
