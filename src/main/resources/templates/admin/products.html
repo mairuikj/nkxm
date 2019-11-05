@@ -254,7 +254,15 @@ let home = new Vue({
         currentType: '',
     },
     mounted(){ 
-        this.getNewList(this.pageNum,this.pageSize);
+        
+        let datas = {
+            id: Storage.get('userInfo'),
+            url: '/news/pagingSel',
+        }
+        let res = postAjax('user/checkShrio',datas,'',this)
+        if(res) {
+            this.getNewList(this.pageNum,this.pageSize);
+        }
     },
     methods: {
         loginOut() { //退出
@@ -331,23 +339,15 @@ let home = new Vue({
     
 
         allDel() { //多选删除
-             let datas = {
-                id: Storage.get('userInfo'),
-                url: '/news/del',
+            if(this.allId == ''){
+                this.$message({
+                    message: '请选择要删除的新闻',
+                    type: 'warning'
+                });
+                return
             }
-            let res = postAjax('user/checkShrio',datas,'',this)
-            if(res) {
-                if(this.allId == ''){
-                    this.$message({
-                        message: '请选择要删除的新闻',
-                        type: 'warning'
-                    });
-                    return
-                }
-                this.delArticle('2',this.allId.join(','))
-                this.allId = []
-            }
-            
+            this.delArticle('2',this.allId.join(','))
+            this.allId = []    
         },
 
         
