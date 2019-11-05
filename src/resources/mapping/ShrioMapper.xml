@@ -114,9 +114,8 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectByUrl" parameterType="java.lang.String" resultMap="BaseResultMap2">
-    select * from shrio a inner join surl b on a.cid=b.id where b.url=#{url,jdbcType=VARCHAR}
-
+  <select id="selectByUrl"  resultMap="BaseResultMap2">
+    select * from shrio a inner join surl b on a.cid=b.id where b.url=#{map.url} and a.uid=#{map.id}
 
   </select>
 </mapper>

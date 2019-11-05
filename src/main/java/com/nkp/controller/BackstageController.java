@@ -223,6 +223,23 @@ public class BackstageController {
     public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id,String condition, Integer type, Date date){
         return userService.pagingSel(request,pageNum,pageSize,id,condition,type,date);
     }
+    @RequestMapping("/checkShrio")
+    public DataPackJSON checkShrio(HttpServletRequest request,int id,String url){
+        DataPackJSON dataPackJSON=new DataPackJSON();
+        Map<String,Object> map=new HashMap<>();
+        map.put("id",id);
+        map.put("url",url);
+        Shrio res=shrioMapper.selectByUrl(map);
+        if(res!=null){
+            dataPackJSON.setFlag(0);
+            dataPackJSON.setMsg("SUCCESS");
+            return dataPackJSON;
+        }
+        dataPackJSON.setFlag(1);
+        dataPackJSON.setMsg("当前用户无权限");
+
+        return dataPackJSON;
+    }
 
 
 
