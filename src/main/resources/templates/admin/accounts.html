@@ -240,7 +240,15 @@
       currentType: '',
     },
     mounted(){
-      this.getUserList(this.pageNum,this.pageSize);
+      let datas = {
+        id: Storage.get('userInfo'),
+        url: '/user/pagingSel',
+      }
+      let res = postAjax('user/checkShrio',datas,'',this)
+      if(res) {
+        this.getUserList(this.pageNum,this.pageSize);
+      }
+     
     },
     methods: {
       loginOut() { //退出
@@ -278,34 +286,41 @@
         this.getUserList(e,this.pageSize)
       },
 
-      delArticle(e,item) { //删除作者
-        let data ={}
-        if(e == 1) {
-          data = {
-            ids: item.id
-          }
-        }else if(e ==2) {
-          data = {
-            ids: item
-          }
+      delArticle(e,item) { //删除用户
+        let datas = {
+            id: Storage.get('userInfo'),
+            url: '/user/del',
         }
-        postPromise(data,'user/del').then(res => {
-          if(res.flag == 0) {
-          if(res.flag == 0) {
-            this.$message({
-              message: '删除成功',
-              type: 'success'
-            });
-
-            setTimeout(() => {
-              location.reload();
-          },1400)
-
+        let res = postAjax('user/checkShrio',datas,'',this)
+        if(res) {
+          let data ={}
+          if(e == 1) {
+              data = {
+                ids: item.userid
+              }
+          }else if(e ==2) {
+              data = {
+                  ids: item
+              }
           }
-        }
-      } ,err => {
-          console.log(err)
-        })
+          postPromise(data,'user/del').then(res => {
+              if(res.flag == 0) {
+                  if(res.flag == 0) {
+                      this.$message({
+                          message: '删除成功',
+                          type: 'success'
+                      });
+
+                      setTimeout(() => {
+                          location.reload();
+                      },1400)
+
+                  }
+              }
+          } ,err => {
+              console.log(err)
+          })
+        }    
       },
 
 
@@ -332,19 +347,32 @@
       changeBox(e,index) { //复选框
         e.isChecked = !e.isChecked
         if(e.isChecked) {
-          this.allId.push(e.id)
+          this.allId.push(e.userid)
         }else {
-          let idx = this.allId.indexOf(e.id)
+          let idx = this.allId.indexOf(e.userid)
           this.allId.splice(idx,1)
         }
       },
 
       addUser() {// 新建文章
-        window.location.href = '/addUser';
+       // window.location.href = '/addUser';
+        let datas = {
+          id: Storage.get('userInfo'),
+          url: '/addUser',
+        }
+        postAjax('user/checkShrio',datas,'/addUser',this)
       },
 
       search() { // 搜素
-        this.getUserList(this.pageNum, this.pageSize, this.condition, this.currentType,this.datetime)
+        let datas = {
+          id: Storage.get('userInfo'),
+          url: '/user/pagingSel',
+        }
+        let res = postAjax('user/checkShrio',datas,'',this)
+        if(res) {
+          this.getUserList(this.pageNum, this.pageSize, this.condition, this.currentType,this.datetime)
+        }
+        
       }
 
     }

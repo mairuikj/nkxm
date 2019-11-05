@@ -253,7 +253,15 @@
             currentType: '',
         },
         mounted(){
-            this.getActivityList(this.pageNum,this.pageSize);
+            let datas = {
+                id: Storage.get('userInfo'),
+                url: '/news/pagingSel',
+            }
+            let res = postAjax('activity/pagingSel',datas,'',this)
+            if(res) {
+                this.getActivityList(this.pageNum,this.pageSize);
+            }
+            
         },
         methods: {
             loginOut() { //退出
@@ -291,33 +299,41 @@
             },
 
             delArticle(e,item) { //删除作者
-                let data ={}
-                if(e == 1) {
-                    data = {
-                        ids: item.id
-                    }
-                }else if(e ==2) {
-                    data = {
-                        ids: item
-                    }
+                 let datas = {
+                    id: Storage.get('userInfo'),
+                    url: '/activity/del',
                 }
-                postPromise(data,'activity/del').then(res => {
-                    if(res.flag == 0) {
-                    if(res.flag == 0) {
-                        this.$message({
-                            message: '删除成功',
-                            type: 'success'
-                        });
+                let res = postAjax('user/checkShrio',datas,'',this)
+                if(res) {
 
-                        setTimeout(() => {
-                            location.reload();
-                    },1400)
-
+                    let data ={}
+                    if(e == 1) {
+                        data = {
+                            ids: item.id
+                        }
+                    }else if(e ==2) {
+                        data = {
+                            ids: item
+                        }
                     }
-                }
-            } ,err => {
-                    console.log(err)
-                })
+                    postPromise(data,'activity/del').then(res => {
+                        if(res.flag == 0) {
+                        if(res.flag == 0) {
+                                this.$message({
+                                    message: '删除成功',
+                                    type: 'success'
+                                });
+
+                                setTimeout(() => {
+                                    location.reload();
+                            },1400)
+
+                            }
+                        }
+                    } ,err => {
+                        console.log(err)
+                    })
+                }    
             },
 
 
@@ -352,7 +368,12 @@
             },
 
             addActivity() {// 新建文章
-                window.location.href = '/addActivity';
+                //window.location.href = '/addActivity';
+                let datas = {
+                    id: Storage.get('userInfo'),
+                    url: '/addActivity',
+                }
+                postAjax('user/checkShrio',datas,'/addActivity',this)
             },
 
             search() { // 搜素
