@@ -70,3 +70,23 @@ function upFile(params, path) {
     });
   })
 };
+
+function postAjax(interface, datas) {
+    let postData;
+    $.ajax({
+        type: "POST",
+        dataType:'JSON',
+        url: address + interface,
+        data: datas,
+        async: false,
+        processData: false,
+        contentType: false,
+        error: function(error) {
+            console.log(error);
+        },
+        success: function(res) {
+          postData = res;
+        }
+    });
+    return postData;
+}

@@ -296,155 +296,24 @@
                 userphone:'',
                 purl: '',
                 type:'',
-                jsonParam: [{
-                    titleName: 'article',
-                    title: '文章',
-                    isAllElection: false,
-                    subChecked: [
-                        {
-                            lable: '增加',
-                            isChecked: false,
-                            num: 1,
-                        },
-                       {
-                            lable: '删除',
-                            isChecked: false,
-                            num: 2,
-                        },
-                       {
-                            lable: '编辑',
-                            isChecked: false,
-                            num: 3,
-                        },
-                        {
-                            lable: '查看',
-                            isChecked: false,
-                            num: 4,
-                        }
-                    ]
-                    },
-                    {
-                        titleName: 'author',
-                        title: '作者',
-                        isAllElection: false,
-                        subChecked: [
-                            {
-                                lable: '增加',
-                                isChecked: false,
-                                num: 5,
-                            },
-                           {
-                                lable: '删除',
-                                isChecked: false,
-                                num: 6,
-                            },
-                           {
-                                lable: '编辑',
-                                isChecked: false,
-                                num: 7,
-                            },
-                            {
-                                lable: '查看',
-                                isChecked: false,
-                                num: 8,
-                            }
-                        ]
-                    },
-                    {
-                        titleName: 'activity',
-                        title: '活动',
-                        isAllElection: false,
-                        subChecked: [
-                            {
-                                lable: '增加',
-                                isChecked: false,
-                                num: 9,
-                            },
-                           {
-                                lable: '删除',
-                                isChecked: false,
-                                num: 10,
-                            },
-                           {
-                                lable: '编辑',
-                                isChecked: false,
-                                num: 11,
-                            },
-                            {
-                                lable: '查看',
-                                isChecked: false,
-                                num: 12,
-                            }
-                        ]
-                    },
-                    {
-                        titleName: 'product',
-                        title: '产品',
-                        isAllElection: false,
-                        subChecked: [
-                            {
-                                lable: '增加',
-                                isChecked: false,
-                                num: 13,
-                            },
-                           {
-                                lable: '删除',
-                                isChecked: false,
-                                num: 14,
-                            },
-                           {
-                                lable: '编辑',
-                                isChecked: false,
-                                num: 15,
-                            },
-                            {
-                                lable: '查看',
-                                isChecked: false,
-                                num: 16,
-                            }
-                        ]
-                    },
-                    {
-                        titleName: 'system',
-                        title: '系统',
-                        isAllElection: false,
-                        subChecked: [
-                            {
-                                lable: '增加',
-                                isChecked: false,
-                                num: 17,
-                            },
-                           {
-                                lable: '删除',
-                                isChecked: false,
-                                num: 18,
-                            },
-                           {
-                                lable: '编辑',
-                                isChecked: false,
-                                num: 19,
-                            },
-                            {
-                                lable: '查看',
-                                isChecked: false,
-                                num: 20,
-                            }
-                        ]
-                    }
-                ]
+                jsonParam: [],
+                id: '',
             },
 
             
         },
         mounted() {
-
+            this.geteditInfo()
         },
         methods: {
-
+            getQueryStringRegExp(name){
+                let reg = new RegExp("(^|\\?|&)"+ name +"=([^&]*)(\\s|&|$)", "i");
+                if (reg.test(location.href)) return unescape(RegExp.$2.replace(/\+/g, " ")); return "";
+            },
             loginOut() { //退出
                 postPromise({},'/signout').then(res => {
                     localStorage.removeItem("userInfo");
-            })
+                })
             },
 
             addImg(e) { //上传封面图片
@@ -457,6 +326,20 @@
                 })
             },
 
+            geteditInfo() { //编辑回显
+                console.log(this.getQueryStringRegExp('id'))
+                postPromise({id:this.getQueryStringRegExp('id')},'user/selById').then(res => {
+                    console.log(res)
+                    this.from.jsonParam = res.map.jsonParam
+                    this.from.type = res.map.userInfo.type
+                    this.from.username = res.map.userInfo.username
+                    this.from.userphone = res.map.userInfo.userphone
+                    this.from.purl = res.map.userInfo.purl
+                    this.from.id = res.map.userInfo.userid
+                } ,err => {
+                    console.log(err)
+                })
+            },
 
             saveArticles() { //保存作者
                 // this.from.id = this.getQueryStringRegExp('id');
@@ -469,21 +352,15 @@
                         }
                     })
                 })
-                // console.log(this.from)
-                // delete this.from.creattime
-                // delete this.from.explain
-
-                jsonPromise(JSON.stringify(this.from),'user/add').then(res => {
+            
+                jsonPromise(JSON.stringify(this.from),'user/upUser').then(res => {
                     if(res.flag == 0) {
-                    this.$message({
-                        message: '保存成功',
-                        type: 'success'
-                    });
-                    setTimeout(() => {
-                        this.goBack();
-                },1400);
-                }
-            } ,err => {
+                        this.$message({
+                            message: '更新成功',
+                            type: 'success'
+                        });
+                    }
+                } ,err => {
                     console.log(err)
                 })
             },
@@ -507,7 +384,7 @@
             },
 
             goBack() {
-                location.replace('/authorList');
+                window.history.back();
             }
         }
     })
