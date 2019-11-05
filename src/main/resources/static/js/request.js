@@ -83,7 +83,7 @@ function postAjax(interface, datas,url,then) {
           console.log(error);
       },
       success: function(res) {
-        if( res.flag == 1) {
+        if( res.flag == 1) { 
           then.$message({
             message: '您没有权限',
             type: 'warning'
@@ -99,7 +99,7 @@ function postAjax(interface, datas,url,then) {
        
       }
   });
-  return isTrue
+  return isTrue 
 }
 
 
