@@ -302,7 +302,16 @@
                 })
             },
             currenPage(e) { //切换分页
-                this.getAuthorList(e,this.pageSize)
+                this.pageNum = e
+                let datas = {
+                    id: Storage.get('userInfo'),
+                    url: '/author/pagingSel',
+                }
+                let res = postAjax('user/checkShrio',datas,'',this)
+                if(res) {
+                     this.getAuthorList(e, this.pageSize, this.condition, this.currentType,this.datetime)
+                }
+                
             },
 
             delArticle(e,item) { //删除作者
@@ -383,7 +392,15 @@
             },
 
             search() { // 搜素
-                this.getAuthorList(this.pageNum, this.pageSize, this.condition, this.currentType,this.datetime)
+                let datas = {
+                    id: Storage.get('userInfo'),
+                    url: '/author/pagingSel',
+                }
+                let res = postAjax('user/checkShrio',datas,'',this)
+                if(res) {
+                     this.getAuthorList(this.pageNum, this.pageSize, this.condition, this.currentType,this.datetime)
+                }
+               
             }
 
         }

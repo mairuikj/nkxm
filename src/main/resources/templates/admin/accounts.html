@@ -283,7 +283,16 @@
         })
       },
       currenPage(e) { //切换分页
-        this.getUserList(e,this.pageSize)
+        this.pageNum = e
+        let datas = {
+          id: Storage.get('userInfo'),
+          url: '/user/pagingSel',
+        }
+        let res = postAjax('user/checkShrio',datas,'',this)
+        if(res) {
+          this.getUserList(e,this.pageSize)
+        }
+        
       },
 
       delArticle(e,item) { //删除用户

@@ -295,7 +295,16 @@
                 })
             },
             currenPage(e) { //切换分页
-                this.getActivityList(e,this.pageSize)
+                this.pageNum = e
+                let datas = {
+                    id: Storage.get('userInfo'),
+                    url: '/news/pagingSel',
+                }
+                let res = postAjax('activity/pagingSel',datas,'',this)
+                if(res) {
+                     this.getActivityList(e,this.pageSize)
+                }
+               
             },
 
             delArticle(e,item) { //删除作者
@@ -377,7 +386,16 @@
             },
 
             search() { // 搜素
-                this.getActivityList(this.pageNum, this.pageSize, this.condition, this.currentType,this.datetime)
+                this.pageNum = e
+                let datas = {
+                    id: Storage.get('userInfo'),
+                    url: '/news/pagingSel',
+                }
+                let res = postAjax('activity/pagingSel',datas,'',this)
+                if(res) {
+                    this.getActivityList(this.pageNum, this.pageSize, this.condition, this.currentType,this.datetime)
+                }
+               
             }
 
         }

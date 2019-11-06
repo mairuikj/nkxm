@@ -393,7 +393,15 @@ let home = new Vue({
         },
         selectType(e) { //类型选择
             this.currentType = e
-            this.getNewList(this.pageNum, this.pageSize, this.condition, e,this.datetime)
+             let datas = {
+                id: Storage.get('userInfo'),
+                url: '/news/pagingSel',
+            }
+            let res = postAjax('user/checkShrio',datas,'',this)
+            if(res) {
+               this.getNewList(this.pageNum, this.pageSize, this.condition, e,this.datetime)
+            }
+            
         },
 
         changeBox(e,index) { //复选框
@@ -415,7 +423,15 @@ let home = new Vue({
         },
 
         search() { // 搜素
-            this.getNewList(this.pageNum, this.pageSize, this.condition, this.currentType,this.datetime)
+            let datas = {
+                id: Storage.get('userInfo'),
+                url: '/news/pagingSel',
+            }
+            let res = postAjax('user/checkShrio',datas,'',this)
+            if(res) {
+                this.getNewList(this.pageNum, this.pageSize, this.condition, this.currentType,this.datetime)
+            }
+            
         }
 
     }

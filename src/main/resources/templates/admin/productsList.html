@@ -294,7 +294,16 @@
                 })
             },
             currenPage(e) { //切换分页
-                this.getProductList(e,this.pageSize)
+                this.pageNum = e
+                let datas = {
+                    id: Storage.get('userInfo'),
+                    url: '/product/pagingSel',
+                }
+                let res = postAjax('user/checkShrio',datas,'',this)
+                if(res) {
+                    this.getProductList(e,this.pageSize)
+                }
+                
             },
 
             delArticle(e,item) { //删除作者
