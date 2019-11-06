@@ -503,7 +503,13 @@
 
             singleChecked(list,idx,item) { //单个选择复选框
                 list.isChecked = !list.isChecked
-                console.log(item.subChecked)
+                for(let i=0;i<item.subChecked.length;i++) {
+                    if(item.subChecked[i].isChecked == false) {
+                        item.isAllElection = false;
+                        return
+                    }   
+                }
+                
             },
 
             goBack() {
