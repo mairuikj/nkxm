@@ -359,6 +359,9 @@
                             message: '更新成功',
                             type: 'success'
                         });
+                    setTimeout(() => {
+                        this.goBack();
+                },1400);
                     }
                 } ,err => {
                     console.log(err)
