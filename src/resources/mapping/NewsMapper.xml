@@ -263,16 +263,16 @@
 
   </select>
 
-  <select id="selNewsAndAuthor"  parameterType="com.nkp.pojo.News"  resultMap="BaseResultMap2">
+  <select id="selNewsAndAuthor"  resultMap="BaseResultMap2">
     SELECT * FROM news a inner  JOIN author b on a.author=b.id where
     <if test="title != null and title.trim() !=''">
       a.title like "%${title}%" and
     </if>
     <if test="newstype != null">
-      a.newsType = #{newstype,jdbcType=INTEGER} and
+      a.newsType in (${newstype}) and
     </if>
     <if test="creattime != null">
-      DATE_FORMAT(a.creatTime, '%Y-%m-%d') = DATE_FORMAT(#{creattime},'%Y-%m-%d') and
+      a.creatTime between #{creattime} and #{endtime} and
     </if>
      1=1
     order by a.creatTime desc

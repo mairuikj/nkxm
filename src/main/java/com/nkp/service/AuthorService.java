@@ -109,14 +109,21 @@ public class AuthorService {
         return dataPackJSON;
     }
 
-    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize, Integer id, String condition, Integer type, Date date) {
+    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize, Integer id, String condition, String type, Date date,Date date2) {
+        if(date!=null && date2==null){
+            try {
+                date2=NewDateTime.getDateTime("yyyy-MM-dd :HH:mm:ss");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         DataPackJSON dataPackJSON=new DataPackJSON();
         Map map=new HashMap();
         HttpSession session = request.getSession();
 
         PageHelper.startPage(pageNum,pageSize);
 
-        List<Author> list=authorMapper.selLike(condition,type,date);
+        List<Author> list=authorMapper.selLike(condition,type,date,date2);
         for(Author author:list){
             Integer i=newsMapper.selByAuthor(author.getId());
             i=(i==null?0:i);

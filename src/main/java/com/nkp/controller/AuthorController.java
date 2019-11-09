@@ -42,8 +42,8 @@ public class AuthorController {
     }
 
     @RequestMapping("/pagingSel")
-    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id,String condition, Integer type, Date date){
-        return authorService.pagingSel(request,pageNum,pageSize,id,condition,type,date);
+    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id,String condition, String type, Date date,Date date2){
+        return authorService.pagingSel(request,pageNum,pageSize,id,condition,type,date,date2);
     }
 
     @RequestMapping("/selById1")

@@ -111,14 +111,21 @@ public class ActivityService {
         return dataPackJSON;
     }
 
-    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize, Integer id, String condition, Integer type, Date date) {
+    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize, Integer id, String condition, String type, Date date,Date date2) {
+        if(date!=null && date2==null){
+            try {
+                date2=NewDateTime.getDateTime("yyyy-MM-dd :HH:mm:ss");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         DataPackJSON dataPackJSON=new DataPackJSON();
         Map map=new HashMap();
         HttpSession session = request.getSession();
 
         PageHelper.startPage(pageNum,pageSize);
 
-        List list=activityMapper.selLike(condition,type,date);
+        List list=activityMapper.selLike(condition,type,date,date2);
 
         //得到分页的结果对象
         PageInfo<Activity> pageInfo = new PageInfo<>(list);

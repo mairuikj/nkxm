@@ -43,8 +43,8 @@ public class ActivityController {
     }
 
     @RequestMapping("/pagingSel")
-    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id,String condition, Integer type, Date date){
-        return activityService.pagingSel(request,pageNum,pageSize,id,condition,type,date);
+    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id,String condition, String type, Date date,Date date2){
+        return activityService.pagingSel(request,pageNum,pageSize,id,condition,type,date,date2);
     }
 
     @RequestMapping("/getActivity")

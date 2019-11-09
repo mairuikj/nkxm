@@ -66,5 +66,5 @@ public interface ProductMapper {
     @Select("select * from product")
     List<Product> selAll();
 
-    List<Product> selLike(@Param("name") String condition, @Param("ptype") Integer type, @Param("creattime") Date date);
+    List<Product> selLike(@Param("name") String condition, @Param("ptype") String type, @Param("creattime") Date date,@Param("endtime") Date date2);
 }

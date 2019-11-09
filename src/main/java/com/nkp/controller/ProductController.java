@@ -42,8 +42,8 @@ public class ProductController {
     }
 
     @RequestMapping("/pagingSel")
-    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id,String condition, Integer type, Date date){
-        return productService.pagingSel(request,pageNum,pageSize,id,id,condition,type,date);
+    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id,String condition, String type, Date date,Date date2){
+        return productService.pagingSel(request,pageNum,pageSize,id,condition,type,date,date2);
     }
 
 }

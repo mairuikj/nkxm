@@ -213,16 +213,16 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selLike" parameterType="com.nkp.pojo.Product" resultMap="ResultMapWithBLOBs">
+  <select id="selLike"  resultMap="ResultMapWithBLOBs">
     select * from product where 1=1
     <if test="name != null and name.trim() !=''">
       and name like "%${name}%"
     </if>
     <if test="ptype != null">
-      and ptype = #{ptype,jdbcType=INTEGER}
+      and ptype in (${ptype})
     </if>
     <if test="creattime != null">
-      and DATE_FORMAT(creatTime, '%Y-%m-%d') = DATE_FORMAT(#{creattime},'%Y-%m-%d')
+      and creatTime between #{creattime} and #{endtime}
     </if>
     order by creatTime desc
 

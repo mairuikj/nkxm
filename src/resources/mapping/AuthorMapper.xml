@@ -171,16 +171,16 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selLike" parameterType="com.nkp.pojo.Author" resultMap="BaseResultMap">
+  <select id="selLike"  resultMap="BaseResultMap">
     select * from author where 1=1
     <if test="name != null and name.trim() !=''">
       and name like "%${name}%"
     </if>
     <if test="atype != null">
-      and atype = #{atype,jdbcType=INTEGER}
+      and atype in (${atype})
     </if>
     <if test="createtime != null">
-      and DATE_FORMAT(createTime, '%Y-%m-%d') = DATE_FORMAT(#{createtime},'%Y-%m-%d')
+      and createTime between #{createtime} and #{endtime}
     </if>
     order by createTime desc
 

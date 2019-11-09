@@ -79,7 +79,7 @@ public interface NewsMapper {
     @Select("select * from news where newsType=#{newsType} and remarks='0' order by creatTime desc")
     List<News> byType(@Param("newsType") Integer newsType);
 
-    List<News> selNewsAndAuthor(@Param("title") String condition, @Param("newstype") Integer type, @Param("creattime") Date date);
+    List<News> selNewsAndAuthor(@Param("title") String condition, @Param("newstype") String type, @Param("creattime") Date date,@Param("endtime") Date date2);
 
     //手机端详情
     News selectByPrimaryKey2(@Param("id")Integer newsid);

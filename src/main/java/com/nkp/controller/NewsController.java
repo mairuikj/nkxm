@@ -3,6 +3,7 @@ package com.nkp.controller;
 import com.nkp.config.utils.DataPackJSON;
 import com.nkp.pojo.News;
 import com.nkp.service.NewsService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,8 +54,8 @@ public class NewsController {
     }
 
     @RequestMapping("/pagingSel")
-    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize, Integer id, String condition, Integer type, Date date){
-        return newsService.pagingSel(request,pageNum,pageSize,id,condition,type,date);
+    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize, Integer id, String condition, @Param("type") String type, Date date, Date date2){
+        return newsService.pagingSel(request,pageNum,pageSize,id,condition,type,date,date2);
     }
     //得到作者与新闻分类的下拉
     @RequestMapping("/getAT")

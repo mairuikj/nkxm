@@ -225,8 +225,8 @@ public class BackstageController {
     }
 
     @RequestMapping("/pagingSel")
-    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id,String condition, Integer type, Date date){
-        return userService.pagingSel(request,pageNum,pageSize,id,condition,type,date);
+    public DataPackJSON pagingSel(HttpServletRequest request,int pageNum,int pageSize,Integer id,String condition, String type, Date date,Date date2){
+        return userService.pagingSel(request,pageNum,pageSize,id,condition,type,date,date2);
     }
     @RequestMapping("/checkShrio")
     public DataPackJSON checkShrio(HttpServletRequest request,int id,String url){

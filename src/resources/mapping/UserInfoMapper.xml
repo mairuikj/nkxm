@@ -160,10 +160,10 @@
       and userName like "%${userName}%"
     </if>
     <if test="type != null">
-      and type = #{type,jdbcType=INTEGER}
+      and type  in (${type})
     </if>
     <if test="createTime != null">
-      and DATE_FORMAT(createTime, '%Y-%m-%d') = DATE_FORMAT(#{createTime},'%Y-%m-%d')
+      and createTime between #{createTime} and #{endtime}
     </if>
     order by createTime desc
 

@@ -71,5 +71,5 @@ public interface ActivityMapper {
     @Update("update activity set anumber=anumber+1 where id=#{id} ")
     int upanumber(int id);
 
-    List<Activity> selLike(@Param("name") String condition, @Param("atype") Integer type, @Param("createtime") Date date);
+    List<Activity> selLike(@Param("name") String condition, @Param("atype") String type, @Param("createtime") Date date,@Param("endtime") Date date2);
 }

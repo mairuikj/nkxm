@@ -112,7 +112,14 @@ public class NewsService {
         return dataPackJSON;
     }
 
-    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize, Integer id, String condition, Integer type, Date date) {
+    public DataPackJSON pagingSel(HttpServletRequest request, int pageNum, int pageSize, Integer id, String condition, String type, Date date,Date date2) {
+        if(date!=null && date2==null){
+            try {
+                date2=NewDateTime.getDateTime("yyyy-MM-dd :HH:mm:ss");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         DataPackJSON dataPackJSON=new DataPackJSON();
         Map map=new HashMap();
         HttpSession session = request.getSession();
@@ -120,7 +127,7 @@ public class NewsService {
         PageHelper.startPage(pageNum,pageSize);
        // List list=newsMapper.selNewsAndNewsType(id);//关联了newstype
         //List list=newsMapper.selAll();
-        List list=newsMapper.selNewsAndAuthor(condition,type,date);
+        List list=newsMapper.selNewsAndAuthor(condition,type,date,date2);
 
         //得到分页的结果对象
         PageInfo<News> pageInfo = new PageInfo<>(list);
