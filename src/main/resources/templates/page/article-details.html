@@ -31,7 +31,8 @@
 			width: 100%;
 		}
 		.zhengwen{
-			min-height: 43rem
+			min-height: 43rem;
+			font-size: 16px
 		}
 		.zhengwen > p>img{
 			width: 100%
@@ -58,7 +59,7 @@
 			<div class="title">{{newInfo.title}}</div>
 			<div class="fun">
 				<div>
-					<div class="time" style="color: #b0b0b0;font-size: 1.8rem">
+					<div class="time" style="color: #b0b0b0;font-size: 14px">
 						{{newInfo.creattime}} 
 						<span style="margin-left: .8rem">作者:{{newInfo.writer.name}}</span>
 					</div>
@@ -70,22 +71,23 @@
 				</div>
 			</div>
 			<div class="zhengwen" v-html="newInfo.content"></div>
+			<div class="tab" v-if="keyword != ''">
+				<div v-for="(item,index) in keyword" @click="search(item)">{{item}}</div>
+				 
+			</div>
 			<div class="fenxiang">
 				<img src="../../static/img/QQ.png" @click="fenxiang">
 				<img src="../../static/img/wx.png" @click="fenxiang">
 				<img src="../../static/img/wb.png" @click="fenxiang">
 			</div>
-			<div class="tab" v-if="keyword != ''">
-				<div v-for="(item,index) in keyword" @click="search(item)">{{item}}</div>
-				 
-			</div>
+			
 			<div clas="lists">
 				<div class="xiangguan"><i class="el-icon-document"></i>相关新闻</div>
-				<ul>
+				<ul v-if="list != ''">
 					<li class="item" v-for="(item,index) in list" @click="newCurrent(item)">
 						<div>
 							<div class="itemTitle">
-								<span class="">{{item.title}}</span>
+								<span class="subT">{{item.title}}</span>
 								<span class="itemTime">{{item.creattime}}</span>
 							</div>
 							<div class="itemImg">
@@ -95,6 +97,7 @@
 						
 					</li>
 				</ul>
+				<div v-else class="nonews">暂无相关新闻</div>
 			</div>
 		</div>
 		
@@ -104,6 +107,9 @@
 		</div>
 		<div class="zhiyin" v-if="showFx" @click="hideFx">
 			<img src="../../static/img/fx.png" alt="" @click="hideFx">
+		</div>
+		<div class="fixedTop" :class="isShow? 'inFade': 'outFade'" @click="goTop">
+			<img src="../../static/img/top.png" >
 		</div>
 	</div>
 </body>
@@ -117,13 +123,24 @@
 			writer: '',
 			keyword: [],
 			list: [],
-			showFx:false
+			showFx:false,
+			isShow: false
 		},
 		mounted() {
 			this.newsType = this.getQueryStringRegExp('currentId')
 			this.getInfo(this.getQueryStringRegExp('id'))
+			window.addEventListener('scroll', this.handleScroll)
+
 		},
 		methods:{
+			handleScroll () {
+		      	if (scrollY > 180) {
+		        	this.isShow = true
+		        }
+		        else {
+		       		this.isShow = false
+		       	}
+		    },
 			fenxiang() {
 				this.showFx = true;
 				document.documentElement.scrollTop = 0
@@ -154,10 +171,16 @@
 				}
 				postPromise(data,'news/details').then(res => {
 					if(res.flag == 0) {
-						res.map.news.creattime = res.map.news.creattime.substring(0,res.map.news.creattime.length-3);
+						res.map.news.creattime = res.map.news.creattime.replace(/-/g, '/').substring(0,res.map.news.creattime.length-3);
 						this.newInfo = res.map.news;
 						this.writer = res.map.writer;
 						this.keyword = res.map.news.keyword.split('，')
+						if(res.map.resemble != null ) {
+							res.map.resemble.map(item => {
+							item.creattime = item.creattime.replace(/-/g, '/').substring(0,item.creattime.length-3)
+							})
+						}
+						
 						this.list = res.map.resemble
 					}
 				})
@@ -175,6 +198,12 @@
 			search(item) {
 				window.location.href = '/result?keyWord='+ item;
 			},
+
+			
+			goTop() {
+				document.documentElement.scrollTop = 0
+				document.body.scrollTop = 0
+			}
 
 		}
 	})

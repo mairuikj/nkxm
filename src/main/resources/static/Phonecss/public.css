@@ -21,11 +21,10 @@ a{
 }
 .head > img{
 	width: 9rem;
-	height: 2.5rem;
 }
 .search{
-	width: 3rem;
-	height: 3rem;
+	width: 2rem;
+	height: 2rem;
 }
 .current{
 	color: #f42222
@@ -87,3 +86,32 @@ a{
 	font-size: 1.8rem
 }
 
+.nonews{
+	font-size: 16px;
+	margin-bottom: 20px;
+	padding: 0 .8rem
+}
+
+
+.outFade{
+	opacity: 0 !important;
+}
+
+.inFade{
+	opacity: 1 !important;
+}
+
+.twoLine{
+	 text-overflow: -o-ellipsis-lastline;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  display: -webkit-box;
+	  -webkit-line-clamp: 2;
+	  line-clamp: 2;
+	  -webkit-box-orient: vertical;
+}
+.border-line{
+	width: 100%;
+	background: #F4F4F4;
+	height: 1rem
+}

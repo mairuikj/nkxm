@@ -17,6 +17,16 @@
 			text-indent: 2em;
 			line-height: 2rem
 		}
+		.items{
+			display: flex;
+			flex-wrap: wrap;
+		}
+		.items>li{
+			margin-right: 3rem
+		}
+		.items>li:nth-child(3n){
+			margin-right: 0
+		}
 	</style>
 </head>
 <body>
@@ -49,32 +59,36 @@
 					</p>
 				</div>
 			</div>
-			<div class="my">
-				<div class="line"></div>
-				<span>我们的产品</span>
-				<div class="line"></div>
+			
+			<div>
+				<div class="my">
+					<div class="line"></div>
+					<span>我们的产品</span>
+					<div class="line"></div>
+				</div>
+				<ul class="items" style="margin-bottom: 2rem">
+					<li style="margin-bottom: 3rem" v-for="(item,index) in list" @click="detail(item)">
+						<div class="icon">
+							<img :src="item.icon">
+						</div>
+						<span class="title">{{item.name}}</span>
+						<!-- <p class="lsitContent">{{item.introduce}}</p>
+						<div class="look">
+							<div @click="detail(item)">详细了解</div>
+						</div> -->
+					</li>
+				</ul>
 			</div>
-			<ul style="margin-bottom: 2rem">
-				<li style="margin-bottom: 3rem" v-for="(item,index) in list">
-					<div class="icon">
-						<img :src="item.icon">
-					</div>
-					<strong class="title">{{item.name}}</strong>
-					<p class="lsitContent">{{item.introduce}}</p>
-					<div class="look">
-						<div @click="detail(item)">详细了解</div>
-					</div>
-				</li>
-			</ul>
+			
 		</div>
-		<div class="paging" v-if="total > 10">
+		<!-- <div class="paging" v-if="total > 10">
 			<el-pagination
 				@current-change="swichPage"
 			 	background
 			  	layout="prev, pager, next"
 			  	:total="total">
 			</el-pagination>
-		</div>
+		</div> -->
 		<div class="footer">
 			<div>© 2018，盈科票据版权所有 /粤ICP备19049968号-1</div>
 			<div>热线电话：400-0192-188</div>

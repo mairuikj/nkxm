@@ -49,9 +49,9 @@
 				<li v-for="(item,index) in list" @click="detail(item)">
 					<div class="authorImg"><img :src="item.headpicture"></div>
 					<div class="authorInfo">
-						<span style="font-weight: 800">{{item.name}}</span>
-						<span>{{item.identity}}</span>
-						<p class="over">{{item.introduce}}</p>
+						<span style="font-weight: 600;font-size: 16px">{{item.name}}</span>
+						<span style="font-size: 14px">{{item.identity}}</span>
+						<p style="font-size: 14px;color: #999" class="twoLine">{{item.introduce}}</p>
 					</div>
 				</li>
 			</ul>
