@@ -8,8 +8,8 @@
     border-bottom: 1px solid #999;
 }
 .authorImg{
-	height: 6rem;
-	width: 6rem;
+	height: 4.6rem;
+	width: 4.6rem;
 	border-radius: 50%;
 	overflow: hidden;
 	margin-right: 1rem
@@ -30,7 +30,7 @@
 	height: 15rem;
 	background: url(../img/bj.jpg) no-repeat;
 	background-size: 100% 100%;
-	margin-bottom: 1rem
+	margin-bottom: 1.5rem
 }
 .userImg{
 	display: flex;
@@ -111,7 +111,7 @@
 }
 .fenmain > img{
 	width: 8rem;
-	border-radius: 5px;
+	height: 5rem
 }
 .author_InfoList{
 	margin-bottom: 3rem;
@@ -120,12 +120,15 @@
 .author_InfoList .title{
 	display: flex;
     flex-direction: column;
-    justify-content: space-around;
+   justify-content: center;
     margin-right: 1rem;
     flex: 1
 }
-.author_InfoList .title >span:nth-child(1){
-	font-size: 1.8rem;
+.author_InfoList .title >p{
+	font-size: 16px
+}
+.author_InfoList .title >span{
+	margin-top: .8rem
 	
 }
 .author_InfoList .title >span:nth-child(2){
@@ -141,5 +144,5 @@
 	height: 2rem;
 	align-items: center;
 	padding-bottom: .6rem;
-	margin-top: 2rem
+	margin-top: 1.5rem
 }

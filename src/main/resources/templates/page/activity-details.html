@@ -12,6 +12,12 @@
 	<script type="text/javascript" src="../../static/js/request.js"></script>
 	<script type="text/javascript" src="../../static/js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="../../static/js/elementUi.js"></script>
+	<style type="text/css">
+		.kong{
+			height: 2rem;
+			border-bottom: 1px solid #ccc
+		}
+	</style>
 </head>
 <body>
 	<div id="index" v-cloak>
@@ -34,13 +40,15 @@
 			<div class="benner">
 				<img :src="info.activitypictures" alt="">
 			</div>
+			<div class="kong"></div>
 			<div class="cont">
-				<span><strong style="font-size: 1.6rem">{{info.name}}</strong></span>
+				<span><strong style="font-size: 16px">{{info.name}}</strong></span>
 				<span class="se">时间：{{info.activitytime}}~{{info.endtime}}</span>
 				
 				<span class="se">地址：{{info.activityaddress}}</span>
 				<span class="se">价格：{{info.price == 0? '免费' : info.price}}</span>
 			</div>
+			<div class="border-line"></div>
 			<div class="line">
 				<span>{{info.name}}</span>
 			</div>
