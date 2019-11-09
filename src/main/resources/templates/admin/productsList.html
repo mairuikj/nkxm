@@ -383,8 +383,17 @@
                 // window.location.href = '/addProduct';
             },
 
+
             search() { // 搜素
-                this.getProductList(this.pageNum, this.pageSize, this.condition, this.currentType,this.datetime)
+                let datas = {
+                    id: Storage.get('userInfo'),
+                    url: '/product/pagingSel',
+                }
+                let res = postAjax('user/checkShrio',datas,'',this)
+                if(res) {
+                    this.getAuthorList(this.pageNum, this.pageSize, this.condition, this.currentType,this.datetime)
+                }
+
             }
 
         }
