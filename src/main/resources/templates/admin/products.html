@@ -296,7 +296,15 @@ let home = new Vue({
             })
         },
         currenPage(e) { //切换分页
-            this.getNewList(e,this.pageSize)
+            this.pageNum = e
+            let datas = {
+                id: Storage.get('userInfo'),
+                url: 'news/pagingSel',
+            }
+            let res = postAjax('user/checkShrio',datas,'',this)
+            if(res) {
+                this.getNewList(e, this.pageSize, this.condition, this.currentType,this.datetime)
+            }
         },
 
         delArticle(e,item) { //删除文章
