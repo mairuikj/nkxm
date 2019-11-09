@@ -39,7 +39,7 @@
 		<ul class="nav">
 			<li><a href="/newsListPhone?id=1">热点</a></li>
 			<li><a href="/newsListPhone?id=2">新政</a></li>
-			<li><a class="current" href="javascript:;">百家</a></li>
+			<li><a class="current" href="javascript:;">百家</a><div class="currentLine"></li>
 			<li><a href="/newsListPhone?id=3">课堂</a></li>
 			<li><a href="/activityPhone">活动</a></li>
 			<li><a href="/surplusticketlist">盈票</a></li>
@@ -49,8 +49,11 @@
 				<li v-for="(item,index) in list" @click="detail(item)">
 					<div class="authorImg"><img :src="item.headpicture"></div>
 					<div class="authorInfo">
-						<span style="font-weight: 600;font-size: 16px">{{item.name}}</span>
-						<span style="font-size: 14px">{{item.identity}}</span>
+						<span style="font-weight: 600;font-size: 16px">
+							{{item.name}}
+							<span style="font-size: 14px;margin-left: 5px">{{item.identity}}</span>
+						</span>
+						
 						<p style="font-size: 14px;color: #999" class="twoLine">{{item.introduce}}</p>
 					</div>
 				</li>

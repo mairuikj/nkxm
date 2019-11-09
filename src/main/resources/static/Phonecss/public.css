@@ -27,7 +27,9 @@ a{
 	height: 2rem;
 }
 .current{
-	color: #f42222
+	color: #13A7F9;
+	height: 100%;
+	padding: 0 .5rem;
 }
 .nav{
 	display: flex;
@@ -38,7 +40,24 @@ a{
 	font-size: 1.8rem;
 	background-color:#f0f0f0;
 }
-
+.currentLine{
+	width: 100%;
+	position: absolute;
+	height: .2rem;
+	background: #13A7F9;
+	bottom: 0
+}
+.nav > li{
+	height: 100%;
+	position: relative;
+	width: 15%
+}
+.nav > li >a{
+	display: flex;
+	align-items: center;
+	height: 100%;
+	justify-content: center;
+}
 .footer{
 	height: 3rem;
 	display: flex;

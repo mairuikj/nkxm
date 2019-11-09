@@ -48,10 +48,17 @@
 			</div>
 		</div>
 		<ul class="nav">
-			<li><a :class="newsType == 1? 'current' : ''" href="/newsListPhone?id=1" >热点</a></li>
-			<li><a :class="newsType == 2? 'current' : ''" href="/newsListPhone?id=1">新政</a></li>
+			<li><a :class="newsType == 1? 'current' : ''" href="/newsListPhone?id=1" >热点</a>
+				<div :class="newsType == 1? 'currentLine' : ''"></div>
+			</li>
+			<li><a :class="newsType == 2? 'current' : ''" href="/newsListPhone?id=1">新政</a>
+				<div :class="newsType == 2? 'currentLine' : ''"></div>
+			</li>
 			<li><a  href="/authorListPhone">百家</a></li>
-			<li><a :class="newsType == 3? 'current' : ''" href="/newsListPhone?id=1" >课堂</a></li>
+			<li>
+				<a :class="newsType == 3? 'current' : ''" href="/newsListPhone?id=1" >课堂</a>
+				<div :class="newsType == 3? 'currentLine' : ''"></div>
+			</li>
 			<li><a href="/activityPhone">活动</a></li>
 			<li><a href="/surplusticketlist">盈票</a></li>
 		</ul>
