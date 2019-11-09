@@ -324,23 +324,29 @@ let home = new Vue({
                         ids: item
                     }
                 }
-                postPromise(data,'news/del').then(res => {
+                this.$confirm('确认要删除吗？, 删除不可恢复', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    postPromise(data,'news/del').then(res => {
                     if(res.flag == 0) {
-                        if(res.flag == 0) {
-                           this.$message({
-                                message: '删除成功',
-                                type: 'success'
-                            });
-                        
-                            setTimeout(() => {
-                                location.reload();
-                            },1400)
-                          
-                        }
-                    }
-                } ,err => {
+                    this.$message({
+                        message: '删除成功',
+                        type: 'success'
+                    });
+
+                    setTimeout(() => {
+                        location.reload();
+                },1400)
+                }
+
+            } ,err => {
                     console.log(err)
                 })
+            }).catch(() => {
+
+                });
             }
         },
 
