@@ -181,7 +181,8 @@
                     <ul class="tableT">
                         <li style="width: 5%"></li>
                         <li style="width: 5%">序号</li>
-                        <li style="width: 36%">文章标题</li>
+                        <li style="width: 24%">文章标题</li>
+                        <li style="width: 12%">文章类型</li>
                         <li style="width: 10%">作者</li>
                         <li style="width: 8%">封面图片</li>
                         <li style="width: 16%">发布时间</li>
@@ -194,7 +195,8 @@
                                 <input type="checkbox" name="" @change="changeBox(item,index)">
                             </li>
                             <li style="width: 5%">{{index + 1}}</li>
-                            <li style="width: 36%">{{item.title}}</li>
+                            <li style="width: 24%">{{item.title}}</li>
+                            <li style="width: 12%">{{item.newstype==1?'热点':item.newstype==2?'新政':'课堂'}}</li>
                             <li style="width: 10%">{{item.writer.name}}</li>
                             <li style="width: 8%">
                                 {{item.toppicture == '' ? '无' : '是'}}
