@@ -119,6 +119,7 @@ public class ActivityService {
                 e.printStackTrace();
             }
         }
+
         DataPackJSON dataPackJSON=new DataPackJSON();
         Map map=new HashMap();
         HttpSession session = request.getSession();

@@ -218,7 +218,7 @@
     <if test="name != null and name.trim() !=''">
       and name like "%${name}%"
     </if>
-    <if test="ptype != null">
+    <if test="ptype != null and ptype.trim() !=''">
       and ptype in (${ptype})
     </if>
     <if test="creattime != null">
