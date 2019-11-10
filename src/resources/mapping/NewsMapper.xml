@@ -268,7 +268,7 @@
     <if test="title != null and title.trim() !=''">
       a.title like "%${title}%" and
     </if>
-    <if test="newstype != null">
+    <if test="newstype != null and newstype.trim() !=''">
       a.newsType in (${newstype}) and
     </if>
     <if test="creattime != null">

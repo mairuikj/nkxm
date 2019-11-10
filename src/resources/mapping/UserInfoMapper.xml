@@ -159,7 +159,7 @@
     <if test="userName != null and userName.trim() !=''">
       and userName like "%${userName}%"
     </if>
-    <if test="type != null">
+    <if test="type != null and type.trim() !=''">
       and type  in (${type})
     </if>
     <if test="createTime != null">

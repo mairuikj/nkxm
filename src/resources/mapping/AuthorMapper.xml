@@ -176,7 +176,7 @@
     <if test="name != null and name.trim() !=''">
       and name like "%${name}%"
     </if>
-    <if test="atype != null">
+    <if test="atype != null  and atype.trim() !=''">
       and atype in (${atype})
     </if>
     <if test="createtime != null">
