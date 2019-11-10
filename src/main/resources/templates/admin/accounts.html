@@ -135,41 +135,29 @@
                 placeholder="请输入标题关键词"
                 class="searchInpt">
         <div>
-          <!--  <el-date-picker
-               style="border-radius: none;border-color: #444"
-             v-model="datetime"
-             value-format="yyyy-M-MM"
-             type="date"
-             placeholder="选择日期">
-           </el-date-picker> -->
-
-          <el-date-picker
-                  value-format="yyyy-MM-dd HH:mm:ss"
-
-                  v-model="datetime"
-                  type="datetime"
-                  placeholder="请选择选择日期时间">
-          </el-date-picker>
+           <el-date-picker
+               value-format="yyyy-MM-dd HH:mm:ss"
+                v-model="dateVal"
+                type="daterange"
+                range-separator="~"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期">
+            </el-date-picker>
         </div>
         <button class="btns" @click="search">搜索</button>
       </div>
       <div class="addAlls" @click="addUser">新增用户</div>
     </div>
     <div class="subFun">
-      <span>用户类型：</span>
+      <span class="pdl105">用户类型：</span>
       <div class="typeList">
-        <div
-                :class="currentType == '1' ? 'currentType' : ''"
-                @click="selectType(1)">管理员
-        </div>
-        <div
-                :class="currentType == '2' ? 'currentType' : ''"
-                @click="selectType(2)">新媒体主管
-        </div>
-        <div
-                :class="currentType == '3' ? 'currentType' : ''"
-                @click="selectType(3)">新媒体专员
-        </div>
+       <el-checkbox-group v-model="currentType">
+            <el-checkbox-button @change="selectType"
+                v-for="(item,index) in typeList" 
+                :label="item.id" 
+                :key="index">{{item.name}}
+            </el-checkbox-button>
+        </el-checkbox-group>
       </div>
     </div>
     <div class="boxTable">
@@ -238,6 +226,13 @@
       allId: [],
       datetime: '',
       currentType: '',
+      typeList: [
+          {name: '管理员',id: '1'},
+          {name: '新媒体主管',id: '2'},
+          {name: '新媒体专员',id: '3'},
+      ],
+      dateVal: '',
+      currentType: ['1','2','3'],
     },
     mounted(){
       let datas = {
@@ -290,7 +285,14 @@
         }
         let res = postAjax('user/checkShrio',datas,'',this)
         if(res) {
-          this.getUserList(e,this.pageSize)
+         this.getUserList(
+            this.pageNum, 
+            this.pageSize, 
+            this.condition, 
+            this.currentType.join(','),
+            this.dateVal[0],
+            this.dateVal[1],
+          )
         }
         
       },
@@ -355,8 +357,15 @@
 
 
       selectType(e) { //类型选择
-        this.currentType = e
-        this.getUserList(this.pageNum, this.pageSize, this.condition, e,this.datetime)
+        
+        this.getUserList(
+          this.pageNum, 
+          this.pageSize, 
+          this.condition, 
+          this.currentType.join(','),
+          this.dateVal[0],
+          this.dateVal[1],
+        )
       },
 
       changeBox(e,index) { //复选框
@@ -385,7 +394,14 @@
         }
         let res = postAjax('user/checkShrio',datas,'',this)
         if(res) {
-          this.getUserList(this.pageNum, this.pageSize, this.condition, this.currentType,this.datetime)
+          this.getUserList(
+            this.pageNum, 
+            this.pageSize, 
+            this.condition, 
+            this.currentType.join(','),
+            this.dateVal[0],
+            this.dateVal[1],
+          )
         }
         
       }
