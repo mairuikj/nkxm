@@ -36,6 +36,10 @@
         .weizhiLine{
             height:2px;
         }
+        .imgWidth{
+            width: 200px;
+            height:200px;
+        }
     </style>
 </head>
 <body>
@@ -141,57 +145,60 @@
                 <!-- <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto"> -->
                 <div class="mx-auto">
                     <div class="row tm-edit-product-row">
-                        <div class="imgWidth">
-                            <div class="fengmian">产品图标</div>
-                            <div class="tm-product-img-dummy mx-auto imgWidth">
-                                <img :src="from.icon" alt="">
-                            </div>
-                            <div class="parentButton">
-                                <input id="fileInput" type="file" style="display:none;"  @change="addImg($event)"/>
-                                <input
-                                        type="button"
-                                        class="btn upButton"
-                                        value="选择图片"
-                                        onclick="document.getElementById('fileInput').click();"
-                                />
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 ml120">
-                            <form action="" class="tm-edit-product-form">
-                                <div class="form-group mb-3">
-                                    <label
-                                            for="name"
-                                    >产品名称
-                                    </label>
+                        <div style="display: flex;justify-content: space-between;width: 100%">
+                            <div class="imgWidth">
+                                <div class="fengmian">产品图标</div>
+                                <div class="tm-product-img-dummy mx-auto imgWidth">
+                                    <img :src="from.icon" alt="">
+                                </div>
+                                <div class="parentButton">
+                                    <input id="fileInput" type="file" style="display:none;"  @change="addImg($event)"/>
                                     <input
-                                            v-model="from.name"
-                                            type="text"
-                                            class="form-contro"
-                                            placeholder="请输入产品名称，8字以内"
+                                            type="button"
+                                            class="btn upButton"
+                                            value="选择图片"
+                                            onclick="document.getElementById('fileInput').click();"
                                     />
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label
-                                            for="description"
-                                    >产品标签</label
-                                    >
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12 ml120">
+                                <form action="" class="tm-edit-product-form">
+                                    <div class="form-group mb-3">
+                                        <label
+                                                for="name"
+                                        >产品名称
+                                        </label>
+                                        <input
+                                                v-model="from.name"
+                                                type="text"
+                                                class="form-contro"
+                                                placeholder="请输入产品名称，8字以内"
+                                        />
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label
+                                                for="description"
+                                        >产品标签</label
+                                        >
 
-                                    <input v-model="from.keyword" class="form-contro" placeholder="多个关键词请用逗号隔开。如：票据，ABS，"/>
-                                </div>
+                                        <input v-model="from.keyword" class="form-contro" placeholder="多个关键词请用逗号隔开。如：票据，ABS，"/>
+                                    </div>
 
-                                <div class="form-group mb-3">
-                                    <label
-                                            for="category"
-                                    >产品类型</label
-                                    >
-                                    <select class="custom-selectt" v-model="from.ptype">
-                                        <option value="1">银票产品</option>
-                                        <option value="2">商票产品</option>
-                                        <option value="3">工具产品</option>
-                                    </select>
-                                </div>
+                                    <div class="form-group mb-3">
+                                        <label
+                                                for="category"
+                                        >产品类型</label
+                                        >
+                                        <select class="custom-selectt" v-model="from.ptype">
+                                            <option value="1">银票产品</option>
+                                            <option value="2">商票产品</option>
+                                            <option value="3">工具产品</option>
+                                        </select>
+                                    </div>
+                            </div>
+
                         </div>
-
+                       
 
 
                          <div class="zhengwen">正文</div>

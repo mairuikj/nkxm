@@ -139,20 +139,13 @@
                         placeholder="请输入标题关键词" 
                         class="searchInpt">
                     <div>
-                       <!--  <el-date-picker
-                            style="border-radius: none;border-color: #444"
-                          v-model="datetime"
-                          value-format="yyyy-M-MM"
-                          type="date"
-                          placeholder="选择日期">
-                        </el-date-picker> -->
-
                         <el-date-picker
-                        value-format="yyyy-MM-dd HH:mm:ss"
-                          
-                            v-model="datetime"
-                            type="datetime"
-                            placeholder="请选择选择日期时间">
+                            value-format="yyyy-MM-dd"
+                            v-model="dateVal"
+                            type="daterange"
+                            range-separator="~"
+                            start-placeholder="开始日期"
+                            end-placeholder="结束日期">
                         </el-date-picker>
                     </div>
                     <button class="btns" @click="search">搜索</button>
@@ -160,20 +153,15 @@
                <div class="addAlls" @click="addNews">新增文章</div>
             </div>
             <div class="subFun">
-                <span>文章类型：</span>
+                <span class="pdl105">文章类型：</span>
                 <div class="typeList">
-                    <div 
-                        :class="currentType == '1' ? 'currentType' : ''"  
-                        @click="selectType(1)">热点
-                    </div>
-                    <div 
-                        :class="currentType == '2' ? 'currentType' : ''"  
-                        @click="selectType(2)">新政
-                    </div>
-                    <div 
-                        :class="currentType == '3' ? 'currentType' : ''"  
-                        @click="selectType(3)">课堂
-                    </div>
+                    <el-checkbox-group v-model="currentType">
+                        <el-checkbox-button @change="selectType"
+                            v-for="(item,index) in typeList" 
+                            :label="item.id" 
+                            :key="index">{{item.name}}
+                        </el-checkbox-button>
+                    </el-checkbox-group>
                 </div>
             </div>
             <div class="boxTable">
@@ -253,7 +241,13 @@ let home = new Vue({
         pageSize: 10,
         allId: [],
         datetime: '',
-        currentType: '',
+       typeList: [
+            {name: '热点',id: '1'},
+            {name: '新政',id: '2'},
+            {name: '课堂',id: '3'},
+        ],
+        dateVal: '',
+        currentType: ['1','2','3'],
     },
     mounted(){ 
         
@@ -263,7 +257,14 @@ let home = new Vue({
         }
         let res = postAjax('user/checkShrio',datas,'',this)
         if(res) {
-            this.getNewList(this.pageNum,this.pageSize);
+             this.getNewList(
+                    this.pageNum, 
+                    this.pageSize, 
+                    this.condition, 
+                    this.currentType.join(','),
+                    this.dateVal[0],
+                    this.dateVal[1]
+                )
         }
     },
     methods: {
@@ -277,13 +278,14 @@ let home = new Vue({
         },
         
         
-        getNewList(pageNum, pageSize,condition, type,date) { //获取新闻列表
+        getNewList(pageNum, pageSize,condition, type,date,date2) { //获取新闻列表
             let data = {
                 pageNum,
                 pageSize,
                 condition,
                 type,
                 date,
+                date2
             }
             postPromise(data,'news/pagingSel').then(res => {
                 if(res.flag == 0) {
@@ -305,7 +307,14 @@ let home = new Vue({
             }
             let res = postAjax('user/checkShrio',datas,'',this)
             if(res) {
-                this.getNewList(e, this.pageSize, this.condition, this.currentType,this.datetime)
+                this.getNewList(
+                    this.pageNum, 
+                    this.pageSize, 
+                    this.condition, 
+                    this.currentType.join(','),
+                    this.dateVal[0],
+                    this.dateVal[1]
+                )
             }
         },
 
@@ -384,7 +393,14 @@ let home = new Vue({
                         }); 
                     }
                         
-                    this.getNewList(this.pageNum,this.pageSize);
+                     this.getNewList(
+                        this.pageNum, 
+                        this.pageSize, 
+                        this.condition, 
+                        this.currentType.join(','),
+                        this.dateVal[0],
+                        this.dateVal[1]
+                    )
                    
                 }
             } ,err => {
@@ -400,7 +416,14 @@ let home = new Vue({
                         message: '置顶成功',
                         type: 'success'
                     }); 
-                    this.getNewList(this.pageNum,this.pageSize);
+                     this.getNewList(
+                        this.pageNum, 
+                        this.pageSize, 
+                        this.condition, 
+                        this.currentType.join(','),
+                        this.dateVal[0],
+                        this.dateVal[1]
+                    )
                 }
             } ,err => {
                 console.log(err)
@@ -408,14 +431,22 @@ let home = new Vue({
 
         },
         selectType(e) { //类型选择
-            this.currentType = e
+            console.log(this.currentType)
+                return
              let datas = {
                 id: Storage.get('userInfo'),
                 url: '/news/pagingSel',
             }
             let res = postAjax('user/checkShrio',datas,'',this)
             if(res) {
-               this.getNewList(this.pageNum, this.pageSize, this.condition, e,this.datetime)
+               this.getNewList(
+                    this.pageNum, 
+                    this.pageSize, 
+                    this.condition, 
+                    this.currentType.join(','),
+                    this.dateVal[0],
+                    this.dateVal[1]
+                )
             }
             
         },
@@ -445,7 +476,14 @@ let home = new Vue({
             }
             let res = postAjax('user/checkShrio',datas,'',this)
             if(res) {
-                this.getNewList(this.pageNum, this.pageSize, this.condition, this.currentType,this.datetime)
+                this.getNewList(
+                    this.pageNum, 
+                    this.pageSize, 
+                    this.condition, 
+                    this.currentType.join(','),
+                    this.dateVal[0],
+                    this.dateVal[1]
+                )
             }
             
         }

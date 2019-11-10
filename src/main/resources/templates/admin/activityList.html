@@ -140,20 +140,13 @@
                         placeholder="请输入标题关键词"
                         class="searchInpt">
                 <div>
-                    <!--  <el-date-picker
-                         style="border-radius: none;border-color: #444"
-                       v-model="datetime"
-                       value-format="yyyy-M-MM"
-                       type="date"
-                       placeholder="选择日期">
-                     </el-date-picker> -->
-
                     <el-date-picker
-                            value-format="yyyy-MM-dd HH:mm:ss"
-
-                            v-model="datetime"
-                            type="datetime"
-                            placeholder="请选择选择日期时间">
+                        value-format="yyyy-MM-dd"
+                        v-model="dateVal"
+                        type="daterange"
+                        range-separator="~"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期">
                     </el-date-picker>
                 </div>
                 <button class="btns" @click="search">搜索</button>
@@ -161,20 +154,15 @@
             <div class="addAlls" @click="addActivity">新增活动</div>
         </div>
         <div class="subFun">
-            <span>活动类型：</span>
+            <span class="pdl105">活动类型：</span>
             <div class="typeList">
-                <div
-                        :class="currentType == '1' ? 'currentType' : ''"
-                        @click="selectType(1)">盈票抽奖
-                </div>
-                <div
-                        :class="currentType == '2' ? 'currentType' : ''"
-                        @click="selectType(2)">行业论坛
-                </div>
-                <div
-                        :class="currentType == '3' ? 'currentType' : ''"
-                        @click="selectType(3)">研究院会议
-                </div>
+                <el-checkbox-group v-model="currentType">
+                    <el-checkbox-button @change="selectType"
+                        v-for="(item,index) in typeList" 
+                        :label="item.id" 
+                        :key="index">{{item.name}}
+                    </el-checkbox-button>
+                </el-checkbox-group>
             </div>
         </div>
         <div class="boxTable">
@@ -241,8 +229,13 @@
     let home = new Vue({
         el: '#home',
         data: {
+            dateVal: '',
             currentUser: JSON.parse(localStorage.getItem('userInfo')),
-
+            typeList: [
+                {name: '盈票抽奖',id: '1'},
+                {name: '行业论坛',id: '2'},
+                {name: '研究院会议',id: '3'},
+            ],
             condition: '',
             activityList: [],
             total:1,
@@ -250,7 +243,7 @@
             pageSize: 10,
             allId: [],
             datetime: '',
-            currentType: '',
+            currentType: ['1','2','3'],
         },
         mounted(){
             let datas = {
@@ -259,7 +252,7 @@
             }
             let res = postAjax('user/checkShrio',datas,'',this)
             if(res) {
-                this.getActivityList(this.pageNum,this.pageSize);
+                this.getActivityList(this.pageNum,this.pageSize,'',this.currentType.join(','));
             }
             
         },
@@ -274,13 +267,14 @@
             },
 
 
-            getActivityList(pageNum, pageSize,condition, type,date) { //获取作者列表
+            getActivityList(pageNum, pageSize,condition,type,date,date2) { //获取作者列表
                 let data = {
                     pageNum,
                     pageSize,
                     condition,
                     type,
                     date,
+                    date2
                 }
                 postPromise(data,'activity/pagingSel').then(res => {
                     if(res.flag == 0) {
@@ -302,7 +296,14 @@
                 }
                 let res = postAjax('user/checkShrio',datas,'',this)
                 if(res) {
-                    this.getActivityList(e,this.pageSize)
+                   this.getActivityList(
+                        this.pageNum, 
+                        this.pageSize, 
+                        this.condition, 
+                        this.currentType.join(','),
+                        this.dateVal[0],
+                        this.dateVal[1]
+                    )
                 }
             },
 
@@ -366,8 +367,14 @@
 
 
             selectType(e) { //类型选择
-                this.currentType = e
-                this.getActivityList(this.pageNum, this.pageSize, this.condition, e,this.datetime)
+                this.getActivityList(
+                    this.pageNum, 
+                    this.pageSize, 
+                    this.condition, 
+                    this.currentType.join(','),
+                    this.dateVal[0],
+                    this.dateVal[1]
+               )
             },
 
             changeBox(e,index) { //复选框
@@ -390,14 +397,20 @@
             },
 
             search() { // 搜素
-                this.pageNum = e
                 let datas = {
                     id: Storage.get('userInfo'),
                     url: '/activity/pagingSel',
                 }
                 let res = postAjax('user/checkShrio',datas,'',this)
                 if(res) {
-                    this.getActivityList(this.pageNum, this.pageSize, this.condition, this.currentType,this.datetime)
+                    this.getActivityList(
+                        this.pageNum, 
+                        this.pageSize, 
+                        this.condition, 
+                        this.currentType.join(','),
+                        this.dateVal[0],
+                        this.dateVal[1]
+                    )
                 }
                
             }

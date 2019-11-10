@@ -149,7 +149,7 @@
             <div class="imgWidth">
               <div class="fengmian">封面</div>
               <div class="tm-product-img-dummy mx-auto imgWidth">
-                <img :src="from.toppicture" alt="">
+                <img :src="from.toppicture == '' ? '../../static/img/400.png' : from.toppicture" alt="">
               </div>
               <div class="parentButton">
                 <input id="fileInput" type="file" style="display:none;"  @change="addImg($event)"/>

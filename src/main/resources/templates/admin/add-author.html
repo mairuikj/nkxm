@@ -190,17 +190,22 @@
                     <div class="row tm-edit-product-row">
                         <div class="imgWidth">
                             <div class="fengmian">头像</div>
+                           
                             <div class="tm-product-img-dummy mx-auto imgWidth">
-                                <img :src="from.headpicture" alt="">
+                                <img :src="from.headpicture == '' ? '../../static/img/200.png' : from.headpicture" alt="">
                             </div>
+
                             <div class="parentButton">
+
                                 <input id="fileInput" type="file" style="display:none;"  @change="addImg($event)"/>
+
                                 <input
                                         type="button"
                                         class="btn upButton"
                                         value="选择图片"
                                         onclick="document.getElementById('fileInput').click();"
                                 />
+
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 ml120">

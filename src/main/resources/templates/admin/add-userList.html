@@ -191,7 +191,7 @@
                         <div class="imgWidth">
                             <div class="fengmian">头像</div>
                             <div class="tm-product-img-dummy mx-auto imgWidth">
-                                <img :src="from.purl" alt="">
+                                <img :src="from.purl == ''? '../../static/img/200.png' : from.purl" alt="">
                             </div>
                             <div class="parentButton">
                                 <input id="fileInput" type="file" style="display:none;"  @change="addImg($event)"/>

@@ -142,20 +142,13 @@
                         placeholder="请输入标题关键词"
                         class="searchInpt">
                 <div>
-                    <!--  <el-date-picker
-                         style="border-radius: none;border-color: #444"
-                       v-model="datetime"
-                       value-format="yyyy-M-MM"
-                       type="date"
-                       placeholder="选择日期">
-                     </el-date-picker> -->
-
-                    <el-date-picker
-                            value-format="yyyy-MM-dd HH:mm:ss"
-
-                            v-model="datetime"
-                            type="datetime"
-                            placeholder="请选择选择日期时间">
+                   <el-date-picker
+                        value-format="yyyy-MM-dd"
+                        v-model="dateVal"
+                        type="daterange"
+                        range-separator="~"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期">
                     </el-date-picker>
                 </div>
                 <button class="btns" @click="search">搜索</button>
@@ -163,20 +156,15 @@
             <div class="addAlls" @click="addAuthor">新增作者</div>
         </div>
         <div class="subFun">
-            <span>所属机构：</span>
+            <span class="pdl105">所属机构：</span>
             <div class="typeList">
-                <div
-                        :class="currentType == '1' ? 'currentType' : ''"
-                        @click="selectType(1)">盈票供应链研究院
-                </div>
-                <div
-                        :class="currentType == '2' ? 'currentType' : ''"
-                        @click="selectType(2)">大创知服
-                </div>
-                <div
-                        :class="currentType == '3' ? 'currentType' : ''"
-                        @click="selectType(3)">自媒体撰稿人
-                </div>
+                 <el-checkbox-group v-model="currentType">
+                    <el-checkbox-button @change="selectType"
+                        v-for="(item,index) in typeList" 
+                        :label="item.id" 
+                        :key="index">{{item.name}}
+                    </el-checkbox-button>
+                </el-checkbox-group>
             </div>
         </div>
         <div class="boxTable">
@@ -244,8 +232,15 @@
     let home = new Vue({
         el: '#home',
         data: {
-            currentUser: JSON.parse(localStorage.getItem('userInfo')),
 
+            currentUser: JSON.parse(localStorage.getItem('userInfo')),
+             typeList: [
+                {name: '盈票供应链研究院',id: '1'},
+                {name: '大创知服',id: '2'},
+                {name: '自媒体撰稿人',id: '3'},
+            ],
+             dateVal: '',
+            currentType: ['1','2','3'],
             condition: '',
             authorList: [],
             total:1,
@@ -253,7 +248,6 @@
             pageSize: 10,
             allId: [],
             datetime: '',
-            currentType: '',
         },
         mounted(){
              let datas = {
@@ -262,7 +256,13 @@
             }
             let res = postAjax('user/checkShrio',datas,'',this)
             if(res) {
-                this.getAuthorList(this.pageNum,this.pageSize);
+               this.getAuthorList(
+                    this.pageNum, 
+                    this.pageSize, 
+                    this.condition, 
+                    this.currentType.join(','),
+                   
+                )
             }
            
         },
@@ -277,13 +277,14 @@
             },
 
 
-            getAuthorList(pageNum, pageSize,condition, type,date) { //获取作者列表
+            getAuthorList(pageNum, pageSize,condition, type,date,date2) { //获取作者列表
                 let data = {
                     pageNum,
                     pageSize,
                     condition,
                     type,
                     date,
+                    date2
                 }
                 postPromise(data,'author/pagingSel').then(res => {
                     if(res.flag == 0) {
@@ -309,7 +310,14 @@
                 }
                 let res = postAjax('user/checkShrio',datas,'',this)
                 if(res) {
-                     this.getAuthorList(e, this.pageSize, this.condition, this.currentType,this.datetime)
+                    this.getAuthorList(
+                        this.pageNum, 
+                        this.pageSize, 
+                        this.condition, 
+                        this.currentType.join(','),
+                        this.dateVal[0],
+                        this.dateVal[1]
+                    )
                 }
                 
             },
@@ -375,8 +383,14 @@
 
 
             selectType(e) { //类型选择
-                this.currentType = e
-                this.getAuthorList(this.pageNum, this.pageSize, this.condition, e,this.datetime)
+                this.getAuthorList(
+                    this.pageNum, 
+                    this.pageSize, 
+                    this.condition, 
+                    this.currentType.join(','),
+                    this.dateVal[0],
+                    this.dateVal[1]
+                )
             },
 
             changeBox(e,index) { //复选框
@@ -405,7 +419,14 @@
                 }
                 let res = postAjax('user/checkShrio',datas,'',this)
                 if(res) {
-                     this.getAuthorList(this.pageNum, this.pageSize, this.condition, this.currentType,this.datetime)
+                    this.getAuthorList(
+                        this.pageNum, 
+                        this.pageSize, 
+                        this.condition, 
+                        this.currentType.join(','),
+                        this.dateVal[0],
+                        this.dateVal[1]
+                    )
                 }
                
             }

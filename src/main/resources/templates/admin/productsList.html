@@ -158,18 +158,13 @@
         <div class="subFun">
             <span>产品类型：</span>
             <div class="typeList">
-                <div
-                        :class="currentType == '1' ? 'currentType' : ''"
-                        @click="selectType(1)">银票产品
-                </div>
-                <div
-                        :class="currentType == '2' ? 'currentType' : ''"
-                        @click="selectType(2)">商票产品
-                </div>
-                <div
-                        :class="currentType == '3' ? 'currentType' : ''"
-                        @click="selectType(3)">工具产品
-                </div>
+                <el-checkbox-group v-model="currentType">
+                    <el-checkbox-button @change="selectType"
+                            v-for="(item,index) in typeList" 
+                            :label="item.id" 
+                            :key="index">{{item.name}}
+                    </el-checkbox-button>
+                </el-checkbox-group>
             </div>
         </div>
         <div class="boxTable">
@@ -248,7 +243,13 @@
             pageSize: 10,
             allId: [],
             datetime: '',
-            currentType: '',
+            typeList: [
+                {name: '银票产品',id: '1'},
+                {name: '商票产品',id: '2'},
+                {name: '工具产品',id: '3'},
+            ],
+            dateVal: '',
+            currentType: ['1','2','3'],
         },
         mounted(){
 
@@ -258,7 +259,14 @@
             }
             let res = postAjax('user/checkShrio',datas,'',this)
             if(res) {
-                this.getProductList(this.pageNum,this.pageSize);
+                this.getProductList(
+                    this.pageNum, 
+                    this.pageSize, 
+                    this.condition, 
+                    this.currentType.join(','), 
+                    this.dateVal[0], 
+                    this.dateVal[1]
+                )
             }
             
         },
@@ -273,13 +281,14 @@
             },
 
 
-            getProductList(pageNum, pageSize,condition, type,date) { //获取作者列表
+            getProductList(pageNum, pageSize,condition, type,date,date2) { //获取作者列表
                 let data = {
                     pageNum,
                     pageSize,
                     condition,
                     type,
                     date,
+                    date2
                 }
                 postPromise(data,'product/pagingSel').then(res => {
                     if(res.flag == 0) {
@@ -301,7 +310,14 @@
                 }
                 let res = postAjax('user/checkShrio',datas,'',this)
                 if(res) {
-                    this.getProductList(e,this.pageSize)
+                    this.getProductList(
+                        this.pageNum, 
+                        this.pageSize, 
+                        this.condition, 
+                        this.currentType.join(','), 
+                        this.dateVal[0], 
+                        this.dateVal[1]
+                    )
                 }
                 
             },
@@ -367,8 +383,14 @@
 
 
             selectType(e) { //类型选择
-                this.currentType = e
-                this.getProductList(this.pageNum, this.pageSize, this.condition, e,this.datetime)
+                this.getProductList(
+                    this.pageNum, 
+                    this.pageSize, 
+                    this.condition, 
+                    this.currentType.join(','), 
+                    this.dateVal[0], 
+                    this.dateVal[1]
+                )
             },
 
             changeBox(e,index) { //复选框
