@@ -36,6 +36,9 @@
             overflow:hidden;
             text-overflow:ellipsis;
         }
+        .pdl105{
+            padding-right: 75px
+        }
     </style>
   </head>
   <body id="reportsPage">
@@ -140,7 +143,7 @@
                         class="searchInpt">
                     <div>
                         <el-date-picker
-                            value-format="yyyy-MM-dd"
+                           value-format="yyyy-MM-dd HH:mm:ss"
                             v-model="dateVal"
                             type="daterange"
                             range-separator="~"
@@ -431,8 +434,6 @@ let home = new Vue({
 
         },
         selectType(e) { //类型选择
-            console.log(this.currentType)
-                return
              let datas = {
                 id: Storage.get('userInfo'),
                 url: '/news/pagingSel',
