@@ -310,6 +310,7 @@
                 }
                 let res = postAjax('user/checkShrio',datas,'',this)
                 if(res) {
+                    this.dateVal = this.dateVal == null ? ['',''] :  this.dateVal
                     this.getAuthorList(
                         this.pageNum, 
                         this.pageSize, 
@@ -383,6 +384,7 @@
 
 
             selectType(e) { //类型选择
+                this.dateVal = this.dateVal == null ? ['',''] :  this.dateVal
                 this.getAuthorList(
                     this.pageNum, 
                     this.pageSize, 
@@ -419,6 +421,7 @@
                 }
                 let res = postAjax('user/checkShrio',datas,'',this)
                 if(res) {
+                    this.dateVal = this.dateVal == null ? ['',''] :  this.dateVal
                     this.getAuthorList(
                         this.pageNum, 
                         this.pageSize, 

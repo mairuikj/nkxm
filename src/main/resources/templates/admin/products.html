@@ -260,6 +260,7 @@ let home = new Vue({
         }
         let res = postAjax('user/checkShrio',datas,'',this)
         if(res) {
+
              this.getNewList(
                     this.pageNum, 
                     this.pageSize, 
@@ -310,6 +311,7 @@ let home = new Vue({
             }
             let res = postAjax('user/checkShrio',datas,'',this)
             if(res) {
+                this.dateVal = this.dateVal == null ? ['',''] :  this.dateVal
                 this.getNewList(
                     this.pageNum, 
                     this.pageSize, 
@@ -395,7 +397,7 @@ let home = new Vue({
                             type: 'success'
                         }); 
                     }
-                        
+                     this.dateVal = this.dateVal == null ? ['',''] :  this.dateVal
                      this.getNewList(
                         this.pageNum, 
                         this.pageSize, 
@@ -419,6 +421,7 @@ let home = new Vue({
                         message: '置顶成功',
                         type: 'success'
                     }); 
+                     this.dateVal = this.dateVal == null ? ['',''] :  this.dateVal
                      this.getNewList(
                         this.pageNum, 
                         this.pageSize, 
@@ -440,6 +443,7 @@ let home = new Vue({
             }
             let res = postAjax('user/checkShrio',datas,'',this)
             if(res) {
+                this.dateVal = this.dateVal == null ? ['',''] :  this.dateVal
                this.getNewList(
                     this.pageNum, 
                     this.pageSize, 
@@ -477,6 +481,7 @@ let home = new Vue({
             }
             let res = postAjax('user/checkShrio',datas,'',this)
             if(res) {
+                this.dateVal = this.dateVal == null ? ['',''] :  this.dateVal
                 this.getNewList(
                     this.pageNum, 
                     this.pageSize, 

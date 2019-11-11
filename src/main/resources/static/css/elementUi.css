@@ -230,3 +230,7 @@ input[type="checkbox"]{
 .el-checkbox-group>.el-checkbox-button{
 	margin-right: 10px
 }
+
+.el-picker-panel{
+	z-index:99999 !important;
+}
