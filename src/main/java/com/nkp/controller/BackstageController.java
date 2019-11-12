@@ -47,13 +47,13 @@ public class BackstageController {
         Map map=new HashMap();
         UserInfo userInfo=userInfoMapper.selectByPhone(phone);
         if(userInfo!=null){
-            /*String sessionCode=session.getAttribute("code").toString();
+            String sessionCode=session.getAttribute("code").toString();
             if(sessionCode==null){
                 dataPackJSON.setFlag(1);
                 dataPackJSON.setMsg("验证码过期");
                 return dataPackJSON;
-            }*/
-            if(/*sessionCode.equals(code)*/true){
+            }
+            if(sessionCode.equals(code)){
                 session.setAttribute("session_user",userInfo);
                 map.put("session_user",(UserInfo)request.getSession().getAttribute("session_user"));
                 dataPackJSON.setFlag(0);
