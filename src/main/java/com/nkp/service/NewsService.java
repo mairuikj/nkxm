@@ -255,7 +255,7 @@ public class NewsService {
         String par="";
         String[] str=pro.getKeyword().split(",|，");
         for(String key:str){
-            sql+="select newsId from news where keyWord like "+"'"+"%"+key+"%"+"'"+" and newsId !="+id.toString()+" union all ";
+            sql+="select newsId from news where remarks='0' and keyWord like "+"'"+"%"+key+"%"+"'"+" and newsId !="+id.toString()+" union all ";
         }
         sql=sql.substring(0,sql.length()-11);
         sql2="select newsId from "+"("+sql+")"+" as c "+
