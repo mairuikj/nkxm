@@ -88,7 +88,7 @@ public interface NewsMapper {
     List<News> exqt(@Param("sql2")String sql2);
     @Select("select newsId,title,creatTime,topPicture from news where newsId in ${temp} order by find_in_set (newsId,'${temp1}')")
     List<News> resof(@Param("temp") String temp,@Param("temp1") String temp1);
-    @Select("select * from news where author=#{id}")
+    @Select("select * from news where author=#{id} and remarks='0'")
     List<News> getNews(Integer id);
 
     @Select("select * from news where title like '%${str}%' or keyWord like '%${str}%'")
