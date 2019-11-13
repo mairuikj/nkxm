@@ -32,10 +32,16 @@
 		}
 		.zhengwen{
 			min-height: 43rem;
-			font-size: 16px
+			
 		}
 		.zhengwen > p>img{
 			width: 100%
+		}
+		.zhengwen{
+			margin-top: 0
+		}
+		.itemH{
+			height: 8rem
 		}
 	 </style>
 </head>
@@ -91,10 +97,10 @@
 			<div clas="lists">
 				<div class="xiangguan"><i class="el-icon-document"></i>相关新闻</div>
 				<ul v-if="list != ''">
-					<li class="item" v-for="(item,index) in list" @click="newCurrent(item)">
+					<li class="item itemH" v-for="(item,index) in list" @click="newCurrent(item)">
 						<div>
 							<div class="itemTitle">
-								<span class="subT">{{item.title}}</span>
+								<span class="subT twoLine">{{item.title}}</span>
 								<span class="itemTime">{{item.creattime}}</span>
 							</div>
 							<div class="itemImg">
