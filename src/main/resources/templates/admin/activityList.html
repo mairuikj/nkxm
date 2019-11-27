@@ -292,7 +292,7 @@
                 this.pageNum = e
                 let datas = {
                     id: Storage.get('userInfo'),
-                    url: '/news/pagingSel',
+                    url: '/activity/pagingSel',
                 }
                 let res = postAjax('user/checkShrio',datas,'',this)
                 if(res) {
